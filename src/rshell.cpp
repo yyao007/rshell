@@ -14,7 +14,7 @@ using namespace std;
 const int cap = 1000; // the capacity of the 2-D array
 
 // split a line by the delim and store to a 2-D array
-void split(char *arr[], char str[], const char *delim);
+//void split(char *arr[], char str[], const char *delim);
 // get command block between connectors
 int getCommand(char **, string&, int&, int);
 // check if the string has syntax error
@@ -49,7 +49,7 @@ int main(int argc, char *argv[]) {
 
         // if the user just hit enter or enter several spaces, go to the next loop
         spaceStr = strtok(origStr, " ");
-        if (origStr[0] == '\0' || spaceStr == NULL) {
+        if (origStr[0] == '\0' || spaceStr == NULL || spaceStr[0] == '#' ) {
             continue;
         }
 
@@ -134,6 +134,7 @@ int main(int argc, char *argv[]) {
     return 0;
 }
 
+/*
 void split(char *arr[], char str[], const char *delim) {
     int i = 0; // initialize i to 0 before the loop
 
@@ -146,17 +147,18 @@ void split(char *arr[], char str[], const char *delim) {
 
     return;
 }
+*/
 
 int getCommand(char *cmd[], string& str, int& index, int iFlag) {
     string substring;
     const int size = 3;
     int flag[size] = {0};
     char cstr[cap];
-    int min;
+    long unsigned int min;
     int mFlag;
     int i;
-    int begin;
-    int leng;
+    long unsigned int begin;
+    long unsigned int leng;
 
     // get the begin point of the substring according to the iFlag
     if (iFlag == 4) {  // 4 represents the first call
@@ -170,7 +172,7 @@ int getCommand(char *cmd[], string& str, int& index, int iFlag) {
     }
 
     // initialize pos[] to str's length
-    int pos[size] = {(str.size() - 1), (str.size() - 1), (str.size() - 1)};
+    long unsigned int pos[size] = {(str.size() - 1), (str.size() - 1), (str.size() - 1)};
 
     // find each connector, 1 represents "||", 2 represents "&&",
     // 3 represents ";", 0 represents no connector
@@ -225,8 +227,8 @@ int getCommand(char *cmd[], string& str, int& index, int iFlag) {
 }
 
 int strValid(const string& str) {
-    int i;
-    int pos;
+    long unsigned int i;
+    long unsigned int pos;
     string temp = str;
 
     for (i = 0; i < temp.size() - 1; ++i) {
