@@ -1,18 +1,19 @@
 #include <iostream>
 #include <string>
-#include <boost/tokenizer.hpp>
+#include <cstring>
 
 using namespace std;
-using namespace boost;
 
-int main(int, char**)
-{
-        string text = "ls -l |  pwd";
+int main() {
+    char str[100];
 
-            char_separator<char> sep("||");
-                tokenizer<char_separator<char>> tokens(text, sep);
-                    for (const auto& t : tokens) {
-                                cout << t << "." << endl;
-                                    }
-return 0;
+    cin.getline(str, 100);
+
+    if (str[0] == '\0') {
+        cout << "no input: " << str << endl;
+        return 0;
+    }
+    cout << "input is: " << str << endl;
+
+    return 0;
 }
