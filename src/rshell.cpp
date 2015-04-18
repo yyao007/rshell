@@ -7,6 +7,7 @@
 #include <errno.h>
 #include <string.h>
 #include <string>
+#include <algorithm>
 
 using namespace std;
 
@@ -14,17 +15,18 @@ const int cap = 1000; // the capacity of the 2-D array
 
 // split a line by the delim and store to a 2-D array
 void split(char *arr[], char str[], const char *delim);
-
 // get command block between connectors
-int getCommand(char **, const string&, int&, int);
+int getCommand(char **, string&, int&, int);
+// check if the string has syntax error
+int strValid(const string&);
 
 int main(int argc, char *argv[]) {
     char origStr[cap]; // store the user input line
-    char *save_1, *save_2; // save value using in strtok_r
     int i = 0;
 
     // always in my rshell
     while (1) {
+    mylabel:
         cout << "$ ";
         char *cmd[cap]; // declare a 2-D 1000*1000 array
         // pre-allocate cmd
@@ -34,21 +36,47 @@ int main(int argc, char *argv[]) {
 
         bool isExecuted = true;
         char *effectStr;
+        char *spaceStr;
         char errcmd[cap];
         string userStr; // change a cstring into string
+        string tempStr;
         int flag = 4;
         int index = 0;
-        int status;
+        int status; // store the status of child exit
 
         memset(origStr, 0, cap); // initialize origStr to an empty string
         cin.getline(origStr, cap); // get the user input line
 
-        if (origStr[0] == '\0') {
+        // if the user just hit enter or enter several spaces, go to the next loop
+        spaceStr = strtok(origStr, " ");
+        if (origStr[0] == '\0' || spaceStr == NULL) {
             continue;
         }
 
         effectStr = strtok(origStr, "#"); // any command after the "#" is comment
         userStr = effectStr;
+
+        if (strValid(userStr) == -1) {
+            cout << "syntax error using connectors \"|| && ;\"" << endl;
+            continue;
+        }
+
+        // if the string ended with any connectors, ask the user to input other commands
+        bool isConnector = true;
+        while (isConnector) {
+            isConnector = (userStr.find("||", userStr.size() - 2) != string::npos) ||
+            (userStr.find("&&", userStr.size() - 2) != string::npos) ||
+            (userStr.find(";", userStr.size() - 1) != string::npos);
+            if (isConnector) {
+                cout << "<command>: ";
+                getline(cin, tempStr);
+                userStr = userStr + tempStr;
+            }
+            if (strValid(userStr) == -1) {
+                cout << "syntax error using connectors \"|| && ;\"" << endl;
+                goto mylabel;
+            }
+        }
 
         while (flag != 0 && isExecuted) {
             if ( (flag = getCommand(cmd, userStr, index, flag)) == -1 ) {
@@ -56,7 +84,7 @@ int main(int argc, char *argv[]) {
                 break;
             }
 
-            if ( (strcmp(cmd[0], "exit") == 0) && cmd[1] == NULL) {
+            if ( (strcmp(cmd[0], "exit") == 0) ) {
                 return 0;
             }
 
@@ -119,7 +147,7 @@ void split(char *arr[], char str[], const char *delim) {
     return;
 }
 
-int getCommand(char *cmd[], const string& str, int& index, int iFlag) {
+int getCommand(char *cmd[], string& str, int& index, int iFlag) {
     string substring;
     const int size = 3;
     int flag[size] = {0};
@@ -158,7 +186,6 @@ int getCommand(char *cmd[], const string& str, int& index, int iFlag) {
 
     // find the first occurrence of any connector
     min = str.size() - 1;
-
     mFlag = 0;
     for (i = 0; i < size; ++i) {
         if (min > pos[i] && pos[i] != string::npos) {
@@ -167,11 +194,11 @@ int getCommand(char *cmd[], const string& str, int& index, int iFlag) {
         }
     }
 
-
     // if the string begins with connectors, an error message -1 will return
-    if (min == index) {
+    if (min == begin) {
         return -1;
     }
+
     // get the length of substring
     if (mFlag == 0) {
         leng = min - begin + 1;
@@ -187,6 +214,7 @@ int getCommand(char *cmd[], const string& str, int& index, int iFlag) {
 
     i = 0;
     cmd[i] = strtok(cstr, " ");
+
     while (cmd[i] != NULL) {
         ++i;
         cmd[i] = strtok(NULL, " ");
@@ -195,4 +223,54 @@ int getCommand(char *cmd[], const string& str, int& index, int iFlag) {
     index = min; // update the index to the first occurrence of any connector
     return mFlag;
 }
+
+int strValid(const string& str) {
+    int i;
+    int pos;
+    string temp = str;
+
+    for (i = 0; i < temp.size() - 1; ++i) {
+        if (temp.at(i) == ' ') {
+            temp.erase(i, 1);
+        }
+    }
+    // if the character after any connector is either of "| & ;",
+    // despite white spaces, then it's a syntax error
+    pos = temp.find_first_of("|&");
+    while (pos != string::npos) {
+        // if string is ended with "| &", return -1
+        if (pos == temp.size() - 1) {
+            return -1;
+        }
+        // if string only has one of "| &" or has different combinations "like |&", return -1
+        else if (temp.at(pos + 1) != temp.at(pos)) {
+            return -1;
+        }
+        // if string end with "||" or "&&", return 1 indicates valid
+        else if (pos == temp.size() - 2) {
+            return 1;
+        }
+        // if string has more than 2 of "| & ;", return -1
+        else if (temp.at(pos + 2) == '|' || temp.at(pos + 2) == '&' || temp.at(pos + 2) == ';') {
+            return -1;
+        }
+        pos = temp.find_first_of("|&", pos + 2);
+    }
+
+    pos = temp.find(";");
+    while (pos != string::npos) {
+        // if string is ended with ";", return 1 indicates valid
+        if (pos == temp.size() - 1) {
+            return 1;
+        }
+        // if string has more than 1 of ";" or something like ";|", return -1
+        else if (temp.at(pos + 1) == '|' || temp.at(pos + 1) == '&' || temp.at(pos + 1) == ';') {
+            return -1;
+        }
+        pos = temp.find(";", pos + 1);
+    }
+
+    return 1;
+}
+
 
