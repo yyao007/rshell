@@ -7,9 +7,9 @@ This rshell is a basic command shell which can implement several commands in Lin
 3. You can type `exit` to exit rshell.
 4. Anything that appears after a `#` character is considered a comment.
 5. If the command line is ended with any connectors, rshell will prompt the user to input extra commands.
-6. Rshell will give an error message if the input command line is invalid.
+6. rshell will give an error message if the input command line is invalid.
 
-**All source codes can be found at /src directory**
+**All source codes can be found at rshell/src**
 
 ## How to install rshell
 To run rshell on your Linux system, you need to type the following commands.
@@ -20,6 +20,9 @@ To run rshell on your Linux system, you need to type the following commands.
  $ make
  $ bin/rshell
 ```
+
+## Test cases
+The test cases are in the rshell/tests/exec.script.
 
 ## Limitations
 1. This first version of rshell can't run `cd` command, this feature will be added in future implementation.

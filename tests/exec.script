@@ -1,0 +1,299 @@
+Script started on Sun 19 Apr 2015 12:29:41 AM PDT
+~
+yyao007@hammer $ cd[Ks1-[K00
+[0;91m
+===============================================================================
+|                                                                             |
+| You have enabled settings specific for cs100.  Everything you do is being   |
+| recorded to measure your progress in the class.                             |
+|                                                                             |
+| Important commands for the class:                                           |
+|   * calcgrade.sh          displays a detailed breakdown of your grade       |
+|   * typespeed             practice typing unix commands                     |
+|                                                                             |
+| Important commands for general C++ programming:                             |
+|   * make                  don't call g++ manually; let make do the work!    |
+|   * gdb                   the GNU debugger                                  |
+|   * valgrind              get rid of your memory leaks                      |
+|   * cppcheck              static analysis tool                              |
+|   * man                   find help about any syscall / terminal command    |
+|                                                                             |
+===============================================================================
+[0m
+[s%%%%%%%%%%[u[0;32myyao007[0;36m@[0;32mcs100[0;36m:[0;32m~[0;95m [0;36m$[0m l[Ks[Kcd cs100/rshell/
+[s%%%%%%%%%%[u[0;32myyao007[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/rshell[0;95m (exec) [0;36m$[0m ls
+LICENSE  Makefile  README.md  rshell  src  tests
+[s%%%%%%%%%%[u[0;32myyao007[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/rshell[0;95m (exec) [0;36m$[0m make
+mkdir bin
+mv ./rshell ./bin
+[s%%%%%%%%%%[u[0;32myyao007[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/rshell[0;95m (exec) [0;36m$[0m bin/rshell
+yyao007@hammer.cs.ucr.edu $ ls
+bin  LICENSE  Makefile	README.md  src	tests
+yyao007@hammer.cs.ucr.edu $ pwd
+/home/csmajs/yyao007/cs100/rshell
+yyao007@hammer.cs.ucr.edu $ ls-a
+ls-a: No such file or directory
+yyao007@hammer.cs.ucr.edu $ ls -a
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+yyao007@hammer.cs.ucr.edu $ la -   s 0 -a -a
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+yyao007@hammer.cs.ucr.edu $ ls -a -l
+total 36
+drwx------ 6 yyao007 csmajs 4096 Apr 19 00:24 .
+drwx------ 6 yyao007 csmajs 4096 Apr 14 15:38 ..
+drwx------ 2 yyao007 csmajs 4096 Apr 19 00:24 bin
+drwx------ 8 yyao007 csmajs 4096 Apr 18 23:09 .git
+-rw------- 1 yyao007 csmajs 1471 Apr 14 15:39 LICENSE
+-rw------- 1 yyao007 csmajs  113 Apr 18 01:49 Makefile
+-rw------- 1 yyao007 csmajs 1268 Apr 18 23:22 README.md
+drwx------ 2 yyao007 csmajs 4096 Apr 18 21:52 src
+drwx------ 2 yyao007 csmajs 4096 Apr 19 00:22 tests
+yyao007@hammer.cs.ucr.edu $ ls -al
+total 36
+drwx------ 6 yyao007 csmajs 4096 Apr 19 00:24 .
+drwx------ 6 yyao007 csmajs 4096 Apr 14 15:38 ..
+drwx------ 2 yyao007 csmajs 4096 Apr 19 00:24 bin
+drwx------ 8 yyao007 csmajs 4096 Apr 18 23:09 .git
+-rw------- 1 yyao007 csmajs 1471 Apr 14 15:39 LICENSE
+-rw------- 1 yyao007 csmajs  113 Apr 18 01:49 Makefile
+-rw------- 1 yyao007 csmajs 1268 Apr 18 23:22 README.md
+drwx------ 2 yyao007 csmajs 4096 Apr 18 21:52 src
+drwx------ 2 yyao007 csmajs 4096 Apr 19 00:22 tests
+yyao007@hammer.cs.ucr.edu $ ls        -al
+total 36
+drwx------ 6 yyao007 csmajs 4096 Apr 19 00:24 .
+drwx------ 6 yyao007 csmajs 4096 Apr 14 15:38 ..
+drwx------ 2 yyao007 csmajs 4096 Apr 19 00:24 bin
+drwx------ 8 yyao007 csmajs 4096 Apr 18 23:09 .git
+-rw------- 1 yyao007 csmajs 1471 Apr 14 15:39 LICENSE
+-rw------- 1 yyao007 csmajs  113 Apr 18 01:49 Makefile
+-rw------- 1 yyao007 csmajs 1268 Apr 18 23:22 README.md
+drwx------ 2 yyao007 csmajs 4096 Apr 18 21:52 src
+drwx------ 2 yyao007 csmajs 4096 Apr 19 00:22 tests
+yyao007@hammer.cs.ucr.edu $ ls ||  pwd
+bin  LICENSE  Makefile	README.md  src	tests
+yyao007@hammer.cs.ucr.edu $ ls&&pwd
+bin  LICENSE  Makefile	README.md  src	tests
+/home/csmajs/yyao007/cs100/rshell
+yyao007@hammer.cs.ucr.edu $ ls        ;        pwd
+bin  LICENSE  Makefile	README.md  src	tests
+/home/csmajs/yyao007/cs100/rshell
+yyao007@hammer.cs.ucr.edu $ llll   l aaaaa     || pwd
+la: No such file or directory
+/home/csmajs/yyao007/cs100/rshell
+yyao007@hammer.cs.ucr.edu $ la&& pwd
+la: No such file or directory
+yyao007@hammer.cs.ucr.edu $ la ;pwd
+la: No such file or directory
+/home/csmajs/yyao007/cs100/rshell
+yyao007@hammer.cs.ucr.edu $ ||ls
+Error: Cannot start with connectors "|| && ;".
+yyao007@hammer.cs.ucr.edu $ && pwd
+Error: Cannot start with connectors "|| && ;".
+yyao007@hammer.cs.ucr.edu $ ; ls
+Error: Cannot start with connectors "|| && ;".
+yyao007@hammer.cs.ucr.edu $ |pwd
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ & ls
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ;  pwd
+Error: Cannot start with connectors "|| && ;".
+yyao007@hammer.cs.ucr.edu $ |
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ &
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ;
+Error: Cannot start with connectors "|| && ;".
+yyao007@hammer.cs.ucr.edu $ ls |;pwd
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls&;pwd
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls : ;|          |   &  pwd
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls   ;     ||
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls   ;
+<command>: pwd
+bin  LICENSE  Makefile	README.md  src	tests
+/home/csmajs/yyao007/cs100/rshell
+yyao007@hammer.cs.ucr.edu $ lss    ||   
+<command>: ls
+lss: No such file or directory
+bin  LICENSE  Makefile	README.md  src	tests
+yyao007@hammer.cs.ucr.edu $ ll ss      &&  
+<command>: pwd
+bin  LICENSE  Makefile	README.md  src	tests
+/home/csmajs/yyao007/cs100/rshell
+yyao007@hammer.cs.ucr.edu $ ls||  -a a||
+<command>: pwd
+ls-a: No such file or directory
+/home/csmajs/yyao007/cs100/rshell
+yyao007@hammer.cs.ucr.edu $ ls||||
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls|| ||
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls||||pwd
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls|||[ pwd
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls&&&pwd
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls&&&&pwd
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls  ;;  pwd
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls  ;   ;   wp
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls  ; p    ;; 
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls   ||   pwd     ;    pwd   &&
+<command>: ls
+bin  LICENSE  Makefile	README.md  src	tests
+yyao007@hammer.cs.ucr.edu $ ls   ;
+Error: Cannot start with connectors "|| && ;".
+yyao007@hammer.cs.ucr.edu $  |
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $  &
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $  ||
+Error: Cannot start with connectors "|| && ;".
+yyao007@hammer.cs.ucr.edu $      &&
+Error: Cannot start with connectors "|| && ;".
+yyao007@hammer.cs.ucr.edu $       ;   
+Error: Cannot start with connectors "|| && ;".
+yyao007@hammer.cs.ucr.edu $ ls   ||&&   pwd
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls ||   && pwd
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls  ; || pwd
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls ;&&pwd
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls |& pwd
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls ;% & pwd
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls ; | pwd
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls  pe   pwd  ||   ls |
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls  ; pwd &
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ lls ||    pwd ; ls-a && ch  echo hellp o;
+<command>: mkdir test   ; &&
+<command>: rmdir test
+lls: No such file or directory
+/home/csmajs/yyao007/cs100/rshell
+ls-a: No such file or directory
+yyao007@hammer.cs.ucr.edu $ ls
+bin  LICENSE  Makefile	README.md  src	tests
+yyao007@hammer.cs.ucr.edu $ pwd ;     lls || pwd ;ls -a &&
+<command>: echo hellp  lo MIke   ike;
+<command>: rmd   mkdir testtt  t &&
+<command>: rmdir test
+lls: No such file or directory
+/home/csmajs/yyao007/cs100/rshell
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+hello Mike
+yyao007@hammer.cs.ucr.edu $ ls
+bin  LICENSE  Makefile	README.md  src	tests
+yyao007@hammer.cs.ucr.edu $ ls# -rl
+bin  LICENSE  Makefile	README.md  src	tests
+yyao007@hammer.cs.ucr.edu $ ls _ -al
+total 36
+drwx------ 6 yyao007 csmajs 4096 Apr 19 00:33 .
+drwx------ 6 yyao007 csmajs 4096 Apr 14 15:38 ..
+drwx------ 2 yyao007 csmajs 4096 Apr 19 00:24 bin
+drwx------ 8 yyao007 csmajs 4096 Apr 18 23:09 .git
+-rw------- 1 yyao007 csmajs 1471 Apr 14 15:39 LICENSE
+-rw------- 1 yyao007 csmajs  113 Apr 18 01:49 Makefile
+-rw------- 1 yyao007 csmajs 1268 Apr 18 23:22 README.md
+drwx------ 2 yyao007 csmajs 4096 Apr 18 21:52 src
+drwx------ 2 yyao007 csmajs 4096 Apr 19 00:22 tests
+yyao007@hammer.cs.ucr.edu $ ls -a#-l
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+yyao007@hammer.cs.ucr.edu $ ls  #
+yyao007@hammer.cs.ucr.edu $ ##
+yyao007@hammer.cs.ucr.edu $ #aksdlkas
+yyao007@hammer.cs.ucr.edu $      #
+yyao007@hammer.cs.ucr.edu $ 
+yyao007@hammer.cs.ucr.edu $      
+yyao007@hammer.cs.ucr.edu $ a     #llsls
+a: No such file or directory
+yyao007@hammer.cs.ucr.edu $ a
+a: No such file or directory
+yyao007@hammer.cs.ucr.edu $ ls ;
+<command>: ex cho hell  o wor         test    quit rshell&&
+<command>: exit
+bin  LICENSE  Makefile	README.md  src	tests
+quit rshell
+[s%%%%%%%%%%[u[0;32myyao007[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/rshell[0;95m (exec) [0;36m$[0m bin/rshell 
+yyao007@hammer.cs.ucr.edu $  ;
+Error: Cannot start with connectors "|| && ;".
+yyao007@hammer.cs.ucr.edu $    |
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $       &
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $   ;;
+Error: Cannot start with connectors "|| && ;".
+yyao007@hammer.cs.ucr.edu $ ls                      ;;  ls     ;     |    |     pwd;
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ |   |    
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ &&    &
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ &&     && ls
+Error: Cannot start with connectors "|| && ;".
+yyao007@hammer.cs.ucr.edu $ l &&    &&
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls    ;    
+<command>: pwd
+bin  LICENSE  Makefile	README.md  src	tests
+/home/csmajs/yyao007/cs100/rshell
+yyao007@hammer.cs.ucr.edu $   a   j   ;
+<command>: pwd
+a: No such file or directory
+/home/csmajs/yyao007/cs100/rshell
+yyao007@hammer.cs.ucr.edu $ pwd  a  ;   ls
+pwd: ignoring non-option arguments
+/home/csmajs/yyao007/cs100/rshell
+bin  LICENSE  Makefile	README.md  src	tests
+yyao007@hammer.cs.ucr.edu $ ls#
+bin  LICENSE  Makefile	README.md  src	tests
+yyao007@hammer.cs.ucr.edu $   |   &
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ |   ;
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ &    ;
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ : ;   &
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ :   |
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ; :   ||
+<command>: pwd
+:: No such file or directory
+/home/csmajs/yyao007/cs100/rshell
+yyao007@hammer.cs.ucr.edu $    j   
+j: No such file or directory
+yyao007@hammer.cs.ucr.edu $    j     ||
+<command>: l     ls   &&
+<command>: pwd   
+j: No such file or directory
+bin  LICENSE  Makefile	README.md  src	tests
+/home/csmajs/yyao007/cs100/rshell
+yyao007@hammer.cs.ucr.edu $   |      &   
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ echo test finished        % &&   #exit
+<command>: exitt||
+<command>: exit&&
+<command>: ls
+test finished
+exitt: No such file or directory
+[s%%%%%%%%%%[u[0;32myyao007[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/rshell[0;95m (exec) [0;36m$[0m exit
+exit
+~
+yyao007@hammer $ exit
+exit
+
+Script done on Sun 19 Apr 2015 12:48:15 AM PDT
