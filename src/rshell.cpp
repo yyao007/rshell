@@ -7,7 +7,6 @@
 #include <errno.h>
 #include <string.h>
 #include <string>
-#include <algorithm>
 
 using namespace std;
 
@@ -23,32 +22,40 @@ int strValid(const string&);
 int main(int argc, char *argv[]) {
     char origStr[cap]; // store the user input line
     int i = 0;
+    char hostname[100];
+    char *username;
+
+    gethostname(hostname, 100);
+    username = getlogin();
 
     // always in my rshell
     while (1) {
     mylabel:
-        cout << "$ ";
+        cout << username << '@' << hostname << " $ ";
         char *cmd[cap]; // declare a 2-D 1000*1000 array
         // pre-allocate cmd
         for(i = 0; i < cap; ++i) {
             cmd[i] = new char[cap];
         }
 
-        bool isExecuted = true;
-        char *effectStr;
-        char *spaceStr;
-        char errcmd[cap];
+        bool isExecuted = true; // initialize to true in each loop
+        char *effectStr; // store the string before the "#"
+        char *spaceStr; // check if the string only has spaces
+        char errcmd[cap]; // store a copy of command name
+        char origCpy[cap]; // store a copy of original string
         string userStr; // change a cstring into string
-        string tempStr;
-        int flag = 4;
-        int index = 0;
+        string tempStr; // store the additional string
+        int flag = 4; // 4 indicates first call
+        int index = 0; // initialize to 0 in order to look through the whole string
         int status; // store the status of child exit
+        int errStr; // store the return value of strValid
 
         memset(origStr, 0, cap); // initialize origStr to an empty string
         cin.getline(origStr, cap); // get the user input line
-
+        // copy from origStr to origCpy to avoid modifying origStr
+        strcpy(origCpy, origStr);
         // if the user just hit enter or enter several spaces, go to the next loop
-        spaceStr = strtok(origStr, " ");
+        spaceStr = strtok(origCpy, " ");
         if (origStr[0] == '\0' || spaceStr == NULL || spaceStr[0] == '#' ) {
             continue;
         }
@@ -56,34 +63,36 @@ int main(int argc, char *argv[]) {
         effectStr = strtok(origStr, "#"); // any command after the "#" is comment
         userStr = effectStr;
 
-        if (strValid(userStr) == -1) {
+        // check the string at first
+        errStr = strValid(userStr);
+        if (errStr == -1) {
             cout << "syntax error using connectors \"|| && ;\"" << endl;
+            continue;
+        }
+        else if (errStr == -2) {
+            cout << "Error: Cannot start with connectors \"|| && ;\"." << endl;
             continue;
         }
 
         // if the string ended with any connectors, ask the user to input other commands
-        bool isConnector = true;
-        while (isConnector) {
-            isConnector = (userStr.find("||", userStr.size() - 2) != string::npos) ||
-            (userStr.find("&&", userStr.size() - 2) != string::npos) ||
-            (userStr.find(";", userStr.size() - 1) != string::npos);
-            if (isConnector) {
-                cout << "<command>: ";
-                getline(cin, tempStr);
-                userStr = userStr + tempStr;
-            }
-            if (strValid(userStr) == -1) {
+        while (errStr == 0) {
+            cout << "<command>: ";
+            getline(cin, tempStr);
+            userStr = userStr + tempStr;
+
+            // check the new string in each loop
+            errStr = strValid(userStr);
+            if (errStr == -1) {
                 cout << "syntax error using connectors \"|| && ;\"" << endl;
                 goto mylabel;
             }
         }
 
+        // run execvp() in a while loop
         while (flag != 0 && isExecuted) {
-            if ( (flag = getCommand(cmd, userStr, index, flag)) == -1 ) {
-                cout << "Error: Cannot start with connectors \"|| && ;\"." << endl;
-                break;
-            }
+            flag = getCommand(cmd, userStr, index, flag);
 
+            // if the command is "exit", exit the rshell
             if ( (strcmp(cmd[0], "exit") == 0) ) {
                 return 0;
             }
@@ -196,11 +205,6 @@ int getCommand(char *cmd[], string& str, int& index, int iFlag) {
         }
     }
 
-    // if the string begins with connectors, an error message -1 will return
-    if (min == begin) {
-        return -1;
-    }
-
     // get the length of substring
     if (mFlag == 0) {
         leng = min - begin + 1;
@@ -229,17 +233,37 @@ int getCommand(char *cmd[], string& str, int& index, int iFlag) {
 int strValid(const string& str) {
     long unsigned int i;
     long unsigned int pos;
+    int flag = 1; // initialize flag to 1 indicates valid string
     string temp = str;
 
-    for (i = 0; i < temp.size() - 1; ++i) {
+    pos = temp.find_first_of("|&");
+    while (pos != string::npos) {
+        // if string is ended with "| &", return -1
+        if (pos == temp.size() - 1) {
+            return -1;
+        }
+        // if string only has 1 of "| &", return -1
+        else if (temp.at(pos + 1) != temp.at(pos)) {
+            return -1;
+        }
+        pos = temp.find_first_of("|&", pos + 2);
+    }
+
+    // remove all the spaces in the string and store to temp
+    for (i = 0; i < temp.size(); ++i) {
         if (temp.at(i) == ' ') {
             temp.erase(i, 1);
+            --i;
         }
     }
     // if the character after any connector is either of "| & ;",
     // despite white spaces, then it's a syntax error
     pos = temp.find_first_of("|&");
     while (pos != string::npos) {
+        // if the string begins with connectors, an error message -2 will return
+        if (pos == 0) {
+            return -2;
+        }
         // if string is ended with "| &", return -1
         if (pos == temp.size() - 1) {
             return -1;
@@ -248,9 +272,10 @@ int strValid(const string& str) {
         else if (temp.at(pos + 1) != temp.at(pos)) {
             return -1;
         }
-        // if string end with "||" or "&&", return 1 indicates valid
+        // if string is ended with "||" or "&&", jump out of the loop and return 0
         else if (pos == temp.size() - 2) {
-            return 1;
+            flag = 0;
+            break;
         }
         // if string has more than 2 of "| & ;", return -1
         else if (temp.at(pos + 2) == '|' || temp.at(pos + 2) == '&' || temp.at(pos + 2) == ';') {
@@ -261,9 +286,14 @@ int strValid(const string& str) {
 
     pos = temp.find(";");
     while (pos != string::npos) {
-        // if string is ended with ";", return 1 indicates valid
+        // if the string begins with connectors, an error message -2 will return
+        if (pos == 0) {
+            return -2;
+        }
+        // if string is ended with ";", jump out of the loop and return 0
         if (pos == temp.size() - 1) {
-            return 1;
+            flag = 0;
+            break;
         }
         // if string has more than 1 of ";" or something like ";|", return -1
         else if (temp.at(pos + 1) == '|' || temp.at(pos + 1) == '&' || temp.at(pos + 1) == ';') {
@@ -272,7 +302,7 @@ int strValid(const string& str) {
         pos = temp.find(";", pos + 1);
     }
 
-    return 1;
+    return flag;
 }
 
 
