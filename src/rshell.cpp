@@ -77,7 +77,17 @@ int main(int argc, char *argv[]) {
         // if the string ended with any connectors, ask the user to input other commands
         while (errStr == 0) {
             cout << "<command>: ";
-            getline(cin, tempStr);
+            memset(origStr, 0, cap); // initialize origStr to an empty string
+            effectStr = new char;
+            cin.getline(origStr, cap);
+
+            // check if the new string contains the "#" character
+            if (origStr[0] == '#' || origStr[0] == '\0') {
+                continue;
+            }
+            effectStr = strtok(origStr, "#");
+            tempStr = effectStr;
+
             userStr = userStr + tempStr;
 
             // check the new string in each loop
@@ -136,7 +146,7 @@ int main(int argc, char *argv[]) {
                 else {
                     isExecuted = true;
                 }
-          }
+            }
         }
     }
 

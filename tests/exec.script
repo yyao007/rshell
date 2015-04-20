@@ -1,6 +1,256 @@
-Script started on Sun 19 Apr 2015 12:29:41 AM PDT
+Script started on Sun 19 Apr 2015 04:27:32 PM PDT
 ~
-yyao007@hammer $ cd[Ks1-[K00
+yyao007@hammer $ cd cs100/rshell/
+~/cs100/rshell
+yyao007@hammer $ make
+g++ -Wall -Werror -ansi -pedantic -o rshell ./src/rshell.cpp
+mkdir bin
+mv ./rshell ./bin
+~/cs100/rshell
+yyao007@hammer $ bin/rshell 
+yyao007@hammer.cs.ucr.edu $ #thi   Now in my rshell, let's test    first test b   the basic commands suu ch as ls and pd wd
+yyao007@hammer.cs.ucr.edu $ ls
+bin  LICENSE  Makefile	README.md  src	tests
+yyao007@hammer.cs.ucr.edu $ pwd  
+/home/csmajs/yyao007/cs100/rshell
+yyao007@hammer.cs.ucr.edu $ c echo hello
+hello
+yyao007@hammer.cs.ucr.edu $ # Then let's test command with flags
+yyao007@hammer.cs.ucr.edu $ ls -a
+.  ..  bin  .git  LICENSE  Makefile  README.md	.README.md.swp	src  tests
+yyao007@hammer.cs.ucr.edu $ ls -a -l
+total 48
+drwx------ 6 yyao007 csmajs  4096 Apr 19 16:22 .
+drwx------ 6 yyao007 csmajs  4096 Apr 14 15:38 ..
+drwx------ 2 yyao007 csmajs  4096 Apr 19 16:22 bin
+drwx------ 8 yyao007 csmajs  4096 Apr 19 01:15 .git
+-rw------- 1 yyao007 csmajs  1471 Apr 19 00:55 LICENSE
+-rw------- 1 yyao007 csmajs   113 Apr 19 00:55 Makefile
+-rw------- 1 yyao007 csmajs  2173 Apr 19 16:21 README.md
+-rw------- 1 yyao007 csmajs 12288 Apr 19 16:22 .README.md.swp
+drwx------ 2 yyao007 csmajs  4096 Apr 19 15:59 src
+drwx------ 2 yyao007 csmajs  4096 Apr 19 03:27 tests
+yyao007@hammer.cs.ucr.edu $ ls -al
+total 48
+drwx------ 6 yyao007 csmajs  4096 Apr 19 16:22 .
+drwx------ 6 yyao007 csmajs  4096 Apr 14 15:38 ..
+drwx------ 2 yyao007 csmajs  4096 Apr 19 16:22 bin
+drwx------ 8 yyao007 csmajs  4096 Apr 19 01:15 .git
+-rw------- 1 yyao007 csmajs  1471 Apr 19 00:55 LICENSE
+-rw------- 1 yyao007 csmajs   113 Apr 19 00:55 Makefile
+-rw------- 1 yyao007 csmajs  2173 Apr 19 16:21 README.md
+-rw------- 1 yyao007 csmajs 12288 Apr 19 16:22 .README.md.swp
+drwx------ 2 yyao007 csmajs  4096 Apr 19 15:59 src
+drwx------ 2 yyao007 csmajs  4096 Apr 19 03:27 tests
+yyao007@hammer.cs.ucr.edu $ ls             ls                  -a                         -l
+total 48
+drwx------ 6 yyao007 csmajs  4096 Apr 19 16:22 .
+drwx------ 6 yyao007 csmajs  4096 Apr 14 15:38 ..
+drwx------ 2 yyao007 csmajs  4096 Apr 19 16:22 bin
+drwx------ 8 yyao007 csmajs  4096 Apr 19 01:15 .git
+-rw------- 1 yyao007 csmajs  1471 Apr 19 00:55 LICENSE
+-rw------- 1 yyao007 csmajs   113 Apr 19 00:55 Makefile
+-rw------- 1 yyao007 csmajs  2173 Apr 19 16:21 README.md
+-rw------- 1 yyao007 csmajs 12288 Apr 19 16:22 .README.md.swp
+drwx------ 2 yyao007 csmajs  4096 Apr 19 15:59 src
+drwx------ 2 yyao007 csmajs  4096 Apr 19 03:27 tests
+yyao007@hammer.cs.ucr.edu $ pwd            ad
+pwd: ignoring non-option arguments
+/home/csmajs/yyao007/cs100/rshell
+yyao007@hammer.cs.ucr.edu $ ls   pwd
+ls: cannot access pwd: No such file or directory
+yyao007@hammer.cs.ucr.edu $ ls -a           l
+ls: cannot access l: No such file or directory
+yyao007@hammer.cs.ucr.edu $ # Works fine, lets 's test e wrong commadn  nds
+yyao007@hammer.cs.ucr.edu $ lss
+lss: No such file or directory
+yyao007@hammer.cs.ucr.edu $ pwdawda
+pwdawda: No such file or directory
+yyao007@hammer.cs.ucr.edu $ ls oiaqehwgoiph
+ls: cannot access oiaqehwgoiph: No such file or directory
+yyao007@hammer.cs.ucr.edu $ pwd pp
+pwd: ignoring non-option arguments
+/home/csmajs/yyao007/cs100/rshell
+yyao007@hammer.cs.ucr.edu $ ls                  ls        -q   a             q
+ls: cannot access q: No such file or directory
+yyao007@hammer.cs.ucr.edu $ #Still fine, let's test comments        commec nt flag "" #"
+yyao007@hammer.cs.ucr.edu $ #
+yyao007@hammer.cs.ucr.edu $    #pwd
+yyao007@hammer.cs.ucr.edu $    #################
+yyao007@hammer.cs.ucr.edu $ ls##############pwd
+bin  LICENSE  Makefile	README.md  src	tests
+yyao007@hammer.cs.ucr.edu $ p ls -a #######;;;
+.  ..  bin  .git  LICENSE  Makefile  README.md	.README.md.swp	src  tests
+yyao007@hammer.cs.ucr.edu $ #P OK,   t  then, let's test connectors ";" "||" "&&"
+yyao007@hammer.cs.ucr.edu $ ls ; pwd
+bin  LICENSE  Makefile	README.md  src	tests
+/home/csmajs/yyao007/cs100/rshell
+yyao007@hammer.cs.ucr.edu $ ls -a ;    a || echo hellp o && mkdir test
+ls: cannot access -: No such file or directory
+ls: cannot access a: No such file or directory
+hello
+yyao007@hammer.cs.ucr.edu $ ls
+bin  LICENSE  Makefile	README.md  src	test  tests
+yyao007@hammer.cs.ucr.edu $    ls &&  pwd              ; ||ls -a
+bin  LICENSE  Makefile	README.md  src	test  tests
+/home/csmajs/yyao007/cs100/rshell
+yyao007@hammer.cs.ucr.edu $ ls-a&&pwd
+ls-a: No such file or directory
+yyao007@hammer.cs.ucr.edu $ ls;pwd
+bin  LICENSE  Makefile	README.md  src	test  tests
+/home/csmajs/yyao007/cs100/rshell
+yyao007@hammer.cs.ucr.edu $ #Works grewa  at, let's test the cool feature, end with connectors
+yyao007@hammer.cs.ucr.edu $ ls;
+<command>: pwd
+bin  LICENSE  Makefile	README.md  src	test  tests
+/home/csmajs/yyao007/cs100/rshell
+yyao007@hammer.cs.ucr.edu $ ls-a && ## I can tyu         ls-a will not             I can tup  ype anting afg ter the ""^[[D     #"
+<command>: pwd  || #if ant y line contains a connector, the   rshell will prompt the user to keep inpu    typping
+<command>: ls;                    #I can add spacv es age  fer  ter the connector
+<command>: #I cn an just tuy  yo pe comments or just b nothing
+<command>: 
+<command>:    #
+<command>: #
+<command>: #I         #I can type anting    ything and the pr      rshell won't crash
+<command>: ls#let's ent d the  his command. this command will repot rt      only execute the ci  fiu rst line bea cas use ls-a is a wrong command
+ls-a: No such file or directory
+yyao007@hammer.cs.ucr.edu $ #Really cp ool! Now lety 's c test the invalid command
+yyao007@hammer.cs.ucr.edu $ #First, comn bo inations of "|&;"
+yyao007@hammer.cs.ucr.edu $ ;  
+Error: Cannot start with connectors "|| && ;".
+yyao007@hammer.cs.ucr.edu $   l     ;
+Error: Cannot start with connectors "|| && ;".
+yyao007@hammer.cs.ucr.edu $ |
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $   |
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ &
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $   &
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ |&  
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $   |;
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ &;
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ |  |
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ &  ;
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ;  ; 
+Error: Cannot start with connectors "|| && ;".
+yyao007@hammer.cs.ucr.edu $ &  \ |  
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $   ||  ||
+Error: Cannot start with connectors "|| && ;".
+yyao007@hammer.cs.ucr.edu $   && &&
+Error: Cannot start with connectors "|| && ;".
+yyao007@hammer.cs.ucr.edu $ ||||
+Error: Cannot start with connectors "|| && ;".
+yyao007@hammer.cs.ucr.edu $ &&&&
+Error: Cannot start with connectors "|| && ;".
+yyao007@hammer.cs.ucr.edu $ ls&&&&pwd
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls||||pwd
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls;;pwd
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ |  pwd
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ & asd
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ; ls
+Error: Cannot start with connectors "|| && ;".
+yyao007@hammer.cs.ucr.edu $ ls ; ; pwd
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls |  |  pwd
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls &  & pwd
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls | pwd ;
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ # Now let's test starting with connectors
+yyao007@hammer.cs.ucr.edu $ # r There's a bug in  if I just tu ype ||||
+yyao007@hammer.cs.ucr.edu $ ||||
+Error: Cannot start with connectors "|| && ;".
+yyao007@hammer.cs.ucr.edu $ I   # I'm exec pecting rshell to report syntax error to this
+yyao007@hammer.cs.ucr.edu $ # But it report cannot start with connectors
+yyao007@hammer.cs.ucr.edu $ # Acrtu   r tyu  uall  , no  only the case like "" ||", "&&' " or ";" will report the upper error
+yyao007@hammer.cs.ucr.edu $ || ls
+Error: Cannot start with connectors "|| && ;".
+yyao007@hammer.cs.ucr.edu $ && pwd
+Error: Cannot start with connectors "|| && ;".
+yyao007@hammer.cs.ucr.edu $ ; lk s
+Error: Cannot start with connectors "|| && ;".
+yyao007@hammer.cs.ucr.edu $             ||pwd
+Error: Cannot start with connectors "|| && ;".
+yyao007@hammer.cs.ucr.edu $            &&           ls
+Error: Cannot start with connectors "|| && ;".
+yyao007@hammer.cs.ucr.edu $                  ;##ls
+Error: Cannot start with connectors "|| && ;".
+yyao007@hammer.cs.ucr.edu $ #I Now let's test with ||| &&& ;
+yyao007@hammer.cs.ucr.edu $ ls|||pwd
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls&&&ls
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls ;;pwd
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls | || pwd
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls || |pwd
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls && &ls
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls%%  &&  &&pwd
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls; ;ls
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ #le  let's test mutiple connctors
+yyao007@hammer.cs.ucr.edu $ p ls || || || ||lw
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ pwd&& && && &&pwd
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls ; ; ; ; pwd
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls || |  | 
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ pwd| ||
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls ; ka  ;; 
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls | | |||||||||||||ad
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls & &&&&&&&&&&
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ ls ;;;;;;;;;;ls ^ &&&&&&&&&ls\ ||
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ #o Works fine, lets 's test runnig ng rshell in my s rshell
+yyao007@hammer.cs.ucr.edu $ bin/    ls
+bin  LICENSE  Makefile	README.md  src	test  tests
+yyao007@hammer.cs.ucr.edu $ bin/rshell
+yyao007@hammer.cs.ucr.edu $ # OK, nb ow I'm in my rshell's rshell
+yyao007@hammer.cs.ucr.edu $ ls
+bin  LICENSE  Makefile	README.md  src	test  tests
+yyao007@hammer.cs.ucr.edu $ ls -a &&
+<command>: # lets 's exit to my            test exit
+<command>: exi   exit^[  \ #l I can^[[D^[[D^[[D                   ; ## I can type exit betww een connecot  tors, this one will execute and sd till       take me to the outer rshell
+<command>: ##  I still using     e connectors in the end so th  rshell prompt me to type extra command
+<command>: 
+<command>: ls # let's go out
+.  ..  bin  .git  LICENSE  Makefile  README.md	.README.md.swp	src  test  tests
+yyao007@hammer.cs.ucr.edu $ ls
+bin  LICENSE  Makefile	README.md  src	test  tests
+yyao007@hammer.cs.ucr.edu $ # let's check if I am in the outer res  shell by type ani other exit
+yyao007@hammer.cs.ucr.edu $ ei xit;#if this exit take me to cs100 see rvr er, then ei xit shopu   oule d work fine
+<command>: ls # type anything
+~/cs100/rshell
+yyao007@hammer $ ls
+[0m[01;34mbin[0m/  LICENSE  Makefile  README.md  [01;34msrc[0m/  [01;34mtest[0m/  [01;34mtests[0m/
+[m~/cs100/rshell
+yyao007@hammer $ # ye[K[KYe[Keah [K, I/,[Km[K[K forgoyt[K[Kt[K[K[K[K[K[K[K[Kit takes me to my[Ki[Ky compuy[Kyer[K[K[Kter's na[K[Kbash, let's run cs100 and access to rshell agaub [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Kb
+~/cs100/rshell
+yyao007@hammer $ cs100
 [0;91m
 ===============================================================================
 |                                                                             |
@@ -20,280 +270,147 @@ yyao007@hammer $ cd[Ks1-[K00
 |                                                                             |
 ===============================================================================
 [0m
-[s%%%%%%%%%%[u[0;32myyao007[0;36m@[0;32mcs100[0;36m:[0;32m~[0;95m [0;36m$[0m l[Ks[Kcd cs100/rshell/
-[s%%%%%%%%%%[u[0;32myyao007[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/rshell[0;95m (exec) [0;36m$[0m ls
-LICENSE  Makefile  README.md  rshell  src  tests
-[s%%%%%%%%%%[u[0;32myyao007[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/rshell[0;95m (exec) [0;36m$[0m make
-mkdir bin
-mv ./rshell ./bin
-[s%%%%%%%%%%[u[0;32myyao007[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/rshell[0;95m (exec) [0;36m$[0m bin/rshell
-yyao007@hammer.cs.ucr.edu $ ls
-bin  LICENSE  Makefile	README.md  src	tests
-yyao007@hammer.cs.ucr.edu $ pwd
-/home/csmajs/yyao007/cs100/rshell
-yyao007@hammer.cs.ucr.edu $ ls-a
-ls-a: No such file or directory
-yyao007@hammer.cs.ucr.edu $ ls -a
-.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
-yyao007@hammer.cs.ucr.edu $ la -   s 0 -a -a
-.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
-yyao007@hammer.cs.ucr.edu $ ls -a -l
-total 36
-drwx------ 6 yyao007 csmajs 4096 Apr 19 00:24 .
-drwx------ 6 yyao007 csmajs 4096 Apr 14 15:38 ..
-drwx------ 2 yyao007 csmajs 4096 Apr 19 00:24 bin
-drwx------ 8 yyao007 csmajs 4096 Apr 18 23:09 .git
--rw------- 1 yyao007 csmajs 1471 Apr 14 15:39 LICENSE
--rw------- 1 yyao007 csmajs  113 Apr 18 01:49 Makefile
--rw------- 1 yyao007 csmajs 1268 Apr 18 23:22 README.md
-drwx------ 2 yyao007 csmajs 4096 Apr 18 21:52 src
-drwx------ 2 yyao007 csmajs 4096 Apr 19 00:22 tests
-yyao007@hammer.cs.ucr.edu $ ls -al
-total 36
-drwx------ 6 yyao007 csmajs 4096 Apr 19 00:24 .
-drwx------ 6 yyao007 csmajs 4096 Apr 14 15:38 ..
-drwx------ 2 yyao007 csmajs 4096 Apr 19 00:24 bin
-drwx------ 8 yyao007 csmajs 4096 Apr 18 23:09 .git
--rw------- 1 yyao007 csmajs 1471 Apr 14 15:39 LICENSE
--rw------- 1 yyao007 csmajs  113 Apr 18 01:49 Makefile
--rw------- 1 yyao007 csmajs 1268 Apr 18 23:22 README.md
-drwx------ 2 yyao007 csmajs 4096 Apr 18 21:52 src
-drwx------ 2 yyao007 csmajs 4096 Apr 19 00:22 tests
-yyao007@hammer.cs.ucr.edu $ ls        -al
-total 36
-drwx------ 6 yyao007 csmajs 4096 Apr 19 00:24 .
-drwx------ 6 yyao007 csmajs 4096 Apr 14 15:38 ..
-drwx------ 2 yyao007 csmajs 4096 Apr 19 00:24 bin
-drwx------ 8 yyao007 csmajs 4096 Apr 18 23:09 .git
--rw------- 1 yyao007 csmajs 1471 Apr 14 15:39 LICENSE
--rw------- 1 yyao007 csmajs  113 Apr 18 01:49 Makefile
--rw------- 1 yyao007 csmajs 1268 Apr 18 23:22 README.md
-drwx------ 2 yyao007 csmajs 4096 Apr 18 21:52 src
-drwx------ 2 yyao007 csmajs 4096 Apr 19 00:22 tests
-yyao007@hammer.cs.ucr.edu $ ls ||  pwd
-bin  LICENSE  Makefile	README.md  src	tests
-yyao007@hammer.cs.ucr.edu $ ls&&pwd
-bin  LICENSE  Makefile	README.md  src	tests
-/home/csmajs/yyao007/cs100/rshell
-yyao007@hammer.cs.ucr.edu $ ls        ;        pwd
-bin  LICENSE  Makefile	README.md  src	tests
-/home/csmajs/yyao007/cs100/rshell
-yyao007@hammer.cs.ucr.edu $ llll   l aaaaa     || pwd
-la: No such file or directory
-/home/csmajs/yyao007/cs100/rshell
-yyao007@hammer.cs.ucr.edu $ la&& pwd
-la: No such file or directory
-yyao007@hammer.cs.ucr.edu $ la ;pwd
-la: No such file or directory
-/home/csmajs/yyao007/cs100/rshell
-yyao007@hammer.cs.ucr.edu $ ||ls
-Error: Cannot start with connectors "|| && ;".
-yyao007@hammer.cs.ucr.edu $ && pwd
-Error: Cannot start with connectors "|| && ;".
-yyao007@hammer.cs.ucr.edu $ ; ls
-Error: Cannot start with connectors "|| && ;".
-yyao007@hammer.cs.ucr.edu $ |pwd
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $ & ls
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $ ;  pwd
-Error: Cannot start with connectors "|| && ;".
-yyao007@hammer.cs.ucr.edu $ |
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $ &
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $ ;
-Error: Cannot start with connectors "|| && ;".
-yyao007@hammer.cs.ucr.edu $ ls |;pwd
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $ ls&;pwd
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $ ls : ;|          |   &  pwd
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $ ls   ;     ||
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $ ls   ;
-<command>: pwd
-bin  LICENSE  Makefile	README.md  src	tests
-/home/csmajs/yyao007/cs100/rshell
-yyao007@hammer.cs.ucr.edu $ lss    ||   
-<command>: ls
-lss: No such file or directory
-bin  LICENSE  Makefile	README.md  src	tests
-yyao007@hammer.cs.ucr.edu $ ll ss      &&  
-<command>: pwd
-bin  LICENSE  Makefile	README.md  src	tests
-/home/csmajs/yyao007/cs100/rshell
-yyao007@hammer.cs.ucr.edu $ ls||  -a a||
-<command>: pwd
-ls-a: No such file or directory
-/home/csmajs/yyao007/cs100/rshell
-yyao007@hammer.cs.ucr.edu $ ls||||
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $ ls|| ||
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $ ls||||pwd
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $ ls|||[ pwd
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $ ls&&&pwd
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $ ls&&&&pwd
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $ ls  ;;  pwd
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $ ls  ;   ;   wp
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $ ls  ; p    ;; 
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $ ls   ||   pwd     ;    pwd   &&
-<command>: ls
-bin  LICENSE  Makefile	README.md  src	tests
-yyao007@hammer.cs.ucr.edu $ ls   ;
-Error: Cannot start with connectors "|| && ;".
-yyao007@hammer.cs.ucr.edu $  |
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $  &
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $  ||
-Error: Cannot start with connectors "|| && ;".
-yyao007@hammer.cs.ucr.edu $      &&
-Error: Cannot start with connectors "|| && ;".
-yyao007@hammer.cs.ucr.edu $       ;   
-Error: Cannot start with connectors "|| && ;".
-yyao007@hammer.cs.ucr.edu $ ls   ||&&   pwd
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $ ls ||   && pwd
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $ ls  ; || pwd
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $ ls ;&&pwd
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $ ls |& pwd
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $ ls ;% & pwd
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $ ls ; | pwd
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $ ls  pe   pwd  ||   ls |
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $ ls  ; pwd &
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $ lls ||    pwd ; ls-a && ch  echo hellp o;
-<command>: mkdir test   ; &&
-<command>: rmdir test
-lls: No such file or directory
-/home/csmajs/yyao007/cs100/rshell
-ls-a: No such file or directory
-yyao007@hammer.cs.ucr.edu $ ls
-bin  LICENSE  Makefile	README.md  src	tests
-yyao007@hammer.cs.ucr.edu $ pwd ;     lls || pwd ;ls -a &&
-<command>: echo hellp  lo MIke   ike;
-<command>: rmd   mkdir testtt  t &&
-<command>: rmdir test
-lls: No such file or directory
-/home/csmajs/yyao007/cs100/rshell
-.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
-hello Mike
-yyao007@hammer.cs.ucr.edu $ ls
-bin  LICENSE  Makefile	README.md  src	tests
-yyao007@hammer.cs.ucr.edu $ ls# -rl
-bin  LICENSE  Makefile	README.md  src	tests
-yyao007@hammer.cs.ucr.edu $ ls _ -al
-total 36
-drwx------ 6 yyao007 csmajs 4096 Apr 19 00:33 .
-drwx------ 6 yyao007 csmajs 4096 Apr 14 15:38 ..
-drwx------ 2 yyao007 csmajs 4096 Apr 19 00:24 bin
-drwx------ 8 yyao007 csmajs 4096 Apr 18 23:09 .git
--rw------- 1 yyao007 csmajs 1471 Apr 14 15:39 LICENSE
--rw------- 1 yyao007 csmajs  113 Apr 18 01:49 Makefile
--rw------- 1 yyao007 csmajs 1268 Apr 18 23:22 README.md
-drwx------ 2 yyao007 csmajs 4096 Apr 18 21:52 src
-drwx------ 2 yyao007 csmajs 4096 Apr 19 00:22 tests
-yyao007@hammer.cs.ucr.edu $ ls -a#-l
-.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
-yyao007@hammer.cs.ucr.edu $ ls  #
-yyao007@hammer.cs.ucr.edu $ ##
-yyao007@hammer.cs.ucr.edu $ #aksdlkas
-yyao007@hammer.cs.ucr.edu $      #
+[s%%%%%%%%%%[u[0;32myyao007[0;36m@[0;32mcs100[0;36m:[0;32m~[0;95m [0;36m$[0m cd rshell/[K[K[K[K[K[K[Kcs100/rshell/
+[s%%%%%%%%%%[u[0;32myyao007[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/rshell[0;95m (master) [0;36m$[0m bin/ra[Kshell 
+yyao007@hammer.cs.ucr.edu $ ## I'm back in my s rshell, now let's test sp,e     ome weired commands
+yyao007@hammer.cs.ucr.edu $  
 yyao007@hammer.cs.ucr.edu $ 
-yyao007@hammer.cs.ucr.edu $      
-yyao007@hammer.cs.ucr.edu $ a     #llsls
+yyao007@hammer.cs.ucr.edu $  #
+yyao007@hammer.cs.ucr.edu $ #
+yyao007@hammer.cs.ucr.edu $ ; ls ; 
+<command>: #
+<command>:  
+<command>: 
+<command>: ls;;
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ pwd            ||                  #spaces do n on't matter
+<command>: a||
+<command>: b                   ;
+<command>:                   #asdasd
+<command>: pwd
+/home/csmajs/yyao007/cs100/rshell
+yyao007@hammer.cs.ucr.edu $ * ||
+<command>: ls    -|| #will c execute the follo owing command
+<command>: echo hello;
+<command>: a ; # execute the fore  ur con mmands and three errors
+*: No such file or directory
+ls: cannot access -: No such file or directory
+hello
 a: No such file or directory
 yyao007@hammer.cs.ucr.edu $ a
 a: No such file or directory
-yyao007@hammer.cs.ucr.edu $ ls ;
-<command>: ex cho hell  o wor         test    quit rshell&&
-<command>: exit
-bin  LICENSE  Makefile	README.md  src	tests
-quit rshell
-[s%%%%%%%%%%[u[0;32myyao007[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/rshell[0;95m (exec) [0;36m$[0m bin/rshell 
-yyao007@hammer.cs.ucr.edu $  ;
-Error: Cannot start with connectors "|| && ;".
-yyao007@hammer.cs.ucr.edu $    |
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $       &
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $   ;;
-Error: Cannot start with connectors "|| && ;".
-yyao007@hammer.cs.ucr.edu $ ls                      ;;  ls     ;     |    |     pwd;
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $ |   |    
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $ &&    &
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $ &&     && ls
-Error: Cannot start with connectors "|| && ;".
-yyao007@hammer.cs.ucr.edu $ l &&    &&
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $ ls    ;    
-<command>: pwd
-bin  LICENSE  Makefile	README.md  src	tests
+yyao007@hammer.cs.ucr.edu $ b
+b: No such file or directory
+yyao007@hammer.cs.ucr.edu $ w
+ 17:18:18 up 75 days, 18:49, 96 users,  load average: 2.54, 2.49, 2.47
+USER     TTY      FROM              LOGIN@   IDLE   JCPU   PCPU WHAT
+ycao006  pts/0    71-9-89-69.stati 16:37   33.00s  0.29s  0.13s script -q -c env PS1='\[\e[s%%%%%%%%%
+ycao006  pts/1    -                16:37   33.00s  0.14s  0.14s bash --norc -i
+dweis003 pts/2    210.68.148.146.b Tue09    5days  0.00s  0.00s -bash
+cbarb005 pts/3    pool-173-58-29-1 16:49   18.00s  0.17s  0.07s script -q -c env PS1='\[\e[s%%%%%%%%%
+echan031 pts/4    -                16:22    2:21   0.06s  0.00s ./a.out
+sthak004 pts/5    63.138.45.35     15:22    7:06   0.77s  0.37s script -q -c env PS1='\[\e[s%%%%%%%%%
+lseeb002 pts/7    -                16:10    1:02m  0.34s  0.31s /usr/bin/vim -w /usr/csshare/cs100/lo
+hkwan003 pts/9    kilo-23.cs.ucr.e 14:56   28.00s  0.22s  0.10s script -q -c env PS1='\[\e[s%%%%%%%%%
+knels012 pts/10   ucrwpa3-3-217-15 11:01    0.00s  0.85s  0.38s script -q -c env PS1='\[\e[s%%%%%%%%%
+jwong066 pts/12   mobilenet3-3-239 14:20   15.00s  0.31s  0.14s script -q -c env PS1='\[\e[s%%%%%%%%%
+amah001  pts/13   71-95-191-2.stat 16:49    2.00s  0.17s  0.08s script -q -c env PS1='\[\e[s%%%%%%%%%
+yyao007  pts/14   -                16:27    0.00s  0.03s  0.01s script -q -c env PS1='\[\e[s%%%%%%%%%
+kkimb003 pts/15   24-180-49-3.dhcp 16:55   16:22   0.02s  0.01s script -q -c env PS1='\[\e[s%%%%%%%%%
+dweis003 pts/17   210.68.148.146.b Wed16    4days  0.00s  0.00s -bash
+athai005 pts/20   pool-74-100-84-1 12:47    1:57m  0.87s  0.40s script -q -c env PS1='\[\e[s%%%%%%%%%
+lzhu012  pts/21   71-84-77-211.dhc 14:39    1:12   0.97s  0.42s script -q -c env PS1='\[\e[s%%%%%%%%%
+athai005 pts/22   -                12:47    1:57m 12.36s  0.29s bash --norc -i
+sthak004 pts/23   63.138.45.35     15:22   11:33   0.16s  0.06s script -q -c env PS1='\[\e[s%%%%%%%%%
+dweis003 pts/25   210.68.148.146.b Tue12    5days  0.01s  0.01s -bash
+prodr010 pts/26   238.65.154.104.b Wed12    4days  0.01s  0.01s -bash
+aesgu001 pts/27   pool-96-251-124- 17:09   12.00s  0.04s  0.02s script -q -c env PS1='\[\e[s%%%%%%%%%
+mchen046 pts/29   ucrwpa3-3-216-10 09:27    3:03   1.19s  0.50s script -q -c env PS1='\[\e[s%%%%%%%%%
+mchen046 pts/30   -                09:28    3:03  13.51s 13.51s /usr/bin/vim -w /usr/csshare/cs100/lo
+jguti039 pts/33   230.80.154.104.b Sat00   41:02m  0.02s  0.02s -bash
+dweis003 pts/34   210.68.148.146.b Wed12    4days  0.02s  0.02s -bash
+jbarb011 pts/35   pool-96-229-174- 16:49   25:48   0.04s  0.02s script -q -c env PS1='\[\e[s%%%%%%%%%
+nchun003 pts/36   66-215-217-135.d 15:45   55:57   0.25s  0.12s script -q -c env PS1='\[\e[s%%%%%%%%%
+dweis003 pts/37   210.68.148.146.b 13:26    3:51m  0.01s  0.01s -bash
+bherm001 pts/38   kilo-22.cs.ucr.e 14:53   45.00s  1.53s  0.51s script -q -c env PS1='\[\e[s%%%%%%%%%
+dding002 pts/39   tango-22.cs.ucr. 10:12    0.00s  0.81s  0.38s script -q -c env PS1='\[\e[s%%%%%%%%%
+hkwan003 pts/40   -                14:56   28.00s  0.51s  0.00s ./a.out
+dding002 pts/41   -                10:12    0.00s 11.36s  0.43s bash --norc -i
+skama004 pts/42   66-215-212-85.dh Sat23    1:45m  0.45s  0.21s script -q -c env PS1='\[\e[s%%%%%%%%%
+knels012 pts/43   -                13:48    0.00s  0.96s  0.00s script exec.script
+jtran071 pts/44   71-93-164-210.dh 16:43    0.00s  0.58s  0.20s script -q -c env PS1='\[\e[s%%%%%%%%%
+skama004 pts/45   -                Sat23    1:45m  0.86s  0.54s bash --norc -i
+jwong066 pts/46   -                14:29   15.00s  0.31s  0.07s /usr/bin/vim -w /usr/csshare/cs100/lo
+aesgu001 pts/47   -                17:10   21.00s  0.06s  0.06s bash --norc -i
+knels012 pts/48   -                17:14    0.00s  0.00s  0.00s bin/rshell
+lzhu012  pts/50   -                14:39    1:12   0.61s  0.61s bash --norc -i
+bherm001 pts/49   -                14:53   45.00s  1.18s  0.04s /usr/bin/vim -w /usr/csshare/cs100/lo
+anguy112 pts/51   26.176.211.130.b Wed18    3days  0.05s  0.05s -bash
+mchen046 pts/52   ucrwpa3-3-216-10 15:22   12.00s  0.10s  0.05s script -q -c env PS1='\[\e[s%%%%%%%%%
+nchun003 pts/53   -                14:43    1:50m  0.21s  0.21s bash --norc -i
+sthak004 pts/54   -                15:22   11:33   0.48s  0.48s bash --norc -i
+hkwan003 pts/55   kilo-23.cs.ucr.e 14:54   15.00s  0.83s  0.36s script -q -c env PS1='\[\e[s%%%%%%%%%
+yyao007  pts/58   -                14:30    0.00s  0.99s  0.09s script exec.script
+hkwan003 pts/59   -                14:54   15.00s  0.46s  0.23s /usr/bin/vim -w /usr/csshare/cs100/lo
+yyao007  pts/60   -                13:26    0.00s  0.68s  0.00s src/a.out
+nchun003 pts/61   -                15:45   55:57   0.18s  0.00s ./a.out
+yyao007  pts/62   -                17:08    0.00s  0.05s  0.01s bin/rshell
+ttruo018 pts/63   ucrwpa3-1-208-19 17:09    2.00s  0.03s  0.01s script -q -c env PS1='\[\e[s%%%%%%%%%
+jtran071 pts/64   -                16:43    6.00s 22.09s  0.00s bin/rshell
+ecarr007 pts/65   107.196.193.34   16:48    5:38   0.19s  0.09s script -q -c env PS1='\[\e[s%%%%%%%%%
+ecarr007 pts/66   -                16:48    5:47   0.24s  0.24s bash --norc -i
+yyao007  pts/67   63.138.45.35     13:25    0.00s  0.64s  0.30s script -q -c env PS1='\[\e[s%%%%%%%%%
+nchun003 pts/68   66-215-217-135.d 14:35    1:50m  0.19s  0.09s script -q -c env PS1='\[\e[s%%%%%%%%%
+vchan019 pts/69   169.235.88.154   16:01   25:10   0.14s  0.06s script -q -c env PS1='\[\e[s%%%%%%%%%
+aadet001 pts/71   pool-173-51-148- 13:29   43:27   0.35s  0.15s script -q -c env PS1='\[\e[s%%%%%%%%%
+aadet001 pts/72   -                13:29   43:27   0.97s  0.90s bash --norc -i
+unara001 pts/73   63.138.45.35     13:31    1:32   0.77s  0.34s script -q -c env PS1='\[\e[s%%%%%%%%%
+unara001 pts/74   -                13:31    1:32   0.70s  0.70s bash --norc -i
+kzhen002 pts/75   63.138.45.35     13:34   29.00s  0.60s  0.25s script -q -c env PS1='\[\e[s%%%%%%%%%
+kzhen002 pts/76   -                13:34   29.00s  2.10s  1.67s /usr/bin/vim -w /usr/csshare/cs100/lo
+echan031 pts/77   well.cs.ucr.edu  16:22    2:22   0.08s  0.04s script -q -c env PS1='\[\e[s%%%%%%%%%
+ichor001 pts/78   108-88-141-83.li 16:18   58.00s  0.39s  0.14s script -q -c env PS1='\[\e[s%%%%%%%%%
+phung001 pts/79   63.138.45.35     13:58    1:25   1.10s  0.42s script -q -c env PS1='\[\e[s%%%%%%%%%
+phung001 pts/80   -                13:58    1:25   0.62s  0.62s bash --norc -i
+sthak004 pts/81   -                15:22    7:07  13.93s 13.92s /usr/bin/vim -w /usr/csshare/cs100/lo
+ykamo001 pts/82   63.138.45.35     14:09    1:05   0.44s  0.19s script -q -c env PS1='\[\e[s%%%%%%%%%
+ykamo001 pts/83   -                14:09    1:05   2.45s  2.07s /usr/bin/vim -w /usr/csshare/cs100/lo
+lseeb002 pts/84   138.229.209.244  16:40    5.00s  0.09s  0.04s script -q -c env PS1='\[\e[s%%%%%%%%%
+cdixi001 pts/85   63.138.45.35     15:09    1.00s  0.64s  0.29s script -q -c env PS1='\[\e[s%%%%%%%%%
+lseeb002 pts/86   -                16:40    5.00s  1.07s  0.00s rshell
+vchan019 pts/87   -                16:02   25:11   0.57s  0.44s /usr/bin/vim -w /usr/csshare/cs100/lo
+skama004 pts/88   66-215-212-85.dh 16:50   23:53   0.03s  0.01s script -q -c env PS1='\[\e[s%%%%%%%%%
+cdixi001 pts/89   -                15:09    1.00s  0.46s  0.14s /usr/bin/vim -w /usr/csshare/cs100/lo
+ttruo018 pts/91   -                17:09    3.00s  0.09s  0.05s /usr/bin/vim -w /usr/csshare/cs100/lo
+mchen046 pts/92   -                15:22   13.00s  0.21s  0.21s bash --norc -i
+cbarb005 pts/93   pool-173-58-29-1 15:14   51:57   0.23s  0.10s script -q -c env PS1='\[\e[s%%%%%%%%%
+cbarb005 pts/94   -                15:14   51:57   0.17s  0.07s /usr/bin/vim -w /usr/csshare/cs100/lo
+lseeb002 pts/97   138.229.209.244  15:25    1:02m  0.04s  0.02s script -q -c env PS1='\[\e[s%%%%%%%%%
+korte004 pts/99   66-215-228-236.d 15:32   24:37   0.55s  0.25s script -q -c env PS1='\[\e[s%%%%%%%%%
+korte004 pts/100  -                15:32   24:37   0.15s  0.15s bash --norc -i
+ecarr007 pts/101  107.196.193.34   16:30   32:37   0.08s  0.04s script -q -c env PS1='\[\e[s%%%%%%%%%
+ecarr007 pts/102  -                16:30   32:37   0.27s  0.12s /usr/bin/vim -w /usr/csshare/cs100/lo
+ichor001 pts/104  -                16:40   58.00s  0.21s  0.11s /usr/bin/vim -w /usr/csshare/cs100/lo
+jbarb011 pts/105  -                16:49   25:49   0.03s  0.03s bash --norc -i
+cbarb005 pts/106  -                16:49   19.00s  0.08s  0.08s bash --norc -i
+nchun003 pts/108  66-215-217-135.d 16:42   15:57   0.23s  0.11s script -q -c env PS1='\[\e[s%%%%%%%%%
+nchun003 pts/109  -                16:42   15:57   0.16s  0.00s ./a.out
+kkimb003 pts/110  -                16:56   16:23   0.04s  0.04s bash --norc -i
+skama004 pts/111  -                16:50   23:53   0.14s  0.10s /usr/bin/vim -w /usr/csshare/cs100/lo
+kkamg001 pts/112  cpe-45-51-35-82. 16:50   25:40   0.02s  0.01s script -q -c env PS1='\[\e[s%%%%%%%%%
+kkamg001 pts/113  -                16:50   25:40   0.02s  0.02s bash --norc -i
+amah001  pts/114  -                16:50    3.00s  1.73s  1.59s /usr/bin/vim -w /usr/csshare/cs100/lo
+yyao007@hammer.cs.ucr.edu $ # OK, single character can execu     be executed also
+yyao007@hammer.cs.ucr.edu $ # I think the th s est cases are enough, am    do anyone can think about a                             
+yyao007@hammer.cs.ucr.edu $ # c Can anyone think o about a case that will cas  =r  rash my rshell?
+yyao007@hammer.cs.ucr.edu $ * # I will bea  appreciated if you do so and let me knb ow
+yyao007@hammer.cs.ucr.edu $ pwd;
+<command>: exit                  eix  xit               # byebye
 /home/csmajs/yyao007/cs100/rshell
-yyao007@hammer.cs.ucr.edu $   a   j   ;
-<command>: pwd
-a: No such file or directory
-/home/csmajs/yyao007/cs100/rshell
-yyao007@hammer.cs.ucr.edu $ pwd  a  ;   ls
-pwd: ignoring non-option arguments
-/home/csmajs/yyao007/cs100/rshell
-bin  LICENSE  Makefile	README.md  src	tests
-yyao007@hammer.cs.ucr.edu $ ls#
-bin  LICENSE  Makefile	README.md  src	tests
-yyao007@hammer.cs.ucr.edu $   |   &
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $ |   ;
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $ &    ;
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $ : ;   &
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $ :   |
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $ ; :   ||
-<command>: pwd
-:: No such file or directory
-/home/csmajs/yyao007/cs100/rshell
-yyao007@hammer.cs.ucr.edu $    j   
-j: No such file or directory
-yyao007@hammer.cs.ucr.edu $    j     ||
-<command>: l     ls   &&
-<command>: pwd   
-j: No such file or directory
-bin  LICENSE  Makefile	README.md  src	tests
-/home/csmajs/yyao007/cs100/rshell
-yyao007@hammer.cs.ucr.edu $   |      &   
-syntax error using connectors "|| && ;"
-yyao007@hammer.cs.ucr.edu $ echo test finished        % &&   #exit
-<command>: exitt||
-<command>: exit&&
-<command>: ls
-test finished
-exitt: No such file or directory
-[s%%%%%%%%%%[u[0;32myyao007[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/rshell[0;95m (exec) [0;36m$[0m exit
+[s%%%%%%%%%%[u[0;32myyao007[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/rshell[0;95m (master) [0;36m$[0m exit
 exit
-~
+~/cs100/rshell
 yyao007@hammer $ exit
 exit
 
-Script done on Sun 19 Apr 2015 12:48:15 AM PDT
+Script done on Sun 19 Apr 2015 05:20:48 PM PDT
