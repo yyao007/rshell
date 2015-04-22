@@ -34,6 +34,6 @@ The test cases are in the rshell/tests/exec.script.
 3. rshell can only report two error messages and that won't be sufficient. Further error messages will be added in the future.
 
 ## Known bugs
-* If you type any connector in the beginning of the command and then append another connector, such as `|| |` `&& &|`  `;;` `||||`, then rshell will report an error saying cannot start with connectors which actually should be reported as a syntax error.
+* If you type any connector in the beginning of the command and then append another connector, such as `|| |` `&& &|`  `;;` `||||`, then rshell will report an error saying cannot start with connectors which actually should be reported as a syntax error. **(FIXED)**
 
 * Upon this time, rshell will not crash during runtime. If anyone can find a bug that would crash my rshell, please let me know and I will be appreciated.
