@@ -252,7 +252,7 @@ int strValid(const string& str) {
         if (pos == temp.size() - 1) {
             return -1;
         }
-        // if string only has 1 of "| &", return -1
+        // if string only has 1 of "| &" or has different combinations like "|&", return -1
         else if (temp.at(pos + 1) != temp.at(pos)) {
             return -1;
         }
@@ -270,44 +270,48 @@ int strValid(const string& str) {
     // despite white spaces, then it's a syntax error
     pos = temp.find_first_of("|&");
     while (pos != string::npos) {
+        if (temp.size() > 2) {
+            // if string is ended with "||" or "&&", jump out of the loop and return 0
+            if (pos == temp.size() - 2) {
+                flag = 0;
+                break;
+            }
+            // if string has more than 2 of "| & ;", return -1
+            else if (temp.at(pos + 2) == '|' || temp.at(pos + 2) == '&' || temp.at(pos + 2) == ';') {
+                return -1;
+            }
+        }
         // if the string begins with connectors, an error message -2 will return
         if (pos == 0) {
             return -2;
         }
-        // if string is ended with "| &", return -1
-        if (pos == temp.size() - 1) {
-            return -1;
-        }
-        // if string only has one of "| &" or has different combinations "like |&", return -1
-        else if (temp.at(pos + 1) != temp.at(pos)) {
-            return -1;
-        }
-        // if string is ended with "||" or "&&", jump out of the loop and return 0
-        else if (pos == temp.size() - 2) {
-            flag = 0;
-            break;
-        }
-        // if string has more than 2 of "| & ;", return -1
-        else if (temp.at(pos + 2) == '|' || temp.at(pos + 2) == '&' || temp.at(pos + 2) == ';') {
-            return -1;
-        }
+//        // if string is ended with "| &", return -1
+//        else if (pos == temp.size() - 1) {
+//            return -1;
+//        }
+//        // if string only has one of "| &" or has different combinations "like |&", return -1
+//        else if (temp.at(pos + 1) != temp.at(pos)) {
+//            return -1;
+//        }
         pos = temp.find_first_of("|&", pos + 2);
     }
 
     pos = temp.find(";");
     while (pos != string::npos) {
+        if (temp.size() > 1) {
+            // if string is ended with ";", jump out of the loop and return 0
+            if (pos == temp.size() - 1) {
+                flag = 0;
+                break;
+            }
+            // if string has more than 1 of ";" or something like ";|", return -1
+            else if (temp.at(pos + 1) == '|' || temp.at(pos + 1) == '&' || temp.at(pos + 1) == ';') {
+                return -1;
+            }
+        }
         // if the string begins with connectors, an error message -2 will return
         if (pos == 0) {
             return -2;
-        }
-        // if string is ended with ";", jump out of the loop and return 0
-        if (pos == temp.size() - 1) {
-            flag = 0;
-            break;
-        }
-        // if string has more than 1 of ";" or something like ";|", return -1
-        else if (temp.at(pos + 1) == '|' || temp.at(pos + 1) == '&' || temp.at(pos + 1) == ';') {
-            return -1;
         }
         pos = temp.find(";", pos + 1);
     }
