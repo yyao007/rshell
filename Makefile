@@ -1,6 +1,6 @@
-all: rshell
+bin/rshell:	src/rshell.cpp | bin
+	g++ -Wall -Werror -ansi -pedantic src/rshell.cpp -o bin/rshell
+bin:
 	mkdir bin
-	mv ./rshell ./bin
-rshell:
-	g++ -Wall -Werror -ansi -pedantic -o rshell ./src/rshell.cpp
-
+clean:
+	rm -rf bin
