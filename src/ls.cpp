@@ -24,11 +24,11 @@ using namespace std;
 struct dirent *filespecs;
 
 int getFlag(const vector<string> &);
-void SortFile(vector<string> &, int);
-int ReadDir(vector<string> &, const char*, int);
+void SortFile(vector<string> &, const int);
+int ReadDir(vector<string> &, const char*, const int);
 void PrintL(const vector<string> &, const string &);
 void PrintSingleDir(const vector<string> &);
-
+void PrintR(vector<string> &, const string &, const int);
 
 int main(int argc, char** argv) {
     int i, j;
@@ -64,31 +64,22 @@ int main(int argc, char** argv) {
     }
     for (i = 0; i < dirn.size(); ++i) {
         errno = ReadDir(files, dirn.at(i).c_str(), flag);
-        if (flag & FLAG_l) {
-            if (flag & FLAG_R) {
-
-            }
-            else {
-                cout << dirn.at(i) << ":" << endl;
-                PrintL(files, dirn.at(i));
-                if (i < dirn.size() - 1) {
-                    cout << endl;
-                }
-            }
+        if (flag & FLAG_R) {
+            PrintR(files, dirn.at(i), flag);
         }
         else {
-            if (flag & FLAG_R) {
-
+            if (dirn.size() > 1) {
+                cout << dirn.at(i) << ":" << endl;
+            }
+            if (flag & FLAG_l) {
+                PrintL(files, dirn.at(i));
             }
             else {
-                if (dirn.size() > 1) {
-                    cout << dirn.at(i) << ":" << endl;
-                }
                 PrintSingleDir(files);
-                if (i < dirn.size() - 1) {
-                    cout << endl;
-                }
             }
+        }
+        if (i < dirn.size() - 1) {
+            cout << endl;
         }
         files.clear();
     }
@@ -115,7 +106,7 @@ int getFlag(const vector<string> &f) {
     return flag;
 }
 
-void SortFile(vector<string> &file, int flag) {
+void SortFile(vector<string> &file, const int flag) {
     int i;
     if (!(flag & FLAG_a)) {
         for (i = 0; i < file.size(); ++i) {
@@ -129,7 +120,7 @@ void SortFile(vector<string> &file, int flag) {
     return;
 }
 
-int ReadDir(vector<string> &file, const char* dirct, int flag) {
+int ReadDir(vector<string> &file, const char* dirct, const int flag) {
     DIR* dirp;
     char temp[] = "ls: cannot access ";
     if (NULL == (dirp = opendir(dirct))) {
@@ -156,10 +147,12 @@ int ReadDir(vector<string> &file, const char* dirct, int flag) {
 
 void PrintSingleDir(const vector<string> &file) {
     int i;
-    for (i = 0; i < file.size(); ++i) {
-        cout << file.at(i) << "  ";
+    if (file.size() != 0) {
+        for (i = 0; i < file.size(); ++i) {
+            cout << file.at(i) << "  ";
+        }
+        cout << endl;
     }
-    cout << endl;
     return;
 }
 
@@ -202,6 +195,7 @@ void PrintL(const vector<string> &file, const string &dirName) {
             max[2] = group.at(i).size();
         }
     }
+
     for (i = 0; i < file.size(); ++i) {
         pathName = dirName + '/' + file.at(i);
         stat(pathName.c_str(), &buf);
@@ -225,6 +219,61 @@ void PrintL(const vector<string> &file, const string &dirName) {
     }
     return;
 }
+
+void PrintR(vector<string> &file, const string &dirName, const int flag) {
+    struct stat st;
+    int i;
+    string pathName;
+    vector<string> dirn;
+
+    for (i = 0; i < file.size(); ++i) {
+        if (file.at(i) != ".." && file.at(i) != ".") {
+            pathName = dirName + '/' + file.at(i);
+            stat(pathName.c_str(), &st);
+            if (S_ISDIR(st.st_mode)) {
+                dirn.push_back(pathName);
+            }
+        }
+    }
+
+    // choose print method according to the user input flag
+    cout << dirName << ":" << endl;
+    if (flag & FLAG_l) {
+        PrintL(file, dirName);
+    }
+    else {
+        PrintSingleDir(file);
+    }
+    // clear file before each recursion
+    file.clear();
+    // Recursion through each folder
+    for (i = 0; i < dirn.size(); ++i) {
+        ReadDir(file, dirn.at(i).c_str(), flag);
+        cout << endl;
+        PrintR(file, dirn.at(i), flag);
+    }
+    return;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
