@@ -21,7 +21,6 @@ using namespace std;
 #define FLAG_l 0b010
 #define FLAG_R 0b100
 
-struct dirent *filespecs;
 
 int getFlag(const vector<string> &);
 void SortFile(vector<string> &, const int);
@@ -31,14 +30,13 @@ void PrintSingleDir(const vector<string> &);
 void PrintR(vector<string> &, const string &, const int);
 
 int main(int argc, char** argv) {
-    int i, j;
+    unsigned int i;
     int flag;
-    int errno;
     vector<string> dirn; // directory name list
     vector<string> dirf; // user input flag "-a -l -R"
     vector<string> files; // store each file name
 
-    for (i = 1; i < argc; ++i) {
+    for (i = 1; i < static_cast<unsigned int>(argc); ++i) {
         if (argv[i][0] != '-') {
             dirn.push_back(argv[i]);
         }
@@ -56,14 +54,16 @@ int main(int argc, char** argv) {
     sort(dirn.begin(), dirn.end());
 
     for (i = 0; i < dirn.size(); ++i) {
-        if (-1 == (errno = ReadDir(files, dirn.at(i).c_str(), flag))) {
+        if (-1 == ReadDir(files, dirn.at(i).c_str(), flag)) {
             dirn.erase(dirn.begin() + i);
             --i;
         }
         files.clear();
     }
     for (i = 0; i < dirn.size(); ++i) {
-        errno = ReadDir(files, dirn.at(i).c_str(), flag);
+        if (-1 == ReadDir(files, dirn.at(i).c_str(), flag)) {
+            continue;
+        }
         if (flag & FLAG_R) {
             PrintR(files, dirn.at(i), flag);
         }
@@ -88,7 +88,7 @@ int main(int argc, char** argv) {
 }
 
 int getFlag(const vector<string> &f) {
-    int i, j;
+    unsigned int i, j;
     int flag = 0b000;
     for (i = 0; i < f.size(); ++i) {
         for (j = 0; j < f.at(i).size(); ++j) {
@@ -107,7 +107,7 @@ int getFlag(const vector<string> &f) {
 }
 
 void SortFile(vector<string> &file, const int flag) {
-    int i;
+    unsigned int i;
     if (!(flag & FLAG_a)) {
         for (i = 0; i < file.size(); ++i) {
             if (file.at(i).at(0) == '.') {
@@ -128,6 +128,7 @@ int ReadDir(vector<string> &file, const char* dirct, const int flag) {
         perror(temp);
         return -1;
     }
+    struct dirent *filespecs;
     errno = 0;
     while (NULL != (filespecs = readdir(dirp))) {
         file.push_back(filespecs -> d_name);
@@ -146,7 +147,7 @@ int ReadDir(vector<string> &file, const char* dirct, const int flag) {
 }
 
 void PrintSingleDir(const vector<string> &file) {
-    int i;
+    unsigned int i;
     if (file.size() != 0) {
         for (i = 0; i < file.size(); ++i) {
             cout << file.at(i) << "  ";
@@ -157,11 +158,10 @@ void PrintSingleDir(const vector<string> &file) {
 }
 
 void PrintL(const vector<string> &file, const string &dirName) {
-    int i;
+    unsigned int i;
     int length = 0;
     int temp = 0;
-    int max[3] = {0};
-    char timestr[128];
+    unsigned int max[3] = {0};
     string pathName;
     vector<string> user;
     vector<string> group;
@@ -173,13 +173,27 @@ void PrintL(const vector<string> &file, const string &dirName) {
     for (i = 0; i < file.size(); ++i) {
         pathName = dirName + '/' + file.at(i);
         if (-1 == stat(pathName.c_str(), &buf)) {
-            perror("stat");
-            return;
+            perror("stat()");
+            exit(1);
         }
-        pw = getpwuid(buf.st_uid);
-        gr = getgrgid(buf.st_gid);
-        user.push_back(pw->pw_name);
-        group.push_back(gr->gr_name);
+
+        errno = 0;
+        if (NULL != (pw = getpwuid(buf.st_uid))) {
+            user.push_back(pw->pw_name);
+        }
+        if (errno != 0) {
+            perror("getpwuid()");
+            exit(1);
+        }
+
+        errno = 0;
+        if (NULL != (gr = getgrgid(buf.st_gid))) {
+            group.push_back(gr->gr_name);
+        }
+        if (errno != 0) {
+            perror("getgrgid()");
+            exit(1);
+        }
 
         if (length < buf.st_size) {
             length = buf.st_size;
@@ -198,9 +212,22 @@ void PrintL(const vector<string> &file, const string &dirName) {
 
     for (i = 0; i < file.size(); ++i) {
         pathName = dirName + '/' + file.at(i);
-        stat(pathName.c_str(), &buf);
-        tm = localtime(&buf.st_mtime);
-        strftime(timestr, sizeof(timestr), "%b %d %H:%M ", tm);
+        if (-1 == stat(pathName.c_str(), &buf)) {
+            perror("stat()");
+            exit(1);
+        }
+        errno = 0;
+        char timestr[256];
+        if (NULL != (tm = localtime(&buf.st_mtime))) {
+            if (0 == strftime(timestr, sizeof(timestr), "%b %d %H:%M ", tm)) {
+                perror("strftime()");
+                exit(1);
+            }
+        }
+        if (errno != 0) {
+            perror("localtime()");
+            exit(1);
+        }
 
         cout << ((S_ISDIR(buf.st_mode))? "d":"-") <<
         ((buf.st_mode & S_IRUSR)? "r":"-") <<
@@ -222,7 +249,7 @@ void PrintL(const vector<string> &file, const string &dirName) {
 
 void PrintR(vector<string> &file, const string &dirName, const int flag) {
     struct stat st;
-    int i;
+    unsigned int i;
     string pathName;
     vector<string> dirn;
 
@@ -248,33 +275,12 @@ void PrintR(vector<string> &file, const string &dirName, const int flag) {
     file.clear();
     // Recursion through each folder
     for (i = 0; i < dirn.size(); ++i) {
-        ReadDir(file, dirn.at(i).c_str(), flag);
+        if (-1 == ReadDir(file, dirn.at(i).c_str(), flag)) {
+            return;
+        }
         cout << endl;
         PrintR(file, dirn.at(i), flag);
     }
     return;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
