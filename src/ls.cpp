@@ -22,6 +22,10 @@ using namespace std;
 #define FLAG_a 0x001
 #define FLAG_l 0x010
 #define FLAG_R 0x100
+#define BLUE printf("\x1b[36m")
+#define GREEN printf("\x1b[32m")
+#define GRAY printf("\x1b[47m")
+#define RESET printf("\x1b[0m")
 
 struct convertStat {
     string userName;
@@ -35,7 +39,7 @@ int getFlag(const vector<string> &);
 void SortFile(vector<string> &, const int);
 int ReadDir(vector<string> &, const char*, const int);
 void PrintL(const vector<string> &, const string &);
-void PrintSingleDir(const vector<string> &, const unsigned int);
+void PrintSingleDir(const vector<string> &, const string &, const unsigned int);
 void PrintR(vector<string> &, const string &, const int, const unsigned int);
 unsigned int maxSize(const vector<string> &);
 
@@ -105,7 +109,7 @@ int main(int argc, char** argv) {
                 PrintL(files, dirn.at(i));
             }
             else {
-                PrintSingleDir(files, columns);
+                PrintSingleDir(files, dirn.at(i), columns);
             }
         }
         if (i < dirn.size() - 1) {
@@ -207,7 +211,7 @@ unsigned int maxSize(const vector<string> &fileNames) {
     return max;
 }
 
-void PrintSingleDir(const vector<string> &file, const unsigned int columns) {
+void PrintSingleDir(const vector<string> &file, const string &dirName, const unsigned int columns) {
     unsigned int i, j;
     unsigned int oneLine = columns + 10;
     unsigned int begin = 0;
@@ -217,6 +221,8 @@ void PrintSingleDir(const vector<string> &file, const unsigned int columns) {
     unsigned int cols = 0;
     unsigned int max[256];
     unsigned int colume;
+    struct stat st;
+    string pathName;
 
     if (file.size() == 0) {
         return;
@@ -254,7 +260,24 @@ void PrintSingleDir(const vector<string> &file, const unsigned int columns) {
             colume = cols;
         }
         for (j = 0; j < colume; ++j) {
-            cout << setw(max[j]) << mat.at(j).at(i) << "  ";
+            pathName = dirName + '/' + mat.at(j).at(i);
+            if (-1 == stat(pathName.c_str(), &st)) {
+                perror("stat()");
+                exit(1);
+            }
+            // color files
+            if (S_ISDIR(st.st_mode)) {
+                BLUE;
+            }
+            else if (st.st_mode & S_IXUSR) {
+                GREEN;
+            }
+            if (mat.at(j).at(i).at(0) == '.') {
+                GRAY;
+            }
+            cout << setw(max[j]) << mat.at(j).at(i);
+            RESET;
+            cout << "  ";
         }
         cout << endl;
     }
@@ -349,7 +372,20 @@ void PrintL(const vector<string> &file, const string &dirName) {
         cout << setw(max[0]) << st.at(i).userName << ' ';
         cout << setw(max[1]) << st.at(i).groupName << ' ';
         cout << setw(max[2]) << buf.st_size << ' ';
-        cout << st.at(i).timeStr << file.at(i) << endl;
+        cout << st.at(i).timeStr;
+        // color files
+        if (S_ISDIR(buf.st_mode)) {
+            BLUE;
+        }
+        else if (buf.st_mode & S_IXUSR) {
+            GREEN;
+        }
+        if (file.at(i).at(0) == '.') {
+            GRAY;
+        }
+        cout << file.at(i);
+        RESET;
+        cout << endl;
     }
     return;
 }
@@ -380,7 +416,7 @@ void PrintR(vector<string> &file, const string &dirName, const int flag, const u
         PrintL(file, dirName);
     }
     else {
-        PrintSingleDir(file, columns);
+        PrintSingleDir(file, dirName, columns);
     }
     // clear file before each recursion
     file.clear();
