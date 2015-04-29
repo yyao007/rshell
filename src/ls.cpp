@@ -24,7 +24,6 @@ using namespace std;
 #define FLAG_R 0x100
 
 struct convertStat {
-   // struct stat;
     string userName;
     string groupName;
     char timeStr[256];
@@ -43,10 +42,12 @@ unsigned int maxSize(const vector<string> &);
 int main(int argc, char** argv) {
     unsigned int i;
     int flag;
+    string temp;
     vector<string> dirn; // directory name list
     vector<string> dirf; // user input flag "-a -l -R"
     vector<string> files; // store each file name
 
+    // get the terminal width
     char *termtype = getenv("TERM");
     if (tgetent(termbuf, termtype) < 0) {
         perror("Could not access the termcap data base.\n");
@@ -55,8 +56,10 @@ int main(int argc, char** argv) {
     char* col =(char*)"co";
     unsigned int columns = tgetnum(col);
 
+    // get input flags and file parameters
     for (i = 1; i < static_cast<unsigned int>(argc); ++i) {
-        if (argv[i][0] != '-') {
+        temp = argv[i];
+        if (argv[i][0] != '-' || temp.size() == 1) {
             dirn.push_back(argv[i]);
         }
         else {
@@ -64,14 +67,22 @@ int main(int argc, char** argv) {
         }
     }
 
+    // check flags if valid
     flag = getFlag(dirf);
+    if (-1 == flag) {
+        cout << "ls: Cannot recognize option" << endl;
+        return 1;
+    }
+    if (-2 == flag) {
+        cout << "ls: Invalid flag" << endl;
+        return 1;
+    }
 
     if (dirn.size() == 0) {
         dirn.push_back(".");
     }
-
     sort(dirn.begin(), dirn.end());
-
+    // erase invalid directories first
     for (i = 0; i < dirn.size(); ++i) {
         if (-1 == ReadDir(files, dirn.at(i).c_str(), flag)) {
             dirn.erase(dirn.begin() + i);
@@ -109,8 +120,25 @@ int main(int argc, char** argv) {
 int getFlag(const vector<string> &f) {
     unsigned int i, j;
     int flag = 0x000;
+
     for (i = 0; i < f.size(); ++i) {
-        for (j = 0; j < f.at(i).size(); ++j) {
+       if (f.at(i).size() > 1 && f.at(i).at(1) == '-') {
+           if (f.at(i) == "--all") {
+               flag = flag | FLAG_a;
+           }
+           else if (f.at(i) == "--long") {
+               flag = flag | FLAG_l;
+           }
+           else if (f.at(i) == "--recursive") {
+               flag = flag | FLAG_R;
+           }
+           else {
+               return -1;
+           }
+           continue;
+       }
+
+       for (j = 1; j < f.at(i).size(); ++j) {
             if (f.at(i).at(j) == 'a') {
                 flag = flag | FLAG_a;
             }
@@ -119,6 +147,9 @@ int getFlag(const vector<string> &f) {
             }
             else if (f.at(i).at(j) == 'R') {
                 flag = flag | FLAG_R;
+            }
+            else {
+                return -2;
             }
         }
     }
