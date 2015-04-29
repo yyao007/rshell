@@ -15,6 +15,7 @@
 #include <pwd.h>
 #include <grp.h>
 #include <time.h>
+#include <termcap.h>
 
 using namespace std;
 
@@ -29,12 +30,15 @@ struct convertStat {
     char timeStr[256];
 };
 
+static char termbuf[2048];
+
 int getFlag(const vector<string> &);
 void SortFile(vector<string> &, const int);
 int ReadDir(vector<string> &, const char*, const int);
 void PrintL(const vector<string> &, const string &);
-void PrintSingleDir(const vector<string> &);
-void PrintR(vector<string> &, const string &, const int);
+void PrintSingleDir(const vector<string> &, const unsigned int);
+void PrintR(vector<string> &, const string &, const int, const unsigned int);
+unsigned int maxSize(const vector<string> &);
 
 int main(int argc, char** argv) {
     unsigned int i;
@@ -42,6 +46,14 @@ int main(int argc, char** argv) {
     vector<string> dirn; // directory name list
     vector<string> dirf; // user input flag "-a -l -R"
     vector<string> files; // store each file name
+
+    char *termtype = getenv("TERM");
+    if (tgetent(termbuf, termtype) < 0) {
+        perror("Could not access the termcap data base.\n");
+        exit(1);
+    }
+    char* col =(char*)"co";
+    unsigned int columns = tgetnum(col);
 
     for (i = 1; i < static_cast<unsigned int>(argc); ++i) {
         if (argv[i][0] != '-') {
@@ -72,7 +84,7 @@ int main(int argc, char** argv) {
             continue;
         }
         if (flag & FLAG_R) {
-            PrintR(files, dirn.at(i), flag);
+            PrintR(files, dirn.at(i), flag, columns);
         }
         else {
             if (dirn.size() > 1) {
@@ -82,7 +94,7 @@ int main(int argc, char** argv) {
                 PrintL(files, dirn.at(i));
             }
             else {
-                PrintSingleDir(files);
+                PrintSingleDir(files, columns);
             }
         }
         if (i < dirn.size() - 1) {
@@ -153,27 +165,70 @@ int ReadDir(vector<string> &file, const char* dirct, const int flag) {
     return 1;
 }
 
-void PrintSingleDir(const vector<string> &file) {
+unsigned int maxSize(const vector<string> &fileNames) {
+    unsigned int max = 0;
     unsigned int i;
-/*    int width = 80;
-    string buf;
+    for (i = 0; i < fileNames.size(); ++i) {
+        if (max < fileNames.at(i).size()) {
+            max = fileNames.at(i).size();
+        }
+    }
+    return max;
+}
 
-    i = 0;
-    while (buf.size() <= 80 && i < file.size()) {
-        if (buf.size() + file.at(i).size() <= 80) {
-            buf += file.at(i) + "  ";
+void PrintSingleDir(const vector<string> &file, const unsigned int columns) {
+    unsigned int i, j;
+    unsigned int oneLine = columns + 10;
+    unsigned int begin = 0;
+    vector< vector<string> > mat;
+    vector<string> buf;
+    unsigned int rows = 0;
+    unsigned int cols = 0;
+    unsigned int max[256];
+    unsigned int colume;
+
+    if (file.size() == 0) {
+        return;
+    }
+
+    while (oneLine > columns + 2) {
+        mat.clear();
+        ++rows;
+        oneLine = 0;
+        begin = 0;
+        while (begin < file.size()) {
+            for (i = begin; i < begin + rows && i < file.size(); ++i) {
+                buf.push_back(file.at(i));
+            }
+            begin = i;
+            mat.push_back(buf);
+            buf.clear();
+        }
+        cols = mat.size();
+
+        for (i = 0; i < cols; ++i) {
+            max[i] = maxSize(mat.at(i));
         }
 
-        ++i;
+        for (i = 0; i < cols; ++i) {
+            oneLine += max[i] + 2;
+        }
     }
-*/
 
-    if (file.size() != 0) {
-        for (i = 0; i < file.size(); ++i) {
-            cout << file.at(i) << "  ";
+    for (i = 0; i < rows; ++i) {
+        if (mat.at(cols - 1).size() <= i) {
+            colume = cols - 1;
+        }
+        else {
+            colume = cols;
+        }
+        for (j = 0; j < colume; ++j) {
+            cout << setw(max[j]) << mat.at(j).at(i) << "  ";
         }
         cout << endl;
     }
+    mat.clear();
+
     return;
 }
 
@@ -268,7 +323,7 @@ void PrintL(const vector<string> &file, const string &dirName) {
     return;
 }
 
-void PrintR(vector<string> &file, const string &dirName, const int flag) {
+void PrintR(vector<string> &file, const string &dirName, const int flag, const unsigned int columns) {
     struct stat st;
     unsigned int i;
     string pathName;
@@ -294,7 +349,7 @@ void PrintR(vector<string> &file, const string &dirName, const int flag) {
         PrintL(file, dirName);
     }
     else {
-        PrintSingleDir(file);
+        PrintSingleDir(file, columns);
     }
     // clear file before each recursion
     file.clear();
@@ -304,7 +359,7 @@ void PrintR(vector<string> &file, const string &dirName, const int flag) {
             return;
         }
         cout << endl;
-        PrintR(file, dirn.at(i), flag);
+        PrintR(file, dirn.at(i), flag, columns);
     }
     return;
 }
