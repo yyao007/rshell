@@ -22,9 +22,9 @@ using namespace std;
 #define FLAG_a 0x001
 #define FLAG_l 0x010
 #define FLAG_R 0x100
-#define BLUE printf("\x1b[36m")
-#define GREEN printf("\x1b[32m")
-#define GRAY printf("\x1b[47m")
+#define BLUE printf("\x1b[34;1m")
+#define GREEN printf("\x1b[32;1m")
+#define GRAY printf("\x1b[48;5;240m")
 #define RESET printf("\x1b[0m")
 
 struct convertStat {
