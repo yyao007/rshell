@@ -277,7 +277,9 @@ void PrintSingleDir(const vector<string> &file, const string &dirName, const uns
             }
             cout << setw(max[j]) << mat.at(j).at(i);
             RESET;
-            cout << "  ";
+            if (j < colume - 1) {
+                cout << "  ";
+            }
         }
         cout << endl;
     }
