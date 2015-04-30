@@ -24,7 +24,7 @@ using namespace std;
 #define FLAG_R 0x100
 #define BLUE printf("\x1b[34;1m")
 #define GREEN printf("\x1b[32;1m")
-#define GRAY printf("\x1b[48;5;240m")
+#define GRAY printf("\x1b[48;5;243m")
 #define RESET printf("\x1b[0m")
 
 struct convertStat {
@@ -291,10 +291,12 @@ void PrintL(const vector<string> &file, const string &dirName) {
     struct passwd *pw;
     struct group *gr;
     struct tm *Tm;
-    unsigned int max[3] = {0};
+    unsigned int max[4] = {0};
     unsigned int i = 0;
-    unsigned int length = 0;
+    unsigned int lengthS = 0;
+    unsigned int lengthL = 0;
     unsigned int temp = 0;
+    int totalB = 0;
     vector<convertStat> st(file.size());
     string pathName;
 
@@ -303,6 +305,16 @@ void PrintL(const vector<string> &file, const string &dirName) {
         if (-1 == stat(pathName.c_str(), &buf)) {
             perror("stat()");
             exit(1);
+        }
+
+        totalB += buf.st_blocks;
+        temp = 0;
+        if (lengthL < buf.st_nlink) {
+            lengthL = buf.st_nlink;
+            temp = lengthL;
+            for (max[3] = 0; temp > 0; ++max[3]) {
+                temp /= 10;
+            }
         }
 
         errno = 0;
@@ -343,15 +355,17 @@ void PrintL(const vector<string> &file, const string &dirName) {
             exit(1);
         }
 
-        if (length < buf.st_size) {
-            length = buf.st_size;
-            temp = length;
+        temp = 0;
+        if (lengthS < buf.st_size) {
+            lengthS = buf.st_size;
+            temp = lengthS;
             for (max[2] = 0; temp > 0; ++max[2]) {
                 temp /= 10;
             }
         }
     }
 
+    cout << "total " << totalB / 2 << endl;
     for (i = 0; i < file.size(); ++i) {
         pathName = dirName + '/' + file.at(i);
         if (-1 == stat(pathName.c_str(), &buf)) {
@@ -369,6 +383,7 @@ void PrintL(const vector<string> &file, const string &dirName) {
         ((buf.st_mode & S_IROTH)? "r":"-") <<
         ((buf.st_mode & S_IWOTH)? "w":"-") <<
         ((buf.st_mode & S_IXOTH)? "x":"-") << ' ';
+        cout << setw(max[3]) << buf.st_nlink << ' ';
         cout << setw(max[0]) << st.at(i).userName << ' ';
         cout << setw(max[1]) << st.at(i).groupName << ' ';
         cout << setw(max[2]) << buf.st_size << ' ';
