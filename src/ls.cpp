@@ -38,7 +38,7 @@ static char termbuf[2048];
 int getFlag(const vector<string> &);
 void SortFile(vector<string> &, const int);
 int ReadDir(vector<string> &, const char*, const int);
-void PrintL(const vector<string> &, const string &);
+void PrintL(const vector<string> &, const string &, const bool);
 void PrintSingleDir(const vector<string> &, const string &, const unsigned int);
 void PrintR(vector<string> &, const string &, const int, const unsigned int);
 unsigned int maxSize(const vector<string> &);
@@ -46,10 +46,12 @@ unsigned int maxSize(const vector<string> &);
 int main(int argc, char** argv) {
     unsigned int i;
     int flag;
+    int errorNum;
     string temp;
     vector<string> dirn; // directory name list
     vector<string> dirf; // user input flag "-a -l -R"
     vector<string> files; // store each file name
+    vector<string> inFile; // store the input files' name
 
     // get the terminal width
     char *termtype = getenv("TERM");
@@ -86,14 +88,33 @@ int main(int argc, char** argv) {
         dirn.push_back(".");
     }
     sort(dirn.begin(), dirn.end());
-    // erase invalid directories first
+    // erase invalid directories first, including input files
     for (i = 0; i < dirn.size(); ++i) {
-        if (-1 == ReadDir(files, dirn.at(i).c_str(), flag)) {
+        errorNum = ReadDir(files, dirn.at(i).c_str(), flag);
+        if (-1 == errorNum) {
+            dirn.erase(dirn.begin() + i);
+            --i;
+        }
+        else if (0 == errorNum) {
+            inFile.push_back(dirn.at(i));
             dirn.erase(dirn.begin() + i);
             --i;
         }
         files.clear();
     }
+    // print input files first
+    if (inFile.size() > 0) {
+        if (flag & FLAG_l) {
+            PrintL(inFile, ".", false); // the files may not in the same directory
+        }
+        else {
+            PrintSingleDir(inFile, ".", columns);
+        }
+        if (dirn.size() > 0) {
+            cout << endl;
+        }
+    }
+    // then print files in the input directories
     for (i = 0; i < dirn.size(); ++i) {
         if (-1 == ReadDir(files, dirn.at(i).c_str(), flag)) {
             continue;
@@ -102,11 +123,11 @@ int main(int argc, char** argv) {
             PrintR(files, dirn.at(i), flag, columns);
         }
         else {
-            if (dirn.size() > 1) {
+            if (dirn.size() > 1 || inFile.size() > 0) {
                 cout << dirn.at(i) << ":" << endl;
             }
             if (flag & FLAG_l) {
-                PrintL(files, dirn.at(i));
+                PrintL(files, dirn.at(i), true);
             }
             else {
                 PrintSingleDir(files, dirn.at(i), columns);
@@ -176,7 +197,19 @@ void SortFile(vector<string> &file, const int flag) {
 
 int ReadDir(vector<string> &file, const char* dirct, const int flag) {
     DIR* dirp;
+    struct stat buf;
     char temp[] = "ls: cannot access ";
+
+    if (-1 == stat(dirct, &buf)) {
+        strcat(temp, dirct);
+        perror(temp);
+        return -1;
+    }
+
+    if (!S_ISDIR(buf.st_mode)) {
+        return 0;
+    }
+
     if (NULL == (dirp = opendir(dirct))) {
         strcat(temp, dirct);
         perror(temp);
@@ -275,7 +308,7 @@ void PrintSingleDir(const vector<string> &file, const string &dirName, const uns
             if (mat.at(j).at(i).at(0) == '.') {
                 GRAY;
             }
-            cout << setw(max[j]) << mat.at(j).at(i);
+            cout << left << setw(max[j]) << mat.at(j).at(i);
             RESET;
             if (j < colume - 1) {
                 cout << "  ";
@@ -288,7 +321,7 @@ void PrintSingleDir(const vector<string> &file, const string &dirName, const uns
     return;
 }
 
-void PrintL(const vector<string> &file, const string &dirName) {
+void PrintL(const vector<string> &file, const string &dirName, const bool isDir) {
     struct stat buf;
     struct passwd *pw;
     struct group *gr;
@@ -367,7 +400,9 @@ void PrintL(const vector<string> &file, const string &dirName) {
         }
     }
 
-    cout << "total " << totalB / 2 << endl;
+    if (isDir) {
+        cout << "total " << totalB / 2 << endl;
+    }
     for (i = 0; i < file.size(); ++i) {
         pathName = dirName + '/' + file.at(i);
         if (-1 == stat(pathName.c_str(), &buf)) {
@@ -410,12 +445,17 @@ void PrintL(const vector<string> &file, const string &dirName) {
 void PrintR(vector<string> &file, const string &dirName, const int flag, const unsigned int columns) {
     struct stat st;
     unsigned int i;
+    string tempName = dirName;
     string pathName;
     vector<string> dirn;
 
+    // delete the '/' character in the end
+    while (tempName.back() == '/') {
+        tempName.pop_back();
+    }
     for (i = 0; i < file.size(); ++i) {
         if (file.at(i) != ".." && file.at(i) != ".") {
-            pathName = dirName + '/' + file.at(i);
+            pathName = tempName + '/' + file.at(i);
 
             if (-1 == stat(pathName.c_str(), &st)) {
                 perror("stat()");
@@ -430,10 +470,10 @@ void PrintR(vector<string> &file, const string &dirName, const int flag, const u
     // choose print method according to the user input flag
     cout << dirName << ":" << endl;
     if (flag & FLAG_l) {
-        PrintL(file, dirName);
+        PrintL(file, tempName, true);
     }
     else {
-        PrintSingleDir(file, dirName, columns);
+        PrintSingleDir(file, tempName, columns);
     }
     // clear file before each recursion
     file.clear();
