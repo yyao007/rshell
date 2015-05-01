@@ -2831,3 +2831,1826 @@ yyao007@hammer $ exit
 exit
 
 Script done on Fri 01 May 2015 03:18:46 AM PDT
+Script started on Fri 01 May 2015 01:18:27 PM PDT
+~
+yyao007@hammer $ ca[Kd cs100/rshell/
+~/cs100/rshell
+yyao007@hammer $ #now[K[K[KI forgot to inl[Kclude all three flags th[Kogether, bow[K[K[Know let's th[Kest them[K[K[K[Kmix then[Km
+~/cs100/rshell
+yyao007@hammer $ bin/[K[K[K[K#In order to make my scrt[Kipt not tol[Ko long, I will dispa[Klay a fi[Kolder with one dire [Kctory
+~/cs100/rshell
+yyao007@hammer $ ls
+[0m[01;34mbin[0m/  [01;34mcase[0m/  LICENSE  Makefile  README.md  [01;34msrc[0m/  [01;34mtests[0m/
+[m~/cs100/rshell
+yyao007@hammer $ mkdir bin/testcases
+~/cs100/rshell
+yyao007@hammer $ touch test1[K[K[K[K[Kbin/testcases/test1
+~/cs100/rshell
+yyao007@hammer $ touch[K[K[K[K[Ktouch bin/testcases/test1[K2
+~/cs100/rshell
+yyao007@hammer $ #I made a[K[K[K[K[K[K[K[KOK, now I will display files int[K the bin/ folder
+~/cs100/rshell
+yyao007@hammer $ bin/ls bin/ -aRl
+bin/:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 276
+drwx------ 3 yyao007 csmajs   4096 May 01 13:14 [34;1m[48;5;243m.[0m
+drwx------ 7 yyao007 csmajs   4096 May 01 03:19 [34;1m[48;5;243m..[0m
+-rwx------ 1 yyao007 csmajs 243829 May 01 03:19 [32;1mls[0m
+-rwx------ 1 yyao007 csmajs  16722 May 01 03:33 [32;1mrshell[0m
+drwx------ 2 yyao007 csmajs   4096 May 01 13:15 [34;1mtestcases[0m
+
+bin/testcases:
+total 8
+drwx------ 2 yyao007 csmajs 4096 May 01 13:15 [34;1m[48;5;243m.[0m
+drwx------ 3 yyao007 csmajs 4096 May 01 13:14 [34;1m[48;5;243m..[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test1[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test2[0m
+~/cs100/rshell
+yyao007@hammer $ bin/ls bin/ -aRl[K[K[KRla
+bin/:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 276
+drwx------ 3 yyao007 csmajs   4096 May 01 13:14 [34;1m[48;5;243m.[0m
+drwx------ 7 yyao007 csmajs   4096 May 01 03:19 [34;1m[48;5;243m..[0m
+-rwx------ 1 yyao007 csmajs 243829 May 01 03:19 [32;1mls[0m
+-rwx------ 1 yyao007 csmajs  16722 May 01 03:33 [32;1mrshell[0m
+drwx------ 2 yyao007 csmajs   4096 May 01 13:15 [34;1mtestcases[0m
+
+bin/testcases:
+total 8
+drwx------ 2 yyao007 csmajs 4096 May 01 13:15 [34;1m[48;5;243m.[0m
+drwx------ 3 yyao007 csmajs 4096 May 01 13:14 [34;1m[48;5;243m..[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test1[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test2[0m
+~/cs100/rshell
+yyao007@hammer $ bin/ls bin/ -Rla[K[K[KlaR
+bin/:
+total 276
+drwx------ 3 yyao007 csmajs   4096 May 01 13:14 [34;1m[48;5;243m.[0m
+drwx------ 7 yyao007 csmajs   4096 May 01 03:19 [34;1m[48;5;243m..[0m
+-rwx------ 1 yyao007 csmajs 243829 May 01 03:19 [32;1mls[0m
+-rwx------ 1 yyao007 csmajs  16722 May 01 03:33 [32;1mrshell[0m
+drwx------ 2 yyao007 csmajs   4096 May 01 13:15 [34;1mtestcases[0m
+
+bin/testcases:
+total 8
+drwx------ 2 yyao007 csmajs 4096 May 01 13:15 [34;1m[48;5;243m.[0m
+drwx------ 3 yyao007 csmajs 4096 May 01 13:14 [34;1m[48;5;243m..[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test1[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test2[0m
+~/cs100/rshell
+yyao007@hammer $ bin/ls bin/ -laR[K[K[KalR
+bin/:
+total 276
+drwx------ 3 yyao007 csmajs   4096 May 01 13:14 [34;1m[48;5;243m.[0m
+drwx------ 7 yyao007 csmajs   4096 May 01 03:19 [34;1m[48;5;243m..[0m
+-rwx------ 1 yyao007 csmajs 243829 May 01 03:19 [32;1mls[0m
+-rwx------ 1 yyao007 csmajs  16722 May 01 03:33 [32;1mrshell[0m
+drwx------ 2 yyao007 csmajs   4096 May 01 13:15 [34;1mtestcases[0m
+
+bin/testcases:
+total 8
+drwx------ 2 yyao007 csmajs 4096 May 01 13:15 [34;1m[48;5;243m.[0m
+drwx------ 3 yyao007 csmajs 4096 May 01 13:14 [34;1m[48;5;243m..[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test1[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test2[0m
+~/cs100/rshell
+yyao007@hammer $ bin/ls bin/ -alR[K[K[KlRa
+bin/:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 276
+drwx------ 3 yyao007 csmajs   4096 May 01 13:14 [34;1m[48;5;243m.[0m
+drwx------ 7 yyao007 csmajs   4096 May 01 03:19 [34;1m[48;5;243m..[0m
+-rwx------ 1 yyao007 csmajs 243829 May 01 03:19 [32;1mls[0m
+-rwx------ 1 yyao007 csmajs  16722 May 01 03:33 [32;1mrshell[0m
+drwx------ 2 yyao007 csmajs   4096 May 01 13:15 [34;1mtestcases[0m
+
+bin/testcases:
+total 8
+drwx------ 2 yyao007 csmajs 4096 May 01 13:15 [34;1m[48;5;243m.[0m
+drwx------ 3 yyao007 csmajs 4096 May 01 13:14 [34;1m[48;5;243m..[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test1[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test2[0m
+~/cs100/rshell
+yyao007@hammer $ #i[KIt's no matter with the order of the flags
+~/cs100/rshell
+yyao007@hammer $ #It's no matter with the order of the flags[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[27Pbin/ls bin/ -lRa[K[K[Ka -l -R
+bin/:
+total 276
+drwx------ 3 yyao007 csmajs   4096 May 01 13:14 [34;1m[48;5;243m.[0m
+drwx------ 7 yyao007 csmajs   4096 May 01 03:19 [34;1m[48;5;243m..[0m
+-rwx------ 1 yyao007 csmajs 243829 May 01 03:19 [32;1mls[0m
+-rwx------ 1 yyao007 csmajs  16722 May 01 03:33 [32;1mrshell[0m
+drwx------ 2 yyao007 csmajs   4096 May 01 13:15 [34;1mtestcases[0m
+
+bin/testcases:
+total 8
+drwx------ 2 yyao007 csmajs 4096 May 01 13:15 [34;1m[48;5;243m.[0m
+drwx------ 3 yyao007 csmajs 4096 May 01 13:14 [34;1m[48;5;243m..[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test1[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test2[0m
+~/cs100/rshell
+yyao007@hammer $ bin/ls bin/ -a -l -R[K[K[K[KR -l
+bin/:
+total 276
+drwx------ 3 yyao007 csmajs   4096 May 01 13:14 [34;1m[48;5;243m.[0m
+drwx------ 7 yyao007 csmajs   4096 May 01 03:19 [34;1m[48;5;243m..[0m
+-rwx------ 1 yyao007 csmajs 243829 May 01 03:19 [32;1mls[0m
+-rwx------ 1 yyao007 csmajs  16722 May 01 03:33 [32;1mrshell[0m
+drwx------ 2 yyao007 csmajs   4096 May 01 13:15 [34;1mtestcases[0m
+
+bin/testcases:
+total 8
+drwx------ 2 yyao007 csmajs 4096 May 01 13:15 [34;1m[48;5;243m.[0m
+drwx------ 3 yyao007 csmajs 4096 May 01 13:14 [34;1m[48;5;243m..[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test1[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test2[0m
+~/cs100/rshell
+yyao007@hammer $ bin/ls bin/ -a -R -l[K[K[K[K[K[K[KR -a -l
+bin/:
+total 276
+drwx------ 3 yyao007 csmajs   4096 May 01 13:14 [34;1m[48;5;243m.[0m
+drwx------ 7 yyao007 csmajs   4096 May 01 03:19 [34;1m[48;5;243m..[0m
+-rwx------ 1 yyao007 csmajs 243829 May 01 03:19 [32;1mls[0m
+-rwx------ 1 yyao007 csmajs  16722 May 01 03:33 [32;1mrshell[0m
+drwx------ 2 yyao007 csmajs   4096 May 01 13:15 [34;1mtestcases[0m
+
+bin/testcases:
+total 8
+drwx------ 2 yyao007 csmajs 4096 May 01 13:15 [34;1m[48;5;243m.[0m
+drwx------ 3 yyao007 csmajs 4096 May 01 13:14 [34;1m[48;5;243m..[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test1[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test2[0m
+~/cs100/rshell
+yyao007@hammer $ bin/ls bin/ -R -a -l[K[K[K[Kl -a
+bin/:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 276
+drwx------ 3 yyao007 csmajs   4096 May 01 13:14 [34;1m[48;5;243m.[0m
+drwx------ 7 yyao007 csmajs   4096 May 01 03:19 [34;1m[48;5;243m..[0m
+-rwx------ 1 yyao007 csmajs 243829 May 01 03:19 [32;1mls[0m
+-rwx------ 1 yyao007 csmajs  16722 May 01 03:33 [32;1mrshell[0m
+drwx------ 2 yyao007 csmajs   4096 May 01 13:15 [34;1mtestcases[0m
+
+bin/testcases:
+total 8
+drwx------ 2 yyao007 csmajs 4096 May 01 13:15 [34;1m[48;5;243m.[0m
+drwx------ 3 yyao007 csmajs 4096 May 01 13:14 [34;1m[48;5;243m..[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test1[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test2[0m
+~/cs100/rshell
+yyao007@hammer $ bin/ls bin/ -R -l -a[K[K[K[K[K[K[Kl -r[KR -a
+bin/:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 276
+drwx------ 3 yyao007 csmajs   4096 May 01 13:14 [34;1m[48;5;243m.[0m
+drwx------ 7 yyao007 csmajs   4096 May 01 03:19 [34;1m[48;5;243m..[0m
+-rwx------ 1 yyao007 csmajs 243829 May 01 03:19 [32;1mls[0m
+-rwx------ 1 yyao007 csmajs  16722 May 01 03:33 [32;1mrshell[0m
+drwx------ 2 yyao007 csmajs   4096 May 01 13:15 [34;1mtestcases[0m
+
+bin/testcases:
+total 8
+drwx------ 2 yyao007 csmajs 4096 May 01 13:15 [34;1m[48;5;243m.[0m
+drwx------ 3 yyao007 csmajs 4096 May 01 13:14 [34;1m[48;5;243m..[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test1[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test2[0m
+~/cs100/rshell
+yyao007@hammer $ bin/ls bin/ -l -R -a[K[K[K[Ka -R
+bin/:
+total 276
+drwx------ 3 yyao007 csmajs   4096 May 01 13:14 [34;1m[48;5;243m.[0m
+drwx------ 7 yyao007 csmajs   4096 May 01 03:19 [34;1m[48;5;243m..[0m
+-rwx------ 1 yyao007 csmajs 243829 May 01 03:19 [32;1mls[0m
+-rwx------ 1 yyao007 csmajs  16722 May 01 03:33 [32;1mrshell[0m
+drwx------ 2 yyao007 csmajs   4096 May 01 13:15 [34;1mtestcases[0m
+
+bin/testcases:
+total 8
+drwx------ 2 yyao007 csmajs 4096 May 01 13:15 [34;1m[48;5;243m.[0m
+drwx------ 3 yyao007 csmajs 4096 May 01 13:14 [34;1m[48;5;243m..[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test1[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test2[0m
+~/cs100/rshell
+yyao007@hammer $ #works fine. Now let's test flags with many spaces bte[K[Ketween them
+~/cs100/rshell
+yyao007@hammer $ #works fine. Now let's test flags with many spaces between them[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cbin/ls bin/ -l -a -R[K[K[K[K[K[K[K[Ka                 -l                   -R                        
+bin/:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 276
+drwx------ 3 yyao007 csmajs   4096 May 01 13:14 [34;1m[48;5;243m.[0m
+drwx------ 7 yyao007 csmajs   4096 May 01 03:19 [34;1m[48;5;243m..[0m
+-rwx------ 1 yyao007 csmajs 243829 May 01 03:19 [32;1mls[0m
+-rwx------ 1 yyao007 csmajs  16722 May 01 03:33 [32;1mrshell[0m
+drwx------ 2 yyao007 csmajs   4096 May 01 13:15 [34;1mtestcases[0m
+
+bin/testcases:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 8
+drwx------ 2 yyao007 csmajs 4096 May 01 13:15 [34;1m[48;5;243m.[0m
+drwx------ 3 yyao007 csmajs 4096 May 01 13:14 [34;1m[48;5;243m..[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test1[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test2[0m
+~/cs100/rshell
+yyao007@hammer $ bin/ls bin/ -a                 -l                   -R                        [C[1P[4hl[4l[C[1P[4hR[4l[4hR[4l[4hR[4l[4hR[4l[4hR[4l[4hR[4l[4hR[4l[4h [4l[4h [4l[4h [4l[4h [4l[4h [4l[4h [4l[4h [4l[4h [4l[4h [4l[4h [4l[C[C[4ha[4l[4ha[4l[4ha[4l[4ha[4l[4ha[4l[4ha[4l[4ha[4l[4ha[4l
+bin/:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 276
+drwx------ 3 yyao007 csmajs   4096 May 01 13:14 [34;1m[48;5;243m.[0m
+drwx------ 7 yyao007 csmajs   4096 May 01 03:19 [34;1m[48;5;243m..[0m
+-rwx------ 1 yyao007 csmajs 243829 May 01 03:19 [32;1mls[0m
+-rwx------ 1 yyao007 csmajs  16722 May 01 03:33 [32;1mrshell[0m
+drwx------ 2 yyao007 csmajs   4096 May 01 13:15 [34;1mtestcases[0m
+
+bin/testcases:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 8
+drwx------ 2 yyao007 csmajs 4096 May 01 13:15 [34;1m[48;5;243m.[0m
+drwx------ 3 yyao007 csmajs 4096 May 01 13:14 [34;1m[48;5;243m..[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test1[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test2[0m
+~/cs100/rshell
+yyao007@hammer $ #woek[K[Krks fine. Now let's test pass io[Kn two [K[K[K[Kseveral parameters
+~/cs100/rshell
+yyao007@hammer $ #works fine. Now let's test pass in several parameters[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cbin/ls bin/           -aaaaaaaaa                 -RRRRRRR                   -l                        [K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Ka        -R   -l    bin/testcases/
+bin/:
+total 276
+drwx------ 3 yyao007 csmajs   4096 May 01 13:14 [34;1m[48;5;243m.[0m
+drwx------ 7 yyao007 csmajs   4096 May 01 03:19 [34;1m[48;5;243m..[0m
+-rwx------ 1 yyao007 csmajs 243829 May 01 03:19 [32;1mls[0m
+-rwx------ 1 yyao007 csmajs  16722 May 01 03:33 [32;1mrshell[0m
+drwx------ 2 yyao007 csmajs   4096 May 01 13:15 [34;1mtestcases[0m
+
+bin/testcases:
+total 8
+drwx------ 2 yyao007 csmajs 4096 May 01 13:15 [34;1m[48;5;243m.[0m
+drwx------ 3 yyao007 csmajs 4096 May 01 13:14 [34;1m[48;5;243m..[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test1[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test2[0m
+
+bin/testcases/:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 8
+drwx------ 2 yyao007 csmajs 4096 May 01 13:15 [34;1m[48;5;243m.[0m
+drwx------ 3 yyao007 csmajs 4096 May 01 13:14 [34;1m[48;5;243m..[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test1[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test2[0m
+~/cs100/rshell
+yyao007@hammer $ bin/ls bin/           -a        -R   -l    bin/testcases/[C[C[C[C .
+.:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 44
+drwx------ 7 yyao007 csmajs 4096 May 01 03:19 [34;1m[48;5;243m.[0m
+drwx------ 6 yyao007 csmajs 4096 Apr 14 15:38 [34;1m[48;5;243m..[0m
+drwx------ 8 yyao007 csmajs 4096 May 01 03:40 [34;1m[48;5;243m.git[0m
+-rw------- 1 yyao007 csmajs 1471 Apr 19 00:55 LICENSE[0m
+-rw------- 1 yyao007 csmajs  261 May 01 01:00 Makefile[0m
+-rw------- 1 yyao007 csmajs 4772 May 01 01:05 README.md[0m
+drwx------ 3 yyao007 csmajs 4096 May 01 13:14 [34;1mbin[0m
+drwx------ 2 yyao007 csmajs 4096 May 01 03:38 [34;1mcase[0m
+drwx------ 2 yyao007 csmajs 4096 May 01 03:39 [34;1msrc[0m
+drwx------ 2 yyao007 csmajs 4096 May 01 13:09 [34;1mtests[0m
+
+./.git:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 60
+-rw-------   1         csmajs  409 Apr 18 02:24 #COMMIT_EDITMSG#[0m
+drwx------   8 yyao007 csmajs 4096 May 01 03:40 [34;1m[48;5;243m.[0m
+drwx------   7 yyao007 csmajs 4096 May 01 03:19 [34;1m[48;5;243m..[0m
+-rw-------   1 yyao007 csmajs   22 May 01 03:40 COMMIT_EDITMSG[0m
+-rw-------   1 yyao007 csmajs  305 Apr 27 16:21 FETCH_HEAD[0m
+-rw-------   1 yyao007 csmajs   23 May 01 01:00 HEAD[0m
+-rw-------   1 yyao007 csmajs   41 May 01 01:00 ORIG_HEAD[0m
+drwx------   2 yyao007 csmajs 4096 Apr 14 15:38 [34;1mbranches[0m
+-rw-------   1 yyao007 csmajs  262 Apr 14 20:17 config[0m
+-rw-------   1 yyao007 csmajs   73 Apr 14 15:38 description[0m
+drwx------   2 yyao007 csmajs 4096 Apr 14 15:38 [34;1mhooks[0m
+-rw-------   1 yyao007 csmajs 1549 May 01 03:39 index[0m
+drwx------   2 yyao007 csmajs 4096 Apr 14 15:38 [34;1minfo[0m
+drwx------   3 yyao007 csmajs 4096 Apr 14 15:38 [34;1mlogs[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1mobjects[0m
+-rw-------   1 yyao007 csmajs  173 Apr 14 15:38 packed-refs[0m
+drwx------   5 yyao007 csmajs 4096 Apr 14 15:38 [34;1mrefs[0m
+
+./.git/branches:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 8
+drwx------ 2 yyao007 csmajs 4096 Apr 14 15:38 [34;1m[48;5;243m.[0m
+drwx------ 8 yyao007 csmajs 4096 May 01 03:40 [34;1m[48;5;243m..[0m
+
+./.git/hooks:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 48
+drwx------ 2 yyao007        4096 Apr 14 15:38 [34;1m[48;5;243m.[0m
+drwx------ 8 yyao007 csmajs 4096 May 01 03:40 [34;1m[48;5;243m..[0m
+-rwx------ 1 yyao007 csmajs  452 Apr 14 15:38 [32;1mapplypatch-msg.sample[0m
+-rwx------ 1 yyao007 csmajs  896 Apr 14 15:38 [32;1mcommit-msg.sample[0m
+-rwx------ 1 yyao007 csmajs  189 Apr 14 15:38 [32;1mpost-update.sample[0m
+-rwx------ 1 yyao007 csmajs  398 Apr 14 15:38 [32;1mpre-applypatch.sample[0m
+-rwx------ 1         csmajs 1635 Apr 14 15:38 [32;1mpre-commit.sample[0m
+-rwx------ 1 yyao007 csmajs 1348 Apr 14 15:38 [32;1mpre-push.sample[0m
+-rwx------ 1         csmajs 4951 Apr 14 15:38 [32;1mpre-rebase.sample[0m
+-rwx------ 1 yyao007 csmajs 1239 Apr 14 15:38 [32;1mprepare-commit-msg.sample[0m
+-rwx------ 1 yyao007 csmajs 3611 Apr 14 15:38 [32;1mupdate.sample[0m
+
+./.git/info:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 12
+drwx------ 2 yyao007 csmajs 4096 Apr 14 15:38 [34;1m[48;5;243m.[0m
+drwx------ 8 yyao007 csmajs 4096 May 01 03:40 [34;1m[48;5;243m..[0m
+-rw------- 1 yyao007 csmajs  240 Apr 14 15:38 exclude[0m
+
+./.git/logs:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 24
+drwx------ 3 yyao007        4096 Apr 14 15:38 [34;1m[48;5;243m.[0m
+drwx------ 8 yyao007 csmajs 4096 May 01 03:40 [34;1m[48;5;243m..[0m
+-rw------- 1 yyao007 csmajs 8636 May 01 03:40 HEAD[0m
+drwx------ 4 yyao007 csmajs 4096 Apr 14 15:38 [34;1mrefs[0m
+
+./.git/logs/refs:
+total 16
+drwx------ 4 yyao007 csmajs 4096 Apr 14 15:38 [34;1m[48;5;243m.[0m
+drwx------ 3 yyao007 csmajs 4096 Apr 14 15:38 [34;1m[48;5;243m..[0m
+drwx------ 2 yyao007 csmajs 4096 Apr 22 18:59 [34;1mheads[0m
+drwx------ 3 yyao007 csmajs 4096 Apr 14 15:38 [34;1mremotes[0m
+
+./.git/logs/refs/heads:
+total 20
+drwx------ 2 yyao007 csmajs 4096 Apr 22 18:59 [34;1m[48;5;243m.[0m
+drwx------ 4 yyao007 csmajs 4096 Apr 14 15:38 [34;1m[48;5;243m..[0m
+-rw------- 1 yyao007 csmajs 2064 Apr 19 00:52 exec[0m
+-rw------- 1 yyao007 csmajs 3219 May 01 00:56 ls[0m
+-rw------- 1 yyao007 csmajs 2052 May 01 03:40 master[0m
+
+./.git/logs/refs/remotes:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 12
+drwx------ 3 yyao007 csmajs 4096 Apr 14 15:38 [34;1m[48;5;243m.[0m
+drwx------ 4 yyao007 csmajs 4096 Apr 14 15:38 [34;1m[48;5;243m..[0m
+drwx------ 2 yyao007 csmajs 4096 Apr 26 15:27 [34;1morigin[0m
+
+./.git/logs/refs/remotes/origin:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 24
+drwx------ 2 yyao007 csmajs 4096 Apr 26 15:27 [34;1m[48;5;243m.[0m
+drwx------ 3 yyao007 csmajs 4096 Apr 14 15:38 [34;1m[48;5;243m..[0m
+-rw------- 1 yyao007 csmajs  186 Apr 14 15:38 HEAD[0m
+-rw------- 1 yyao007 csmajs 1057 Apr 19 00:56 exec[0m
+-rw------- 1 yyao007 csmajs 2114 May 01 00:56 ls[0m
+-rw------- 1 yyao007 csmajs 1665 May 01 03:40 master[0m
+
+./.git/objects:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 556
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m.[0m
+drwx------   8 yyao007 csmajs 4096 May 01 03:40 [34;1m[48;5;243m..[0m
+drwx------   2 yyao007 csmajs 4096 Apr 29 02:56 [34;1m00[0m
+drwx------   2 yyao007 csmajs 4096 May 01 03:15 [34;1m01[0m
+drwx------   2 yyao007 csmajs 4096 Apr 28 22:35 [34;1m03[0m
+drwx------   2 yyao007 csmajs 4096 Apr 29 02:56 [34;1m05[0m
+drwx------   2 yyao007 csmajs 4096 Apr 28 18:26 [34;1m07[0m
+drwx------   2 yyao007 csmajs 4096 May 01 03:40 [34;1m0c[0m
+drwx------   2 yyao007 csmajs 4096 Apr 30 00:16 [34;1m0d[0m
+drwx------   2 yyao007 csmajs 4096 May 01 00:55 [34;1m10[0m
+drwx------   2 yyao007 csmajs 4096 Apr 26 15:21 [34;1m11[0m
+drwx------   2 yyao007 csmajs 4096 Apr 29 02:55 [34;1m12[0m
+drwx------   2 yyao007 csmajs 4096 May 01 03:42 [34;1m17[0m
+drwx------   2 yyao007 csmajs 4096 May 01 00:43 [34;1m1a[0m
+drwx------   2 yyao007 csmajs 4096 May 01 03:15 [34;1m1b[0m
+drwx------   2 yyao007 csmajs 4096 Apr 18 22:31 [34;1m1d[0m
+drwx------   2 yyao007 csmajs 4096 Apr 17 17:16 [34;1m22[0m
+drwx------   2 yyao007 csmajs 4096 Apr 30 00:33 [34;1m23[0m
+drwx------   2 yyao007 csmajs 4096 Apr 17 00:54 [34;1m25[0m
+drwx------   2 yyao007 csmajs 4096 Apr 27 16:27 [34;1m28[0m
+drwx------   2 yyao007 csmajs 4096 May 01 01:00 [34;1m29[0m
+drwx------   2 yyao007 csmajs 4096 Apr 28 22:33 [34;1m2b[0m
+drwx------   2 yyao007 csmajs 4096 Apr 14 15:38 [34;1m2d[0m
+drwx------   2 yyao007 csmajs 4096 Apr 28 18:28 [34;1m31[0m
+drwx------   2 yyao007 csmajs 4096 May 01 01:05 [34;1m32[0m
+drwx------   2 yyao007 csmajs 4096 Apr 28 22:34 [34;1m34[0m
+drwx------   2 yyao007 csmajs 4096 Apr 19 21:57 [34;1m35[0m
+drwx------   2 yyao007 csmajs 4096 Apr 18 01:13 [34;1m3b[0m
+drwx------   2 yyao007 csmajs 4096 Apr 18 23:09 [34;1m3c[0m
+drwx------   2 yyao007 csmajs 4096 Apr 27 16:21 [34;1m3d[0m
+drwx------   2 yyao007 csmajs 4096 Apr 19 01:15 [34;1m3e[0m
+drwx------   2 yyao007 csmajs 4096 Apr 19 17:24 [34;1m40[0m
+drwx------   2 yyao007        4096 Apr 30 00:33 [34;1m41[0m
+drwx------   2         csmajs 4096 Apr 27 16:16 [34;1m45[0m
+drwx------   2 yyao007 csmajs 4096 Apr 15 19:16 [34;1m48[0m
+drwx------   2 yyao007 csmajs 4096 Apr 26 15:20 [34;1m4b[0m
+drwx------   2 yyao007 csmajs 4096 Apr 14 15:38 [34;1m51[0m
+drwx------   2 yyao007 csmajs 4096 Apr 15 19:13 [34;1m52[0m
+drwx------   2 yyao007 csmajs 4096 Apr 17 00:49 [34;1m53[0m
+drwx------   2 yyao007 csmajs 4096 Apr 19 00:52 [34;1m55[0m
+drwx------   2 yyao007 csmajs 4096 Apr 29 00:24 [34;1m57[0m
+drwx------   2 yyao007 csmajs 4096 Apr 18 02:22 [34;1m58[0m
+drwx------   2 yyao007 csmajs 4096 Apr 29 01:22 [34;1m59[0m
+drwx------   2 yyao007 csmajs 4096 Apr 18 22:31 [34;1m5a[0m
+drwx------   2 yyao007 csmajs 4096 Apr 15 19:13 [34;1m5b[0m
+drwx------   2 yyao007 csmajs 4096 Apr 30 00:32 [34;1m5d[0m
+drwx------   2 yyao007 csmajs 4096 Apr 30 00:16 [34;1m5e[0m
+drwx------   2 yyao007 csmajs 4096 Apr 15 19:16 [34;1m5f[0m
+drwx------   2 yyao007 csmajs 4096 Apr 29 01:22 [34;1m60[0m
+drwx------   2 yyao007 csmajs 4096 May 01 00:56 [34;1m61[0m
+drwx------   2 yyao007 csmajs 4096 Apr 18 02:25 [34;1m63[0m
+drwx------   2 yyao007 csmajs 4096 May 01 00:55 [34;1m66[0m
+drwx------   2 yyao007 csmajs 4096 May 01 00:56 [34;1m6b[0m
+drwx------   2 yyao007 csmajs 4096 Apr 14 15:38 [34;1m6c[0m
+drwx------   2 yyao007 csmajs 4096 May 01 00:50 [34;1m6e[0m
+drwx------   2 yyao007 csmajs 4096 Apr 27 16:21 [34;1m70[0m
+drwx------   2         csmajs 4096 Apr 28 17:28 [34;1m71[0m
+drwx------   2 yyao007 csmajs 4096 Apr 28 17:28 [34;1m72[0m
+drwx------   2 yyao007 csmajs 4096 Apr 27 16:21 [34;1m73[0m
+drwx------   2 yyao007 csmajs 4096 Apr 27 16:16 [34;1m76[0m
+drwx------   2 yyao007 csmajs 4096 Apr 14 20:18 [34;1m79[0m
+drwx------   2 yyao007 csmajs 4096 May 01 03:34 [34;1m7c[0m
+drwx------   2 yyao007 csmajs 4096 Apr 27 00:33 [34;1m7d[0m
+drwx------   2 yyao007 csmajs 4096 May 01 03:34 [34;1m7e[0m
+drwx------   2 yyao007 csmajs 4096 Apr 28 17:28 [34;1m7f[0m
+drwx------   2 yyao007 csmajs 4096 Apr 28 18:28 [34;1m81[0m
+drwx------   2 yyao007 csmajs 4096 Apr 21 16:56 [34;1m82[0m
+drwx------   2 yyao007 csmajs 4096 Apr 18 01:13 [34;1m84[0m
+drwx------   2 yyao007 csmajs 4096 Apr 18 22:30 [34;1m85[0m
+drwx------   2 yyao007 csmajs 4096 May 01 01:00 [34;1m86[0m
+drwx------   2 yyao007 csmajs 4096 Apr 30 00:17 [34;1m87[0m
+drwx------   2 yyao007 csmajs 4096 Apr 28 18:26 [34;1m89[0m
+drwx------   2 yyao007 csmajs 4096 Apr 17 17:17 [34;1m8a[0m
+drwx------   2 yyao007 csmajs 4096 Apr 18 22:30 [34;1m8c[0m
+drwx------   2 yyao007 csmajs 4096 Apr 30 00:17 [34;1m8d[0m
+drwx------   2 yyao007 csmajs 4096 Apr 28 22:34 [34;1m8e[0m
+drwx------   2 yyao007 csmajs 4096 Apr 28 18:28 [34;1m93[0m
+drwx------   2 yyao007 csmajs 4096 May 01 03:40 [34;1m94[0m
+drwx------   2 yyao007 csmajs 4096 Apr 26 15:21 [34;1m96[0m
+drwx------   2 yyao007 csmajs 4096 Apr 17 00:49 [34;1m97[0m
+drwx------   2 yyao007 csmajs 4096 May 01 03:21 [34;1m99[0m
+drwx------   2 yyao007 csmajs 4096 May 01 00:43 [34;1m9d[0m
+drwx------   2 yyao007 csmajs 4096 May 01 01:02 [34;1ma0[0m
+drwx------   2 yyao007 csmajs 4096 Apr 30 00:17 [34;1ma1[0m
+drwx------   2 yyao007 csmajs 4096 May 01 01:05 [34;1ma2[0m
+drwx------   2 yyao007 csmajs 4096 Apr 21 17:00 [34;1ma4[0m
+drwx------   2 yyao007 csmajs 4096 Apr 18 22:29 [34;1ma6[0m
+drwx------   2 yyao007 csmajs 4096 Apr 17 00:49 [34;1ma9[0m
+drwx------   2 yyao007 csmajs 4096 Apr 29 01:21 [34;1maa[0m
+drwx------   2 yyao007 csmajs 4096 Apr 19 17:28 [34;1mab[0m
+drwx------   2 yyao007 csmajs 4096 Apr 27 16:21 [34;1mac[0m
+drwx------   2 yyao007 csmajs 4096 Apr 19 17:25 [34;1mae[0m
+drwx------   2 yyao007 csmajs 4096 May 01 00:43 [34;1maf[0m
+drwx------   2 yyao007 csmajs 4096 May 01 00:42 [34;1mb1[0m
+drwx------   2 yyao007 csmajs 4096 Apr 28 22:35 [34;1mb5[0m
+drwx------   2 yyao007 csmajs 4096 May 01 03:15 [34;1mb7[0m
+drwx------   2 yyao007 csmajs 4096 Apr 21 17:01 [34;1mb8[0m
+drwx------   2 yyao007 csmajs 4096 Apr 17 00:49 [34;1mba[0m
+drwx------   2         csmajs 4096 Apr 18 02:23 [34;1mbe[0m
+drwx------   2 yyao007 csmajs 4096 Apr 30 00:33 [34;1mc0[0m
+drwx------   2 yyao007 csmajs 4096 Apr 19 21:57 [34;1mc2[0m
+drwx------   2 yyao007 csmajs 4096 Apr 19 00:52 [34;1mc4[0m
+drwx------   2 yyao007 csmajs 4096 Apr 26 15:21 [34;1mc6[0m
+drwx------   2 yyao007 csmajs 4096 Apr 14 15:38 [34;1mc7[0m
+drwx------   2 yyao007 csmajs 4096 Apr 19 17:25 [34;1mc8[0m
+drwx------   2 yyao007 csmajs 4096 Apr 28 22:33 [34;1mc9[0m
+drwx------   2 yyao007 csmajs 4096 Apr 29 01:22 [34;1mca[0m
+drwx------   2 yyao007 csmajs 4096 Apr 27 16:21 [34;1mcb[0m
+drwx------   2 yyao007 csmajs 4096 Apr 21 16:56 [34;1mcc[0m
+drwx------   2 yyao007 csmajs 4096 Apr 29 00:23 [34;1mce[0m
+drwx------   2 yyao007 csmajs 4096 Apr 18 02:23 [34;1md1[0m
+drwx------   2 yyao007 csmajs 4096 Apr 19 21:59 [34;1md2[0m
+drwx------   2 yyao007 csmajs 4096 May 01 00:43 [34;1md3[0m
+drwx------   2 yyao007 csmajs 4096 May 01 03:40 [34;1md5[0m
+drwx------   2 yyao007 csmajs 4096 Apr 19 21:56 [34;1md9[0m
+drwx------   2 yyao007 csmajs 4096 Apr 29 02:56 [34;1mdb[0m
+drwx------   2 yyao007 csmajs 4096 Apr 27 16:21 [34;1mdd[0m
+drwx------   2 yyao007 csmajs 4096 May 01 00:51 [34;1mdf[0m
+drwx------   2 yyao007 csmajs 4096 May 01 00:55 [34;1me0[0m
+drwx------   2 yyao007 csmajs 4096 May 01 03:15 [34;1me2[0m
+drwx------   2 yyao007 csmajs 4096 Apr 18 23:09 [34;1me3[0m
+drwx------   2 yyao007 csmajs 4096 May 01 03:34 [34;1me6[0m
+drwx------   2 yyao007 csmajs 4096 Apr 14 20:16 [34;1me7[0m
+drwx------   2 yyao007 csmajs 4096 Apr 29 00:24 [34;1mec[0m
+drwx------   2 yyao007 csmajs 4096 Apr 26 15:21 [34;1mef[0m
+drwx------   2 yyao007 csmajs 4096 Apr 17 00:49 [34;1mf0[0m
+drwx------   2 yyao007 csmajs 4096 May 01 00:56 [34;1mf1[0m
+drwx------   2 yyao007 csmajs 4096 Apr 27 16:27 [34;1mf3[0m
+drwx------   2 yyao007 csmajs 4096 May 01 03:40 [34;1mf8[0m
+drwx------   2 yyao007 csmajs 4096 Apr 26 15:21 [34;1mf9[0m
+drwx------   2 yyao007 csmajs 4096 Apr 27 00:33 [34;1mfa[0m
+drwx------   2 yyao007 csmajs 4096 Apr 28 17:28 [34;1mfb[0m
+drwx------   2 yyao007 csmajs 4096 Apr 19 00:52 [34;1mfc[0m
+drwx------   2 yyao007 csmajs 4096 Apr 19 17:25 [34;1mfd[0m
+drwx------   2 yyao007 csmajs 4096 Apr 28 22:35 [34;1mfe[0m
+drwx------   2 yyao007 csmajs 4096 May 01 03:34 [34;1mff[0m
+drwx------   2 yyao007 csmajs 4096 Apr 14 15:38 [34;1minfo[0m
+drwx------   2 yyao007 csmajs 4096 Apr 14 15:38 [34;1mpack[0m
+
+./.git/objects/00:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 24
+drwx------   2 yyao007 csmajs 4096 Apr 29 02:56 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1         csmajs 6091 Apr 19 17:24 896dbaa76814855cd4704f90c8e721945c9b07[0m
+-r--------   1 yyao007 csmajs  205 Apr 29 02:56 95369eee19d2187b8b30b3481938d345e33bef[0m
+
+./.git/objects/01:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 May 01 03:15 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs   83 May 01 03:15 1b5f483d6d3e96d599e0f0d90d74eaa9f48bba[0m
+
+./.git/objects/03:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 24
+drwx------   2 yyao007 csmajs 4096 Apr 28 22:35 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  115 Apr 18 02:22 1fbfe80a0fb7494adffc3310615dfbd423a5b0[0m
+-r--------   1 yyao007 csmajs  302 Apr 28 22:35 38d34a402ebf5cab139dac7c0d0f2055c1ee3e[0m
+-r--------   1 yyao007 csmajs   55 Apr 15 19:16 a67c66f332240e722901c1fe05b2e21c202608[0m
+-r--------   1 yyao007 csmajs 1982 Apr 19 00:51 c7db0c472fbe44fe1bbb194d995f1f0e5041ad[0m
+
+./.git/objects/05:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 29 02:56 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  171 Apr 29 02:56 c3be0f5a4a0cf0ed68c9fd260918d40ca1710d[0m
+
+./.git/objects/07:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 20
+drwx------   2 yyao007 csmajs 4096 Apr 28 18:26 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  227 Apr 28 18:26 aeb06ca0ccd1576b1edb33cd6a1164baf3d7a5[0m
+-r--------   1 yyao007 csmajs  172 Apr 27 00:33 d85de8f36cdce29293c0b65dd681f155c0ab95[0m
+
+./.git/objects/0c:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 24
+drwx------   2 yyao007 csmajs 4096 May 01 03:40 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs 2231 Apr 28 17:28 64a663797004588cb021806ed123024ebbebc1[0m
+-r--------   1 yyao007 csmajs  257 May 01 03:40 8b3fd4fc612a563c9da1bd83066f1f2170c84f[0m
+-r--------   1 yyao007 csmajs  145 Apr 27 16:15 a2f6b8c7d66ae8f992291c3765a9b4215997e4[0m
+
+./.git/objects/0d:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 30 00:16 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs 3282 Apr 30 00:16 211ad53f90c04a0d817c3f948600478b3dd66f[0m
+
+./.git/objects/10:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 May 01 00:55 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007        8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  170 May 01 00:55 fd47e96a671879ddffb5b94452cdb382d0e706[0m
+
+./.git/objects/11:
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 26 15:21 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  173 Apr 26 15:21 da3e549a0730234b60b9810bf4545bbc93beb2[0m
+
+./.git/objects/12:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 29 02:55 [34;1m[48;5;243m.[0m
+drwx------ 138         csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs 3178 Apr 29 02:55 825514fa36ee8629a0356de1d22ba6eab2b968[0m
+
+./.git/objects/17:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 20
+drwx------   2 yyao007 csmajs 4096 May 01 03:42 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  142 May 01 03:42 68775d480ced2a6853e6260076df1fe49ffa53[0m
+-r--------   1 yyao007 csmajs  205 Apr 28 22:35 761680c8ac16a6ce56ee3c6c07b7f38a2c3cf6[0m
+
+./.git/objects/1a:
+total 16
+drwx------   2 yyao007 csmajs 4096 May 01 00:43 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs 2100 May 01 00:43 34d53b0a084b6f81f8ab438c122afbb748b1fd[0m
+
+./.git/objects/1b:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 20
+drwx------   2 yyao007 csmajs 4096 May 01 03:15 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007        8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  205 May 01 00:51 ac20f3983bf97348ee1294835200cf95c71be7[0m
+-r--------   1 yyao007 csmajs  205 May 01 03:15 f334762f99a2639e5685f26f811ccfecad700e[0m
+
+./.git/objects/1d:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 20
+drwx------   2 yyao007 csmajs 4096 Apr 18 22:31 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  178 Apr 18 02:22 db3ce389380de7902b82efa24eee7311e598b5[0m
+-r--------   1 yyao007 csmajs  147 Apr 18 22:31 e56be51be23a1718c055294bee253c732fcf36[0m
+
+./.git/objects/22:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 17 17:16 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs 2018 Apr 17 17:16 987e25e89abdd30b2e16decc294caa8e5f8f62[0m
+
+./.git/objects/23:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 28
+drwx------   2 yyao007 csmajs 4096 Apr 30 00:33 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs 3166 Apr 19 17:24 4d393cf03bde95f2b662c447e36ad337cc7ad9[0m
+-r--------   1 yyao007 csmajs  146 Apr 19 17:25 8c6398e565cb8a4bc765dcfbb55d2fd02fa6f9[0m
+-r--------   1 yyao007         169 Apr 17 00:54 a1678d68fa6f310afe56cb60278e44b999120e[0m
+-r--------   1 yyao007 csmajs  204 Apr 30 00:33 c9506bd3404d780d91c2db2c6a7c81bb9b6b28[0m
+
+./.git/objects/25:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 17 00:54 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  145 Apr 17 00:54 9bb8dcbb5b5006859b96f5ae1ca67c8907d9fd[0m
+
+./.git/objects/28:
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 27 16:27 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  177 Apr 27 16:27 7b784e543c470f394aaae392e26b0154580b83[0m
+
+./.git/objects/29:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 20
+drwx------   2 yyao007 csmajs 4096 May 01 01:00 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  141 May 01 01:00 72378fc23588fbf686177d3d235bdd377bfdd0[0m
+-r--------   1 yyao007 csmajs  179 Apr 21 17:01 e313af558d1f3bc6d81f04850a41b960bde2ec[0m
+
+./.git/objects/2b:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 28 22:33 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  140 Apr 28 22:33 8df12a840eb1aba728a9747095e82b0920ef03[0m
+
+./.git/objects/2d:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 14 15:38 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs   85 Apr 14 15:38 c1ed6b35c92d52bbdd5d2d5c22bd4f8ef597fb[0m
+
+./.git/objects/31:
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 28 18:28 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  175 Apr 28 18:28 2716dffd48972ca917f0aa212802055bfff44f[0m
+
+./.git/objects/32:
+total 16
+drwx------   2 yyao007 csmajs 4096 May 01 01:05 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  172 May 01 01:05 a4c6d3fc6efb035b7980afcfe5351c3e975100[0m
+
+./.git/objects/34:
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 28 22:34 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs   82 Apr 28 22:34 58d512972b7cf09cadf173e6ecb2171ae4db5f[0m
+
+./.git/objects/35:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 19 21:57 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  177 Apr 19 21:57 24c45533ec512772e2ab0b36bce0324fc80faa[0m
+
+./.git/objects/3b:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 18 01:13 [34;1m[48;5;243m.[0m
+drwx------ 138         csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  115 Apr 18 01:13 b44813a3b945ed9f115e8bcfae15a27d950f9a[0m
+
+./.git/objects/3c:
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 18 23:09 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  172 Apr 18 23:09 e32652e7c9018c1655523ca02f98709901d7f2[0m
+
+./.git/objects/3d:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 27 16:21 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  227 Apr 27 16:21 9356c5b2d45d3f1b09c9f42bb174e5c352c1e1[0m
+
+./.git/objects/3e:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 19 01:15 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  141 Apr 19 01:15 f03b283ffa54f7263499e6fe04ee279514a15b[0m
+
+./.git/objects/40:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 20
+drwx------   2 yyao007 csmajs 4096 Apr 19 17:24 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  146 Apr 18 02:22 3ffa4c39801e5e7b5f146cd45b4079f12127a1[0m
+-r--------   1 yyao007 csmajs 1201 Apr 19 17:24 4f154c4be08ef3846e46a0f708118cc6f7f9ba[0m
+
+./.git/objects/41:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 30 00:33 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs   82 Apr 30 00:33 715e7e09a29673c0ee98e2055bf48673ded915[0m
+
+./.git/objects/45:
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 27 16:16 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  168 Apr 27 16:16 66ff155f00d14a3497311599ef67aea7770c73[0m
+
+./.git/objects/48:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 15 19:16 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  115 Apr 15 19:16 75c41224ed10bdf7dca26b1fb4cfe1c55d314f[0m
+
+./.git/objects/4b:
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 26 15:20 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs 1704 Apr 26 15:20 91aa01589d2c06c3e52b01627dd0dfeb630c83[0m
+
+./.git/objects/51:
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 14 15:38 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  130 Apr 14 15:38 5c1fa26f9c818ad014825c52af9a92cfd287fa[0m
+
+./.git/objects/52:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 15 19:13 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  125 Apr 15 19:13 15b604cd1f3edc845b66c5d29f3cfa9490f4ab[0m
+-r--------   1 yyao007 csmajs   54 Apr 14 15:38 9a77f3004af1a759f9686a196e1259e636babd[0m
+
+./.git/objects/53:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2         csmajs 4096 Apr 17 00:49 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs 2015 Apr 17 00:49 1220771bf2931cf5cef57c581eada0d46ee355[0m
+
+./.git/objects/55:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 19 00:52 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  246 Apr 19 00:52 7594fa38d95609b0f06b69aa341edd840cea9d[0m
+
+./.git/objects/57:
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 29 00:24 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs   82 Apr 29 00:24 3875ee736124d7c0f0ef01753362f273f07b9c[0m
+
+./.git/objects/58:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 18 02:22 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs 2758 Apr 18 02:22 d7891bfad899c6550ebdcada784ac2e29ec29f[0m
+
+./.git/objects/59:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 29 01:22 [34;1m[48;5;243m.[0m
+drwx------ 138                8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs   81 Apr 29 01:22 b7e3e081fa5223877582f87f2788de005a719f[0m
+
+./.git/objects/5a:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 28
+drwx------   2 yyao007 csmajs 4096 Apr 18 22:31 [34;1m[48;5;243m.[0m
+drwx------ 138         csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  806 Apr 14 15:38 012cfb101392a2940ba5790c302ba15b0124cc[0m
+-r--------   1 yyao007 csmajs  175 Apr 18 22:31 85222fafb0ceeb39333c3f7b7c603d8583fb9e[0m
+-r--------   1 yyao007 csmajs 5029 Apr 17 00:49 d5c49e46cd21e1225f6169a45b90a25e79334b[0m
+
+./.git/objects/5b:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 15 19:13 [34;1m[48;5;243m.[0m
+drwx------ 138         csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs 1250 Apr 15 19:13 2da2ac6b97313865c20e837d11dc1464aee251[0m
+
+./.git/objects/5d:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 20
+drwx------   2 yyao007 csmajs 4096 Apr 30 00:32 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007        3292 Apr 30 00:32 b7b29a673e3c26ba0680b054f4fe04557745bd[0m
+-r--------   1 yyao007 csmajs  177 Apr 27 00:33 cb95e412ca8de36d863572d5f2529923dc500b[0m
+
+./.git/objects/5e:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 28
+drwx------   2 yyao007 csmajs  4096 Apr 30 00:16 [34;1m[48;5;243m.[0m
+drwx------ 138         csmajs  8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs   140 Apr 30 00:16 66103040fb523af22652bdb4938af0bc2e1b29[0m
+-r--------   1 yyao007 csmajs 11633 Apr 28 18:26 ec6cbb5beeb986ffecb4e89344dd26f3b368f4[0m
+
+./.git/objects/5f:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 15 19:16 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  183 Apr 15 19:16 e7c582f8396acbb963564a9a10de452803af0a[0m
+
+./.git/objects/60:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 29 01:22 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  204 Apr 29 01:22 6bd1c66470b50492e62a2af78e172a2a4579c6[0m
+
+./.git/objects/61:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 20
+drwx------   2 yyao007 csmajs 4096 May 01 00:56 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  170 Apr 29 00:24 098914c3b5110b26ec915cd9c5e39c1fd5d93c[0m
+-r--------   1 yyao007 csmajs  205 May 01 00:56 13427ca8bfaf9e99566f787fa87450780d4e72[0m
+
+./.git/objects/63:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 18 02:25 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  166 Apr 18 02:25 a2d9106a78fbba53a3b86be0a04a36d82c5c1d[0m
+
+./.git/objects/66:
+total 16
+drwx------   2 yyao007 csmajs 4096 May 01 00:55 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  205 May 01 00:55 f5b0fad16741aadaaf219d954d6279437a47e0[0m
+
+./.git/objects/6b:
+total 16
+drwx------   2 yyao007 csmajs 4096 May 01 00:56 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  170 May 01 00:56 35a8a25f56c6070d14b047ff321961422e4de1[0m
+
+./.git/objects/6c:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 14 15:38 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  176 Apr 14 15:38 9f40edff0d4049be93d07963e6598adbd97fea[0m
+
+./.git/objects/6e:
+total 16
+drwx------   2 yyao007 csmajs 4096 May 01 00:50 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs 2217 May 01 00:50 17fbef3daf91982f276dfe34cf5dd8ee9b7a38[0m
+
+./.git/objects/70:
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 27 16:21 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  203 Apr 27 16:21 62f017a2a555512dc67cc8cd0d8ee080b716d6[0m
+
+./.git/objects/71:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 20
+drwx------   2                4096 Apr 28 17:28 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  185 Apr 28 17:28 5cf4976266b7f09eea0fe2a43854077fa63d46[0m
+-r--------   1 yyao007 csmajs 2727 Apr 18 01:12 f525b2c5963b39664c31f329436151f0af5dca[0m
+
+./.git/objects/72:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 28 17:28 [34;1m[48;5;243m.[0m
+drwx------ 138         csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  153 Apr 28 17:28 179d9d4d9a5573d5a67a5cc42d72c0c764e0d4[0m
+
+./.git/objects/73:
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 27 16:21 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  600 Apr 27 16:21 7e4b7a2f96e7afd4fc3df24aac9a7af07ba7f6[0m
+
+./.git/objects/76:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 20
+drwx------   2 yyao007 csmajs 4096 Apr 27 16:16 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  389 Apr 14 20:16 015cdf7ccbf299050d15561c9d790efa5c7c6a[0m
+-r--------   1 yyao007 csmajs  177 Apr 27 16:16 4094f689eda62b0c00a3f94a03532a073b60a4[0m
+
+./.git/objects/79:
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 14 20:18 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  116 Apr 14 20:18 a744da633fbd5e4c77841b06ac462898510ac2[0m
+
+./.git/objects/7c:
+total 16
+drwx------   2 yyao007 csmajs 4096 May 01 03:34 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs 3272 May 01 03:34 b2dea2c3067e49109efab1ddf2de4c6504e62c[0m
+
+./.git/objects/7d:
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 27 00:33 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs 1971 Apr 27 00:33 642e71e0615820a2cc4990e28627b07a907919[0m
+
+./.git/objects/7e:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 20
+drwx------   2 yyao007 csmajs 4096 May 01 03:34 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  139 Apr 27 16:26 6072cf9841030c4e8590fc7b41e26349a1c85c[0m
+-r--------   1 yyao007 csmajs  205 May 01 03:34 878b5f1b2e31866531fe947a87d91bea8cf301[0m
+
+./.git/objects/7f:
+total 20
+drwx------   2 yyao007 csmajs 4096 Apr 28 17:28 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  949 Apr 15 19:13 ddf7c33fff96b7dfcf4b6ab77c032823695aeb[0m
+-r--------   1 yyao007 csmajs  172 Apr 28 17:28 e2d8205dcfb541ab18dcdb8585e1b7cd23d6e9[0m
+
+./.git/objects/81:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 28 18:28 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  205 Apr 28 18:28 d06b0d6a4f92f4a84b002f0296dcda54346503[0m
+
+./.git/objects/82:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 20
+drwx------   2 yyao007 csmajs 4096 Apr 21 16:56 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  175 Apr 14 20:18 0c776e2c8dbdfccd023f5bd8d9e8f3cc0c3cd3[0m
+-r--------   1         csmajs  146 Apr 21 16:56 98d94edac1502a733924dd5b80f9331eef3a10[0m
+
+./.git/objects/84:
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 18 01:13 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  145 Apr 18 01:13 2c7e4e52fdfdf30dd8cd6d78e98fe6f9ccab56[0m
+
+./.git/objects/85:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 18 22:30 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  399 Apr 18 22:30 0d611e58a89263d4e1ed4c493d5b95b7cb0e73[0m
+-r--------   1 yyao007 csmajs   54 Apr 14 20:18 ad07d8961dc398f5392d8eb634cdbd2cc1cc25[0m
+
+./.git/objects/86:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 May 01 01:00 [34;1m[48;5;243m.[0m
+drwx------ 138         csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  205 May 01 01:00 324fc94eae7ebae16c0026d6d20870f8a1c8ab[0m
+
+./.git/objects/87:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 30 00:17 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs   81 Apr 30 00:17 16ab8ed25767b1125259bd142e074617a39a87[0m
+
+./.git/objects/89:
+total 20
+drwx------   2 yyao007 csmajs 4096 Apr 28 18:26 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  719 Apr 28 18:26 9d3ea40b091e6211b3b43ac2ed5bb5fee53c1f[0m
+-r--------   1 yyao007 csmajs  108 Apr 26 15:21 ee92692de6fc066189cad58395c2e91710ff21[0m
+
+./.git/objects/8a:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 17 17:17 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007        8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  176 Apr 17 17:17 e5d29fd63b9813007f6bdfd21f4e8ad7babea4[0m
+
+./.git/objects/8c:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 18 22:30 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  176 Apr 18 22:30 2757333600680be178cf57ab2c690a2b6eb4f7[0m
+
+./.git/objects/8d:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 30 00:17 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  204 Apr 30 00:17 fb83e2356ce1e29976e8316d90bd906258eaf3[0m
+
+./.git/objects/8e:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 20
+drwx------   2 yyao007 csmajs 4096 Apr 28 22:34 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  116 Apr 17 00:54 23a15d3b94e4ee2e37efbe6441b34101fa8fcd[0m
+-r--------   1 yyao007 csmajs  174 Apr 28 22:34 7191f7a7af7eb6d1de3e91387d5faa1248cb0f[0m
+
+./.git/objects/93:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 20
+drwx------   2 yyao007 csmajs 4096 Apr 28 18:28 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  667 Apr 18 23:08 5053d4d3453b66cf181473ccaea166093f1094[0m
+-r--------   1 yyao007 csmajs   81 Apr 28 18:28 e0c071bee2859e19732cb33c54b0aba37982d9[0m
+
+./.git/objects/94:
+total 20
+drwx------   2 yyao007 csmajs 4096 May 01 03:40 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  116 May 01 03:40 1870eaf22e6fcd6c89da24872cee418be7d599[0m
+-r--------   1 yyao007 csmajs 1070 Apr 28 18:26 bcf158674cb611545f2b3c6a86b29b6a46bc03[0m
+
+./.git/objects/96:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 26 15:21 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  176 Apr 26 15:21 647643b7b6e2d717b51672e6684b4748faa568[0m
+
+./.git/objects/97:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 17 00:49 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1         csmajs 1151 Apr 17 00:49 cc459c32e2487721921c0cb0f10e2b85398a92[0m
+
+./.git/objects/99:
+total 20
+drwx------   2 yyao007 csmajs 4096 May 01 03:21 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs 2220 May 01 01:05 089c7486b7f769f431dfaf7ad5e823e801e798[0m
+-r--------   1 yyao007 csmajs  151 May 01 03:21 fc38f978c85fece480b87f95a1031bd3873200[0m
+
+./.git/objects/9d:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 May 01 00:43 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  150 May 01 00:43 43df71fc307b2c07233e25f58b6127942179a7[0m
+
+./.git/objects/a0:
+total 20
+drwx------   2 yyao007 csmajs 4096 May 01 01:02 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  192 May 01 01:02 9fb7f5ba8b2450a861a0d78d43f3b985631d5d[0m
+-r--------   1 yyao007 csmajs  171 Apr 28 18:28 f366b7bd38527ff1a2283383919b44bd0591b5[0m
+
+./.git/objects/a1:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 30 00:17 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  166 Apr 30 00:17 a9749bddc7c1ce2b86c24228363ac3abce882f[0m
+
+./.git/objects/a2:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 20
+drwx------   2 yyao007 csmajs 4096 May 01 01:05 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs   85 Apr 14 15:38 772c65ed5ec8255ab4131fd82a329565cb2ce2[0m
+-r--------   1 yyao007 csmajs  205 May 01 01:05 d67306a4671cc1f813bbb6d8de733b4637922d[0m
+
+./.git/objects/a4:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 20
+drwx------   2 yyao007 csmajs 4096 Apr 21 17:00 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs 1214 Apr 21 17:00 6d708f1a769bcd305a76ef6e824272498e83f7[0m
+-r--------   1 yyao007 csmajs  184 Apr 19 00:52 c78d21e2a8d2a126227d7fc54d9fe382652f46[0m
+
+./.git/objects/a6:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 18 22:29 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs 3097 Apr 18 22:29 d07ad081d7cbe4b8c89e3a2b04dda57a5d9ceb[0m
+
+./.git/objects/a9:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 17 00:49 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  176 Apr 17 00:49 0f818bce0ab8817f2ad2f78b449d4a980fa6ef[0m
+
+./.git/objects/aa:
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 29 01:21 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs 3170 Apr 29 01:21 fa0c97338f3279b07a0a4e6eef1cc7a2549100[0m
+
+./.git/objects/ab:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 19 17:28 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs   56 Apr 19 00:52 3424a38670009dd4bb6f8b4afda4622d1afe24[0m
+-r--------   1 yyao007 csmajs  138 Apr 19 17:28 ca1e14912b9ba5675ef1cb8e76ff66bd1f1ad4[0m
+
+./.git/objects/ac:
+total 20
+drwx------   2 yyao007 csmajs 4096 Apr 27 16:21 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs 2065 Apr 27 16:15 0a00163b958a20e98291510fdf7f09e3d7137d[0m
+-r--------   1 yyao007 csmajs  175 Apr 27 16:21 d7c2aff1ba4863127569d1466fe598ca4b283a[0m
+
+./.git/objects/ae:
+total 20
+drwx------   2 yyao007 csmajs 4096 Apr 19 17:25 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  166 Apr 14 15:38 54c57cc7fb45397f04458ed22cf666a1df3f85[0m
+-r--------   1 yyao007 csmajs  177 Apr 19 17:25 d17d47532a1f8cf150fb73dbce56bc6afc6f72[0m
+
+./.git/objects/af:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 20
+drwx------   2 yyao007 csmajs 4096 May 01 00:43 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  204 May 01 00:43 0afb3f639f90f318b00e296a73981a4a51b8fb[0m
+-r--------   1 yyao007 csmajs  184 Apr 17 17:17 60ab29ea8d30031b7ac62e147ea350542b8cb6[0m
+
+./.git/objects/b1:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 May 01 00:42 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs 3598 May 01 00:42 1968aa90937eb9dcb9a0d05b6fa1d37776ae20[0m
+
+./.git/objects/b5:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 28 22:35 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  167 Apr 28 22:35 4d3ddb04f84c3f0c20116b53c961b82fc58c87[0m
+
+./.git/objects/b7:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 40
+drwx------   2         csmajs  4096 May 01 03:15 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs  8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs 25077 May 01 03:15 24841c51707d71bd1516cb2eff10cf85d1cf84[0m
+
+./.git/objects/b8:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 21 17:01 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  176 Apr 21 17:01 3dab7540cc66c9c5243208969c9ebe98569047[0m
+
+./.git/objects/ba:
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 17 00:49 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs 1629 Apr 17 00:49 09c73d7b51577ea82d79ee3a688af628c9ab06[0m
+
+./.git/objects/be:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 18 02:23 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  101 Apr 18 02:23 8317977ca3c1d79c473ab3ddd6000b2e6a371e[0m
+
+./.git/objects/c0:
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 30 00:33 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  176 Apr 30 00:33 569981bdb0db0247a96cbf51daeed2553ba966[0m
+
+./.git/objects/c2:
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 19 21:57 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  171 Apr 19 21:57 d22d33d72bb6ef7cd60350e3a352b9327c53b1[0m
+
+./.git/objects/c4:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 19 00:52 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  146 Apr 19 00:52 2415ea5f70fde9117b0c98fd70ecb3d4cf697b[0m
+
+./.git/objects/c6:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 26 15:21 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  176 Apr 26 15:21 765ea89abb2110165b8b9dd813868fdf12ef08[0m
+
+./.git/objects/c7:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 12
+drwx------   2 yyao007 csmajs 4096 Apr 14 15:38 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs   24 Apr 14 15:38 3b9803d4e5585a8cb370e25ecc156503a27ca8[0m
+
+./.git/objects/c8:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 19 17:25 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  192 Apr 19 17:25 f9fdbd7ce4dbd13e0bb2ea9a4e120ae05ee224[0m
+
+./.git/objects/c9:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 24
+drwx------   2 yyao007 csmajs 4096 Apr 28 22:33 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007        8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs 2698 Apr 28 22:33 2a2fff25e1faea1b187c37f0a1aa2db1b71e8f[0m
+-r--------   1 yyao007 csmajs  172 Apr 27 16:16 9fceddc29359ea9bf3c02562fa5ac385dadc89[0m
+-r--------   1 yyao007 csmajs  185 Apr 18 01:13 ac71ca7c430f6a8cde4edff1db0bfaf8ccfee9[0m
+
+./.git/objects/ca:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 29 01:22 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  168 Apr 29 01:22 51179dd56ed046e3b677d0ebb21a6d45e39f82[0m
+
+./.git/objects/cb:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 27 16:21 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  176 Apr 27 16:21 b61ac80db7c7072c1dd6b8c40116f02c9994a4[0m
+
+./.git/objects/cc:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 21 16:56 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs 3243 Apr 21 16:56 ce5a8b70278d03548bc5c131b11894e26c9523[0m
+
+./.git/objects/ce:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 29 00:23 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs 2969 Apr 29 00:23 51030fdb79f06936d9796d84ad22d9a9be1df7[0m
+
+./.git/objects/d1:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 24
+drwx------   2 yyao007 csmajs 4096 Apr 18 02:23 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs 4120 Apr 15 19:13 689f7a26fb14dfc4ce9262aa15d4b8b7d57920[0m
+-r--------   1 yyao007 csmajs  147 Apr 18 02:23 ca7395f33a4ec6ec3f5694fb8e1eaeaadb26e5[0m
+
+./.git/objects/d2:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 19 21:59 [34;1m[48;5;243m.[0m
+drwx------ 138         csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  141 Apr 19 21:59 8c22a5d63d41bf3728d76a9127315dd771a990[0m
+
+./.git/objects/d3:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 20
+drwx------   2 yyao007 csmajs 4096 May 01 00:43 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs   82 May 01 00:43 420b74ef4936d823a1e3f8848863c44de11457[0m
+-r--------   1 yyao007 csmajs  205 Apr 28 22:34 76dbdf0198db8e35491d3ffa4ddf438935f556[0m
+
+./.git/objects/d5:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 28
+drwx------   2 yyao007 csmajs 4096 May 01 03:40 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  183 May 01 00:43 0d16306cd9add55f8c8a56e7c0e8946fa728ff[0m
+-r--------   1 yyao007 csmajs  168 May 01 03:40 12acd735c731a80fcf37f015d374d14b97e1a5[0m
+-r--------   1 yyao007 csmajs  115 Apr 17 17:17 becc8610b9228e812f68bd6f67581a5e10629b[0m
+-r--------   1 yyao007 csmajs  178 Apr 21 16:56 f3916feaeb1a73504707c7a539fe687b21033a[0m
+
+./.git/objects/d9:
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 19 21:56 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs 1202 Apr 19 21:56 22590556490df64f9378cb0cd6f6ede4c1927e[0m
+
+./.git/objects/db:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 29 02:56 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs   82 Apr 29 02:56 57ca1e659f6c76a361d24b09ead8ff440f0be6[0m
+
+./.git/objects/dd:
+total 20
+drwx------   2 yyao007 csmajs 4096 Apr 27 16:21 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs 1569 Apr 27 16:21 006640feef8837aaa483666b9e1115ab374033[0m
+-r--------   1 yyao007 csmajs 1133 Apr 17 00:49 c9ae857ab4e08398fbe291e63fcd8fca735ab0[0m
+
+./.git/objects/df:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 May 01 00:51 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  180 May 01 00:51 93725c851b70fab38f28f1e84f46abfb78d957[0m
+
+./.git/objects/e0:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 20
+drwx------   2 yyao007 csmajs 4096 May 01 00:55 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  231 Apr 28 22:35 5e2bc560cc14af8dd1bac0aead17d3ad4fea85[0m
+-r--------   1 yyao007 csmajs 2221 May 01 00:55 7c980e9f0c77aeb344f8b7d6b41ca9cd3f0f4e[0m
+
+./.git/objects/e2:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 28
+drwx------   2 yyao007 csmajs 4096 May 01 03:15 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  177 Apr 21 16:56 428c3c478edd92cd966ac38c4051f2a4f655ee[0m
+-r--------   1 yyao007 csmajs  145 Apr 17 17:17 4994392d13c01599270ca6d041bb92cc7c8ee6[0m
+-r--------   1 yyao007 csmajs  146 Apr 18 22:30 bc3c471f04659d63286c452948865f1d5ecf5e[0m
+-r--------   1 yyao007 csmajs  172 May 01 03:15 f6319ffcb3c5441c17b0f09c0d4715b28eb935[0m
+
+./.git/objects/e3:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 18 23:09 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  147 Apr 18 23:09 3516cb8e6919f7b51c35e061e8dd96be3632e7[0m
+
+./.git/objects/e6:
+total 16
+drwx------   2 yyao007 csmajs 4096 May 01 03:34 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  142 May 01 03:34 302608b74672cff5d6e198adb377a7456e0544[0m
+
+./.git/objects/e7:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 14 20:16 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs 3201 Apr 14 20:16 2a3ad04f2b963034c5f653dcdacd4e22f6769d[0m
+
+./.git/objects/ec:
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 29 00:24 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  204 Apr 29 00:24 d959ce857e621e11359e96413523549eaf5ef5[0m
+
+./.git/objects/ef:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 26 15:21 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007         180 Apr 26 15:21 b4cfb93e086ee26b133e5d3a40790cc9aa791d[0m
+
+./.git/objects/f0:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 17 00:49 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1         csmajs  237 Apr 17 00:49 7fa667f5e9585b8b2d9114bc565b5e81015099[0m
+
+./.git/objects/f1:
+total 16
+drwx------   2 yyao007 csmajs 4096 May 01 00:56 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs 2222 May 01 00:56 b76207240d5f9dc4c3d56a0391c395728c82f7[0m
+
+./.git/objects/f3:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 20
+drwx------   2 yyao007 csmajs 4096 Apr 27 16:27 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  181 Apr 27 16:27 9220b398435a91774397a3e867c2cc8c776305[0m
+-r--------   1 yyao007 csmajs  147 Apr 18 22:30 e97d4b3a290ff216743cc7e8ec840396463143[0m
+
+./.git/objects/f8:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 May 01 03:40 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  204 May 01 03:40 c613ea0f19061414bc3e029abc16edf31c4725[0m
+
+./.git/objects/f9:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 26 15:21 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  168 Apr 26 15:21 12b003c67b259cf1aa689bf26ded74e0b632a7[0m
+
+./.git/objects/fa:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 20
+drwx------   2 yyao007 csmajs 4096 Apr 27 00:33 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  167 Apr 27 00:33 1ba5767051850ca0eaa750e42a5bd401170bed[0m
+-r--------   1 yyao007 csmajs  177 Apr 19 00:52 1bbe2aa04065e47e38cdc72fd9015559c466d2[0m
+
+./.git/objects/fb:
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 28 17:28 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  177 Apr 28 17:28 0e38e99fcfc35d71a7effe279c539872c8ba96[0m
+
+./.git/objects/fc:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 19 00:52 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007         698 Apr 19 00:52 939b7bbb44a6ad83b3cb52bf72ae116d037356[0m
+
+./.git/objects/fd:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 12
+drwx------   2 yyao007 csmajs 4096 Apr 19 17:25 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs   56 Apr 19 17:25 be275b05dad937b340a8692ff9bcff8292f7b6[0m
+
+./.git/objects/fe:
+total 16
+drwx------   2 yyao007 csmajs 4096 Apr 28 22:35 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  715 Apr 28 22:35 b1ead429dc09d1a525c11d25170f55c2fc2fe3[0m
+
+./.git/objects/ff:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 16
+drwx------   2 yyao007 csmajs 4096 May 01 03:34 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+-r--------   1 yyao007 csmajs  185 May 01 03:34 da99f5cb663db6bcc571e462d3f50f5629abf6[0m
+
+./.git/objects/info:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 12
+drwx------   2 yyao007 csmajs 4096 Apr 14 15:38 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+
+./.git/objects/pack:
+total 12
+drwx------   2 yyao007 csmajs 4096 Apr 14 15:38 [34;1m[48;5;243m.[0m
+drwx------ 138 yyao007 csmajs 8192 May 01 03:40 [34;1m[48;5;243m..[0m
+
+./.git/refs:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 20
+drwx------ 5 yyao007 csmajs 4096 Apr 14 15:38 [34;1m[48;5;243m.[0m
+drwx------ 8 yyao007 csmajs 4096 May 01 03:40 [34;1m[48;5;243m..[0m
+drwx------ 2 yyao007 csmajs 4096 May 01 03:40 [34;1mheads[0m
+drwx------ 3 yyao007        4096 Apr 14 15:38 [34;1mremotes[0m
+drwx------ 2 yyao007 csmajs 4096 May 01 03:42 [34;1mtags[0m
+
+./.git/refs/heads:
+total 8
+drwx------ 2 yyao007 csmajs 4096 May 01 03:40 [34;1m[48;5;243m.[0m
+drwx------ 5 yyao007 csmajs 4096 Apr 14 15:38 [34;1m[48;5;243m..[0m
+-rw------- 1 yyao007 csmajs   41 Apr 19 00:52 exec[0m
+-rw------- 1 yyao007 csmajs   41 May 01 00:56 ls[0m
+-rw------- 1 yyao007 csmajs   41 May 01 03:40 master[0m
+
+./.git/refs/remotes:
+total 12
+drwx------ 3 yyao007 csmajs 4096 Apr 14 15:38 [34;1m[48;5;243m.[0m
+drwx------ 5 yyao007 csmajs 4096 Apr 14 15:38 [34;1m[48;5;243m..[0m
+drwx------ 2 yyao007 csmajs 4096 May 01 03:40 [34;1morigin[0m
+
+./.git/refs/remotes/origin:
+total 8
+drwx------ 2 yyao007 csmajs 4096 May 01 03:40 [34;1m[48;5;243m.[0m
+drwx------ 3 yyao007 csmajs 4096 Apr 14 15:38 [34;1m[48;5;243m..[0m
+-rw------- 1 yyao007 csmajs   32 Apr 14 15:38 HEAD[0m
+-rw------- 1 yyao007 csmajs   41 Apr 19 00:56 exec[0m
+-rw------- 1 yyao007 csmajs   41 May 01 00:56 ls[0m
+-rw------- 1 yyao007 csmajs   41 May 01 03:40 master[0m
+
+./.git/refs/tags:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 8
+drwx------ 2 yyao007 csmajs 4096 May 01 03:42 [34;1m[48;5;243m.[0m
+drwx------ 5 yyao007 csmajs 4096 Apr 14 15:38 [34;1m[48;5;243m..[0m
+-rw------- 1 yyao007 csmajs   41 Apr 19 21:59 hw0[0m
+-rw------- 1 yyao007 csmajs   41 May 01 03:42 hw1[0m
+
+./bin:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 276
+drwx------ 3 yyao007 csmajs   4096 May 01 13:14 [34;1m[48;5;243m.[0m
+drwx------ 7 yyao007 csmajs   4096 May 01 03:19 [34;1m[48;5;243m..[0m
+-rwx------ 1 yyao007 csmajs 243829 May 01 03:19 [32;1mls[0m
+-rwx------ 1 yyao007 csmajs  16722 May 01 03:33 [32;1mrshell[0m
+drwx------ 2 yyao007 csmajs   4096 May 01 13:15 [34;1mtestcases[0m
+
+./bin/testcases:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 8
+drwx------ 2 yyao007        4096 May 01 13:15 [34;1m[48;5;243m.[0m
+drwx------ 3 yyao007 csmajs 4096 May 01 13:14 [34;1m[48;5;243m..[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test1[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test2[0m
+
+./case:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 56
+drwx------ 2 yyao007 csmajs 4096 May 01 03:38 [34;1m[48;5;243m.[0m
+drwx------ 7 yyao007 csmajs 4096 May 01 03:19 [34;1m[48;5;243m..[0m
+-rwx------ 1         csmajs 9418 Apr 28 22:13 [32;1ma.out[0m
+-rw------- 1 yyao007 csmajs 4890 May 01 01:00 cp.cpp[0m
+-rw------- 1 yyao007 csmajs  257 May 01 01:00 main.cpp[0m
+-rw------- 1 yyao007 csmajs 3513 May 01 01:00 printL.cpp[0m
+-rw------- 1 yyao007 csmajs  419 May 01 01:00 stat.cpp[0m
+-rw------- 1 yyao007 csmajs 3061 May 01 01:00 string.cpp[0m
+-rw------- 1 yyao007 csmajs  504 May 01 01:00 terminal.cpp[0m
+-rw------- 1 yyao007 csmajs  483 May 01 01:00 test.cpp[0m
+-rw------- 1 yyao007 csmajs 1897 May 01 01:00 wrap.cpp[0m
+
+./src:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 40
+drwx------ 2 yyao007 csmajs  4096 May 01 03:39 [34;1m[48;5;243m.[0m
+drwx------ 7 yyao007 csmajs  4096 May 01 03:19 [34;1m[48;5;243m..[0m
+-rw------- 1 yyao007 csmajs  2402 May 01 01:00 Timer.h[0m
+-rw------- 1 yyao007 csmajs 12803 May 01 03:15 ls.cpp[0m
+-rw------- 1 yyao007 csmajs 10280 May 01 03:33 rshell.cpp[0m
+
+./tests:
+total 308
+drwx------ 2 yyao007 csmajs   4096 May 01 13:09 [34;1m[48;5;243m.[0m
+drwx------ 7 yyao007 csmajs   4096 May 01 03:19 [34;1m[48;5;243m..[0m
+-rw------- 1 yyao007 csmajs  25612 Apr 19 17:15 exec.script[0m
+-rw------- 1 yyao007 csmajs 272462 May 01 13:20 ls.script[0m
+
+bin/:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 276
+drwx------ 3 yyao007 csmajs   4096 May 01 13:14 [34;1m[48;5;243m.[0m
+drwx------ 7 yyao007 csmajs   4096 May 01 03:19 [34;1m[48;5;243m..[0m
+-rwx------ 1 yyao007 csmajs 243829 May 01 03:19 [32;1mls[0m
+-rwx------ 1 yyao007 csmajs  16722 May 01 03:33 [32;1mrshell[0m
+drwx------ 2 yyao007 csmajs   4096 May 01 13:15 [34;1mtestcases[0m
+
+bin/testcases:
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+total 8
+drwx------ 2 yyao007 csmajs 4096 May 01 13:15 [34;1m[48;5;243m.[0m
+drwx------ 3 yyao007 csmajs 4096 May 01 13:14 [34;1m[48;5;243m..[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test1[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test2[0m
+
+bin/testcases/:
+total 8
+drwx------ 2 yyao007 csmajs 4096 May 01 13:15 [34;1m[48;5;243m.[0m
+drwx------ 3 yyao007 csmajs 4096 May 01 13:14 [34;1m[48;5;243m..[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test1[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test2[0m
+~/cs100/rshell
+yyao007@hammer $ bin/ls bin/           -a        -R   -l    bin/testcases/ .[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K#[Kbin/ls bin/           -a        -R   -l    bin/testcases/ bin/testcases/test1 bin/testcases/test2
+-rw------- 1 yyao007 csmajs 0 May 01 13:15 bin/testcases/test1[0m
+-rw------- 1 yyao007 csmajs 0 May 01 13:15 bin/testcases/test2[0m
+
+bin/:
+total 276
+drwx------ 3 yyao007 csmajs   4096 May 01 13:14 [34;1m[48;5;243m.[0m
+drwx------ 7 yyao007 csmajs   4096 May 01 03:19 [34;1m[48;5;243m..[0m
+-rwx------ 1 yyao007 csmajs 243829 May 01 03:19 [32;1mls[0m
+-rwx------ 1 yyao007 csmajs  16722 May 01 03:33 [32;1mrshell[0m
+drwx------ 2 yyao007 csmajs   4096 May 01 13:15 [34;1mtestcases[0m
+
+bin/testcases:
+total 8
+drwx------ 2 yyao007 csmajs 4096 May 01 13:15 [34;1m[48;5;243m.[0m
+drwx------ 3 yyao007 csmajs 4096 May 01 13:14 [34;1m[48;5;243m..[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test1[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test2[0m
+
+bin/testcases/:
+total 8
+drwx------ 2 yyao007 csmajs 4096 May 01 13:15 [34;1m[48;5;243m.[0m
+drwx------ 3 yyao007 csmajs 4096 May 01 13:14 [34;1m[48;5;243m..[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test1[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test2[0m
+~/cs100/rshell
+yyao007@hammer $ bin/ls bin/           -a        -R   -l    bin/testcases/ bin/testcases/test1 bin/testcases/test2[C[C[1P[1P[1P[C[C[1P[C[C[1P[C[C[1P[1P[1P[C[C[1P[C[C[1P[C[C[1P[C[C[1P[C[C[1P[C[C[1P[C[C[1P[C[C[1P[1P[1P[C[C[1P[C[C[1P[C[C[1P[C[C[1P[C[C[1P[C[C[1P[C[C[1P[C[C[1P[C[C[1P[C[C[1P[4h-[4l[4hR[4l[C[C[C[4h [4l[4h-[4l[4ha[4l[4hl[4l[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C bin/ls bin/rshell 
+-rwx------ 1 yyao007 csmajs 243829 May 01 03:19 [32;1mbin/ls[0m
+-rwx------ 1 yyao007 csmajs  16722 May 01 03:33 [32;1mbin/rshell[0m
+-rw------- 1 yyao007 csmajs      0 May 01 13:15 bin/testcases/test1[0m
+-rw------- 1 yyao007 csmajs      0 May 01 13:15 bin/testcases/test2[0m
+
+bin/:
+total 276
+drwx------ 3 yyao007 csmajs   4096 May 01 13:14 [34;1m[48;5;243m.[0m
+drwx------ 7 yyao007 csmajs   4096 May 01 03:19 [34;1m[48;5;243m..[0m
+-rwx------ 1 yyao007 csmajs 243829 May 01 03:19 [32;1mls[0m
+-rwx------ 1 yyao007 csmajs  16722 May 01 03:33 [32;1mrshell[0m
+drwx------ 2 yyao007 csmajs   4096 May 01 13:15 [34;1mtestcases[0m
+
+bin/testcases:
+total 8
+drwx------ 2 yyao007 csmajs 4096 May 01 13:15 [34;1m[48;5;243m.[0m
+drwx------ 3 yyao007 csmajs 4096 May 01 13:14 [34;1m[48;5;243m..[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test1[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test2[0m
+
+bin/testcases/:
+total 8
+drwx------ 2 yyao007 csmajs 4096 May 01 13:15 [34;1m[48;5;243m.[0m
+drwx------ 3 yyao007 csmajs 4096 May 01 13:14 [34;1m[48;5;243m..[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test1[0m
+-rw------- 1 yyao007 csmajs    0 May 01 13:15 test2[0m
+~/cs100/rshell
+yyao007@hammer $ #Works fine. a[KAll the [K[K[K[K[K[K[K[K[K[K. The ls pragram treat differentk[Kly with [K[K[K[K[Kbetww[Keen files adn[K[Knd directories
+~/cs100/rshell
+yyao007@hammer $ #Thsi[K[Kios[K[K[Kis is the very w[Kend of my test cases
+~/cs100/rshell
+yyao007@hammer $ #Thank you!
+~/cs100/rshell
+yyao007@hammer $ exit
+exit
+
+Script done on Fri 01 May 2015 01:31:17 PM PDT
