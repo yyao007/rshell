@@ -12,9 +12,8 @@ This rshell is a basic command shell which can implement several commands in Lin
     * Any command starts with connectors `|| && ;`.
     * Any command has any combinations of `| & ;` (single character included), despite the correct connectors.
     * Any command has spaces between connectors such as `& &`, `|| ||`, `; &&`.
-
-### Added features of ls
-I implemented my own `ls` command. You can run this by following instructions in section How to install rshell. The `ls` (to run my `ls`, you should type `bin/ls`) can:
+#### Added features for ls
+######I implemented my own `ls` command. You can run this by following instructions in section How to install rshell. The `ls` (to run my `ls`, you should type `bin/ls`) can:
 1. Run with three flags `-a` `-l` `-R` and act just like the GNU `ls`.
 2. Run with multiple flags together such as `ls -alR` which is the same as `ls -a -l -R`.
 3. Support three corresponding flags `--all` = `-a`, `--long` = `-l`, `--recursive` = `-R`.
@@ -54,8 +53,7 @@ The test cases are in [rshell/tests](https://github.com/yyao007/rshell/tree/mast
 1. This first version of rshell can't run `cd` command, this feature will be added in future implementation.
 2. This rshell now will regard the appearance of single `|` or `&` as syntax error.
 3. rshell can only report two error messages and that won't be sufficient. Further error messages will be added in the future.
-
-### ls
+#### ls
 1. The ls can only handle the three flags specified before. Any other flags will lead to an error message.
 2. The order of the files may act different from the GNU ls. Cases like `ls ./ ..` will display the `..` directory first which actually should display the current folder first.
 
