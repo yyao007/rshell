@@ -14,8 +14,8 @@ This rshell is a basic command shell which can implement several commands in Lin
     * Any command has spaces between connectors such as `& &`, `|| ||`, `; &&`.
 
 #### Added features for ls
+I implemented my own `ls` command. You can run this by following instructions in section How to install rshell. The `ls` (to run my `ls`, you should type `bin/ls`) can:
 
-######I implemented my own `ls` command. You can run this by following instructions in section How to install rshell. The `ls` (to run my `ls`, you should type `bin/ls`) can:
 1. Run with three flags `-a` `-l` `-R` and act just like the GNU `ls`.
 2. Run with multiple flags together such as `ls -alR` which is the same as `ls -a -l -R`.
 3. Support three corresponding flags `--all` = `-a`, `--long` = `-l`, `--recursive` = `-R`.
