@@ -37,7 +37,7 @@ To run rshell on your Linux system, you need to run the following commands.
 ```
 To run ls, you need to run the following commands:
 ```
- $ git clone http://github.com/yyao007/rshell.git
+ $ git clone https://github.com/yyao007/rshell.git
  $ cd rshell
  $ git checkout hw1
  $ make
