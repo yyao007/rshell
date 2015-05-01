@@ -25,8 +25,14 @@ int main(int argc, char *argv[]) {
     char hostname[100];
     char *username;
 
-    gethostname(hostname, 100);
-    username = getlogin();
+    if (-1 == gethostname(hostname, 100)) {
+        perror("gethostname()");
+        exit(1);
+    }
+    if (NULL == (username = getlogin())) {
+        perror("getlogin()");
+        exit(1);
+    }
 
     // always in my rshell
     while (1) {
