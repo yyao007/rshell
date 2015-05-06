@@ -21,7 +21,6 @@ int strValid(const string&);
 
 int main(int argc, char *argv[]) {
     char origStr[cap]; // store the user input line
-    int i = 0;
     char hostname[100];
     char *username;
 
@@ -38,12 +37,7 @@ int main(int argc, char *argv[]) {
     while (1) {
     mylabel:
         cout << username << '@' << hostname << " $ ";
-        char *cmd[cap]; // declare a 2-D 1000*1000 array
-        // pre-allocate cmd
-        for(i = 0; i < cap; ++i) {
-            cmd[i] = new char[cap];
-        }
-
+        char *cmd[cap]; // declare a 2-D array
         bool isExecuted = true; // initialize to true in each loop
         char *effectStr; // store the string before the "#"
         char *spaceStr; // check if the string only has spaces
@@ -84,15 +78,15 @@ int main(int argc, char *argv[]) {
         while (errStr == 0) {
             cout << "<command>: ";
             memset(origStr, 0, cap); // initialize origStr to an empty string
-            effectStr = new char;
+            char *efftmp;
             cin.getline(origStr, cap);
 
             // check if the new string contains the "#" character
             if (origStr[0] == '#' || origStr[0] == '\0') {
                 continue;
             }
-            effectStr = strtok(origStr, "#");
-            tempStr = effectStr;
+            efftmp = strtok(origStr, "#");
+            tempStr = efftmp;
 
             userStr = userStr + tempStr;
 
@@ -155,7 +149,6 @@ int main(int argc, char *argv[]) {
             }
         }
     }
-
     return 0;
 }
 
@@ -174,7 +167,7 @@ void split(char *arr[], char str[], const char *delim) {
 }
 */
 
-int getCommand(char *cmd[], string& str, int& index, int iFlag) {
+int getCommand(char **cmd, string& str, int& index, int iFlag) {
     string substring;
     const int size = 3;
     int flag[size] = {0};
@@ -291,14 +284,6 @@ int strValid(const string& str) {
         if (pos == 0) {
             return -2;
         }
-//        // if string is ended with "| &", return -1
-//        else if (pos == temp.size() - 1) {
-//            return -1;
-//        }
-//        // if string only has one of "| &" or has different combinations "like |&", return -1
-//        else if (temp.at(pos + 1) != temp.at(pos)) {
-//            return -1;
-//        }
         pos = temp.find_first_of("|&", pos + 2);
     }
 
