@@ -7,6 +7,9 @@
 #include <errno.h>
 #include <string.h>
 #include <string>
+#include <vector>
+#include <fcntl.h>
+#include <sys/stat.h>
 
 using namespace std;
 
@@ -15,9 +18,12 @@ const int cap = 1000; // the capacity of the 2-D array
 // split a line by the delim and store to a 2-D array
 //void split(char *arr[], char str[], const char *delim);
 // get command block between connectors
-int getCommand(char **, string&, int&, int);
+int getCommand(char **, const string &, int &, int, string &);
 // check if the string has syntax error
-int strValid(const string&);
+int strValid(const string &);
+int GetRedirectCmd(string &, vector<string> &, vector<string> &);
+int SplitInOutCmd(string &, vector<string> &, unsigned, long unsigned);
+void Redirect(vector<string> &, vector<string> &);
 
 int main(int argc, char *argv[]) {
     char origStr[cap]; // store the user input line
@@ -49,6 +55,8 @@ int main(int argc, char *argv[]) {
         int index = 0; // initialize to 0 in order to look through the whole string
         int status; // store the status of child exit
         int errStr; // store the return value of strValid
+        vector<string> outRe;
+        vector<string> inRe;
 
         memset(origStr, 0, cap); // initialize origStr to an empty string
         cin.getline(origStr, cap); // get the user input line
@@ -98,10 +106,25 @@ int main(int argc, char *argv[]) {
             }
         }
 
+        while (flag != 0) {
+            string cmdStr;
+            flag = getCommand(cmd, userStr, index, flag, cmdStr);
+            if (-1 == GetRedirectCmd(cmdStr, outRe, inRe)) {
+                cout << "syntax error using redirect operators \"> <\"" << endl;
+                goto mylabel;
+            }
+        }
+
+        flag = 4;
+        index = 0;
         // run execvp() in a while loop
         while (flag != 0 && isExecuted) {
-            flag = getCommand(cmd, userStr, index, flag);
-
+            string cmdStr;
+            string cmdStrCpy;
+            int tempIndex = 0;
+            flag = getCommand(cmd, userStr, index, flag, cmdStr);
+            GetRedirectCmd(cmdStr, outRe, inRe);
+            getCommand(cmd, cmdStr, tempIndex, 4, cmdStrCpy);
             // if the command is "exit", exit the rshell
             if ( (strcmp(cmd[0], "exit") == 0) ) {
                 return 0;
@@ -117,6 +140,7 @@ int main(int argc, char *argv[]) {
 
             // this is in child process
             else if (pid == 0) {
+                Redirect(outRe, inRe);
                 // run execvp in child process in order not to exit the whole program
                 if (execvp(cmd[0], cmd) == -1) {
                     strcpy(errcmd, cmd[0]);
@@ -167,8 +191,7 @@ void split(char *arr[], char str[], const char *delim) {
 }
 */
 
-int getCommand(char **cmd, string& str, int& index, int iFlag) {
-    string substring;
+int getCommand(char **cmd, const string &str, int &index, int iFlag, string &substring) {
     const int size = 3;
     int flag[size] = {0};
     char cstr[cap];
@@ -239,7 +262,7 @@ int getCommand(char **cmd, string& str, int& index, int iFlag) {
     return mFlag;
 }
 
-int strValid(const string& str) {
+int strValid(const string &str) {
     long unsigned int i;
     long unsigned int pos;
     int flag = 1; // initialize flag to 1 indicates valid string
@@ -309,5 +332,146 @@ int strValid(const string& str) {
 
     return flag;
 }
+
+int GetRedirectCmd(string &cmdLine, vector<string> &outRe, vector<string> &inRe) {
+    outRe.clear();
+    inRe.clear();
+    long unsigned pos = 0;
+    string temp;
+
+    pos = cmdLine.find(">");
+    while(pos != string::npos) {
+        // find ">" redirect flag
+        if (pos + 1 < cmdLine.size() && cmdLine.at(pos + 1) != '>') {
+            if (-1 == SplitInOutCmd(cmdLine, outRe, 1, pos)) {
+                return -1; // invalid use of '>'
+            }
+            pos = cmdLine.find(">", pos - 1);
+        }
+        // find ">>" redirect flag
+        else if (pos + 2 < cmdLine.size() && cmdLine.at(pos + 2) != '>') {
+            if (-1 == SplitInOutCmd(cmdLine, outRe, 2, pos)) {
+                return -1; // invalid use of ">>"
+            }
+            pos = cmdLine.find(">", pos - 1);
+        }
+        // return -1 for other flags
+        else {
+            return -1;
+        }
+    }
+
+    pos = cmdLine.find("<");
+    while (pos != string::npos) {
+        // find "<" redirect flag
+        if (pos + 1 < cmdLine.size() && cmdLine.at(pos + 1) != '<') {
+            if (-1 == SplitInOutCmd(cmdLine, inRe, 1, pos)) {
+                return -1;
+            }
+            pos = cmdLine.find("<", pos - 1);
+        }
+        // find "<<<" redirect flag
+        else if (pos + 3 < cmdLine.size() && cmdLine.at(pos + 2) == '<' && cmdLine.at(pos + 3) != '<') {
+            if (-1 == SplitInOutCmd(cmdLine, inRe, 3, pos)) {
+                return -1;
+            }
+            pos = cmdLine.find("<", pos - 1);
+        }
+        else {
+            return -1;
+        }
+    }
+    return 0;
+}
+
+int SplitInOutCmd(string &cmdLine, vector<string> &cmd, unsigned num, long unsigned pos) {
+    while (pos + num < cmdLine.size() && cmdLine.at(pos + num) == ' ') {
+        cmdLine.erase(pos + num, 1);
+    }
+    unsigned len = num;
+    if (pos + len >= cmdLine.size()) {
+        return -1;
+    }
+    bool isGoing = (cmdLine.at(pos + len) != ' ') &&
+    (cmdLine.at(pos + len) != '>') && (cmdLine.at(pos + len) != '<');
+
+    while (isGoing) {
+        ++len;
+        isGoing = false;
+        if (pos + len < cmdLine.size()) {
+            isGoing = (cmdLine.at(pos + len) != ' ') &&
+            (cmdLine.at(pos + len) != '>') && (cmdLine.at(pos + len) != '<');
+        }
+    }
+    // if there's no argument after the redirect character, return -1 for error
+    if(len == num) {
+        return -1;
+    }
+    cmd.push_back(cmdLine.substr(pos, len));
+    cmdLine.erase(pos, len);
+
+    return 0;
+}
+
+
+
+void Redirect(vector<string> &outRe, vector<string> &inRe) {
+    char wholeName[cap];
+    for (unsigned i = 0; i < outRe.size(); ++i) {
+        int fd;
+        strcpy(wholeName, outRe.at(i).c_str());
+        if (outRe.at(i).at(1) == '>') {
+            char *fileName = wholeName + 2;
+            if (-1 == (fd = open(fileName, O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR))) {
+                perror(fileName);
+                exit(EXIT_FAILURE);
+            }
+            if (-1 == dup2(fd, 1)) {
+                perror("dup2()");
+                exit(EXIT_FAILURE);
+            }
+        }
+        else {
+            char *fileName = wholeName + 1;
+            if (-1 == (fd = open(fileName, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR))) {
+                perror(fileName);
+                exit(EXIT_FAILURE);
+            }
+            if (-1 == dup2(fd, 1)) {
+                perror("dup2()");
+                exit(EXIT_FAILURE);
+            }
+        }
+    }
+
+    for (unsigned i = 0; i < inRe.size(); ++i) {
+        int fd;
+        strcpy(wholeName, inRe.at(i).c_str());
+        if (inRe.at(i).at(2) == '<') {
+            char *fileName = wholeName + 3;
+            if (-1 == (fd = open(fileName, O_RDONLY, S_IRUSR))) {
+                perror(fileName);
+                exit(EXIT_FAILURE);
+            }
+            if (-1 == dup2(fd, 0)) {
+                perror("dup2()");
+                exit(EXIT_FAILURE);
+            }
+        }
+        else {
+            char *fileName = wholeName + 1;
+            if (-1 == (fd = open(fileName, O_RDONLY, S_IRUSR))) {
+                perror(fileName);
+                exit(EXIT_FAILURE);
+            }
+            if (-1 == dup2(fd, 0)) {
+                perror("dup2()");
+                exit(EXIT_FAILURE);
+            }
+        }
+    }
+}
+
+
 
 
