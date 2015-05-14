@@ -27,6 +27,7 @@ int strValid(const string &);
 int GetRedirectCmd(string &, vector<string> &);
 int SplitInOutCmd(string &, vector<string> &, unsigned, long unsigned);
 void Redirect(vector<string> &);
+bool isRedirect(const string &);
 
 int main(int argc, char *argv[]) {
     char origStr[cap]; // store the user input line
@@ -46,7 +47,7 @@ int main(int argc, char *argv[]) {
     while (1) {
     mylabel:
         cout << username << '@' << hostname << " $ ";
-        char *cmd[cap]; // declare a 2-D array
+//        char *cmd[cap]; // declare a 2-D array
 
         bool isExecuted = true; // initialize to true in each loop
         char *effectStr; // store the string before the "#"
@@ -110,6 +111,7 @@ int main(int argc, char *argv[]) {
         }
 
         while (flag != 0) {
+            char *cmd[cap];
             string cmdStr;
             int count = 0;
             flag = getCommand(cmd, userStr, index, flag, cmdStr, count);
@@ -131,32 +133,37 @@ int main(int argc, char *argv[]) {
         index = 0;
         // run execvp() in a while loop
         while (flag != 0 && isExecuted) {
-            char *tempcmd[cap];
+            ReFile.clear();
+//            char *origcmd[cap];
+            char *cmd[cap];
             string cmdStr;
             string cmdStrCpy;
+            string storeStr;
             int tempIndex = 0;
             int count = 0;
-            flag = getCommand(tempcmd, userStr, index, flag, cmdStr, count);
-            for (int i = 0; i < count; ++i) {
-                delete[] tempcmd[i];
-                tempcmd[i] = 0;
-            }
+            flag = getCommand(cmd, userStr, index, flag, cmdStr, count);
+            cmdStrCpy = cmdStr;
 
-            bool isEmpty = true;
-            GetRedirectCmd(cmdStr, ReFile);
-            for (unsigned i = 0; i < cmdStr.size(); ++i) {
-                if (cmdStr.at(i) != ' ') {
-                    isEmpty = false;
-                    break;
+            if (isRedirect(cmdStr)) {
+                for (int i = 0; i < count; ++i) {
+                    delete[] cmd[i];
+                    cmd[i] = 0;
+                }
+                bool isEmpty = true;
+                GetRedirectCmd(cmdStr, ReFile);
+                for (unsigned i = 0; i < cmdStr.size(); ++i) {
+                    if (cmdStr.at(i) != ' ') {
+                        isEmpty = false;
+                        break;
+                    }
+                }
+                if (!isEmpty) {
+                    getCommand(cmd, cmdStr, tempIndex, 4, storeStr, count);
                 }
             }
-            if (!isEmpty) {
-                getCommand(cmd, cmdStr, tempIndex, 4, cmdStrCpy, count);
-
-                // if the command is "exit", exit the rshell
-                if ( (strcmp(cmd[0], "exit") == 0) ) {
-                    return 0;
-                }
+            // if the command is "exit", exit the rshell
+            if ( (strcmp(cmd[0], "exit") == 0) ) {
+                return 0;
             }
 
             int pid = fork(); // create a child process to call execvp()
@@ -169,6 +176,11 @@ int main(int argc, char *argv[]) {
 
             // this is in child process
             else if (pid == 0) {
+/*                if (isPiping(cmdStrCpy)) {
+                    int pipe_flag;
+                    Piping(origcmd, cmdStrCpy, pipe_flag);
+                }
+*/
                 Redirect(ReFile);
                 // run execvp in child process in order not to exit the whole program
                 if (execvp(cmd[0], cmd) == -1) {
@@ -287,7 +299,7 @@ int getCommand(char **cmd, const string &str, int &index, int iFlag, string &sub
     char *temp = strtok(cstr, " ");
     cmd[i] = new char[100];
     strcpy(cmd[i], temp);
-    ++count;
+    ++count; // store how many memory addresses have been allocated
     while (temp != NULL) {
         ++i;
         temp = strtok(NULL, " ");
@@ -314,9 +326,14 @@ int strValid(const string &str) {
         if (pos == temp.size() - 1) {
             return -1;
         }
-        // if string only has 1 of "| &" or has different combinations like "|&", return -1
+        // if string has different combinations like "|&", return -1
         else if (temp.at(pos + 1) != temp.at(pos)) {
-            return -1;
+            if (temp.at(pos) == '&') {
+                return -1;
+            }
+            else if (temp.at(pos + 1) == '&') {
+                return -1;
+            }
         }
         pos = temp.find_first_of("|&", pos + 2);
     }
@@ -429,8 +446,9 @@ int SplitInOutCmd(string &cmdLine, vector<string> &cmd, unsigned num, long unsig
         cmdLine.erase(pos + num, 1);
     }
 
-    long unsigned subpos = 0;
-    unsigned len = num;
+    long unsigned subpos = 0; // store the length of the number before ">"
+    unsigned len = num; // store the number of characters of ioredirection flag
+    // find if there is a number before ">"
     if (cmdLine.at(pos) == '>') {
         for (int i = pos - 1; i >= 0 && isdigit(cmdLine.at(i)); --i) {
             ++subpos;
@@ -445,14 +463,15 @@ int SplitInOutCmd(string &cmdLine, vector<string> &cmd, unsigned num, long unsig
             }
         }
     }
-
+    // return -1 when a redirect flag is in the end
     if (pos + len >= cmdLine.size()) {
         return -1;
     }
-
+    // consider "<<<" flag separately
     if (num == 3) {
         long unsigned quotePos = pos;
         int even = 0;
+        // find double quotes and check if they are in pairs
         if ((quotePos = cmdLine.find("\"", quotePos)) == pos + len) {
             while (quotePos != string::npos) {
                 ++even;
@@ -467,6 +486,7 @@ int SplitInOutCmd(string &cmdLine, vector<string> &cmd, unsigned num, long unsig
                 }
                 quotePos = cmdLine.find("\"", quotePos + 1);
             }
+            // if double quotes are in pairs, push back to the vector and return 0
             if (even % 2 == 0) {
                 cmd.push_back(cmdLine.substr(pos - subpos, len + subpos));
                 cmdLine.erase(pos - subpos, len + subpos);
@@ -478,7 +498,7 @@ int SplitInOutCmd(string &cmdLine, vector<string> &cmd, unsigned num, long unsig
     len = num;
     bool isGoing = (cmdLine.at(pos + len) != ' ') &&
     (cmdLine.at(pos + len) != '>') && (cmdLine.at(pos + len) != '<');
-
+    // find the length of the redirect file name
     while (isGoing) {
         ++len;
         isGoing = false;
@@ -497,10 +517,9 @@ int SplitInOutCmd(string &cmdLine, vector<string> &cmd, unsigned num, long unsig
     return 0;
 }
 
-
-
 void Redirect(vector<string> &ReFile) {
     char wholeName[cap];
+    // do ioredirection in the original order
     for (unsigned i = 0; i < ReFile.size(); ++i) {
         int fd;
         int len = 0;
@@ -511,7 +530,7 @@ void Redirect(vector<string> &ReFile) {
         for (len = 0; isdigit(ReFile.at(i).at(len)); ++len) {
             strnum += ReFile.at(i).at(len);
         }
-
+        // "2>" and "2>>" case
         if (len > 0) {
             num = atoi(strnum.c_str());
             if (ReFile.at(i).at(1 + len) == '>') {
@@ -614,6 +633,40 @@ void Redirect(vector<string> &ReFile) {
     }
     return;
 }
+
+bool isRedirect(const string &cmdLine) {
+    long unsigned pos = cmdLine.find_first_of("<>");
+    return (pos != string::npos);
+}
+
+bool isPiping(const string &cmdLine) {
+    long unsigned pos = cmdLine.find("|");
+    return (pos != string::npos);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
