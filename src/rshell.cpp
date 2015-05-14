@@ -10,20 +10,23 @@
 #include <vector>
 #include <fcntl.h>
 #include <sys/stat.h>
+#include <ctype.h>
 
 using namespace std;
 
 const int cap = 1000; // the capacity of the 2-D array
+const int PIPE_READ = 0;
+const int PIPE_WRITE = 1;
 
 // split a line by the delim and store to a 2-D array
 //void split(char *arr[], char str[], const char *delim);
 // get command block between connectors
-int getCommand(char **, const string &, int &, int, string &);
+int getCommand(char **, const string &, int &, int, string &, int &);
 // check if the string has syntax error
 int strValid(const string &);
-int GetRedirectCmd(string &, vector<string> &, vector<string> &);
+int GetRedirectCmd(string &, vector<string> &);
 int SplitInOutCmd(string &, vector<string> &, unsigned, long unsigned);
-void Redirect(vector<string> &, vector<string> &);
+void Redirect(vector<string> &);
 
 int main(int argc, char *argv[]) {
     char origStr[cap]; // store the user input line
@@ -44,6 +47,7 @@ int main(int argc, char *argv[]) {
     mylabel:
         cout << username << '@' << hostname << " $ ";
         char *cmd[cap]; // declare a 2-D array
+
         bool isExecuted = true; // initialize to true in each loop
         char *effectStr; // store the string before the "#"
         char *spaceStr; // check if the string only has spaces
@@ -55,8 +59,7 @@ int main(int argc, char *argv[]) {
         int index = 0; // initialize to 0 in order to look through the whole string
         int status; // store the status of child exit
         int errStr; // store the return value of strValid
-        vector<string> outRe;
-        vector<string> inRe;
+        vector<string> ReFile;
 
         memset(origStr, 0, cap); // initialize origStr to an empty string
         cin.getline(origStr, cap); // get the user input line
@@ -108,10 +111,19 @@ int main(int argc, char *argv[]) {
 
         while (flag != 0) {
             string cmdStr;
-            flag = getCommand(cmd, userStr, index, flag, cmdStr);
-            if (-1 == GetRedirectCmd(cmdStr, outRe, inRe)) {
+            int count = 0;
+            flag = getCommand(cmd, userStr, index, flag, cmdStr, count);
+            if (-1 == GetRedirectCmd(cmdStr, ReFile)) {
                 cout << "syntax error using redirect operators \"> <\"" << endl;
+                for (int i = 0; i < count; ++i) {
+                    delete[] cmd[i];
+                    cmd[i] = 0;
+                }
                 goto mylabel;
+            }
+            for (int i = 0; i < count; ++i) {
+                delete[] cmd[i];
+                cmd[i] = 0;
             }
         }
 
@@ -119,15 +131,32 @@ int main(int argc, char *argv[]) {
         index = 0;
         // run execvp() in a while loop
         while (flag != 0 && isExecuted) {
+            char *tempcmd[cap];
             string cmdStr;
             string cmdStrCpy;
             int tempIndex = 0;
-            flag = getCommand(cmd, userStr, index, flag, cmdStr);
-            GetRedirectCmd(cmdStr, outRe, inRe);
-            getCommand(cmd, cmdStr, tempIndex, 4, cmdStrCpy);
-            // if the command is "exit", exit the rshell
-            if ( (strcmp(cmd[0], "exit") == 0) ) {
-                return 0;
+            int count = 0;
+            flag = getCommand(tempcmd, userStr, index, flag, cmdStr, count);
+            for (int i = 0; i < count; ++i) {
+                delete[] tempcmd[i];
+                tempcmd[i] = 0;
+            }
+
+            bool isEmpty = true;
+            GetRedirectCmd(cmdStr, ReFile);
+            for (unsigned i = 0; i < cmdStr.size(); ++i) {
+                if (cmdStr.at(i) != ' ') {
+                    isEmpty = false;
+                    break;
+                }
+            }
+            if (!isEmpty) {
+                getCommand(cmd, cmdStr, tempIndex, 4, cmdStrCpy, count);
+
+                // if the command is "exit", exit the rshell
+                if ( (strcmp(cmd[0], "exit") == 0) ) {
+                    return 0;
+                }
             }
 
             int pid = fork(); // create a child process to call execvp()
@@ -140,14 +169,13 @@ int main(int argc, char *argv[]) {
 
             // this is in child process
             else if (pid == 0) {
-                Redirect(outRe, inRe);
+                Redirect(ReFile);
                 // run execvp in child process in order not to exit the whole program
                 if (execvp(cmd[0], cmd) == -1) {
                     strcpy(errcmd, cmd[0]);
                     perror(errcmd);
                     exit(EXIT_FAILURE);
                 }
-
                 exit(EXIT_SUCCESS); // kill the child process when it's done
             }
 
@@ -159,7 +187,7 @@ int main(int argc, char *argv[]) {
                     exit(1);
                 }
                 // if the command fails and the connector is &&, do not execute the next command
-                if (WEXITSTATUS(status) == EXIT_FAILURE && flag == 2) {
+                if (WEXITSTATUS(status) != 0 && flag == 2) {
                     isExecuted = false;
                 }
                 // if the command is executed and the connector is ||, do not execute the next command
@@ -170,6 +198,10 @@ int main(int argc, char *argv[]) {
                 else {
                     isExecuted = true;
                 }
+            }
+            for (int i = 0; i < count; ++i) {
+                delete[] cmd[i];
+                cmd[i] = 0;
             }
         }
     }
@@ -191,7 +223,7 @@ void split(char *arr[], char str[], const char *delim) {
 }
 */
 
-int getCommand(char **cmd, const string &str, int &index, int iFlag, string &substring) {
+int getCommand(char **cmd, const string &str, int &index, int iFlag, string &substring, int &count) {
     const int size = 3;
     int flag[size] = {0};
     char cstr[cap];
@@ -251,11 +283,19 @@ int getCommand(char **cmd, const string &str, int &index, int iFlag, string &sub
     strcpy(cstr, substring.c_str());
 
     i = 0;
-    cmd[i] = strtok(cstr, " ");
-
-    while (cmd[i] != NULL) {
+    count = 0;
+    char *temp = strtok(cstr, " ");
+    cmd[i] = new char[100];
+    strcpy(cmd[i], temp);
+    ++count;
+    while (temp != NULL) {
         ++i;
-        cmd[i] = strtok(NULL, " ");
+        temp = strtok(NULL, " ");
+        if (temp != NULL) {
+            cmd[i] = new char[100];
+            strcpy(cmd[i], temp);
+            ++count;
+        }
     }
 
     index = min; // update the index to the first occurrence of any connector
@@ -333,54 +373,54 @@ int strValid(const string &str) {
     return flag;
 }
 
-int GetRedirectCmd(string &cmdLine, vector<string> &outRe, vector<string> &inRe) {
-    outRe.clear();
-    inRe.clear();
+int GetRedirectCmd(string &cmdLine, vector<string> &ReFile) {
+    ReFile.clear();
     long unsigned pos = 0;
     string temp;
 
-    pos = cmdLine.find(">");
+    pos = cmdLine.find_first_of("<>");
     while(pos != string::npos) {
         // find ">" redirect flag
-        if (pos + 1 < cmdLine.size() && cmdLine.at(pos + 1) != '>') {
-            if (-1 == SplitInOutCmd(cmdLine, outRe, 1, pos)) {
-                return -1; // invalid use of '>'
+        if (cmdLine.at(pos) == '>') {
+            if (pos + 1 < cmdLine.size() && cmdLine.at(pos + 1) != '>') {
+                if (-1 == SplitInOutCmd(cmdLine, ReFile, 1, pos)) {
+                    return -1; // invalid use of '>'
+                }
+                pos = cmdLine.find_first_of("<>", pos - 1);
             }
-            pos = cmdLine.find(">", pos - 1);
-        }
-        // find ">>" redirect flag
-        else if (pos + 2 < cmdLine.size() && cmdLine.at(pos + 2) != '>') {
-            if (-1 == SplitInOutCmd(cmdLine, outRe, 2, pos)) {
-                return -1; // invalid use of ">>"
+            // find ">>" redirect flag
+            else if (pos + 2 < cmdLine.size() && cmdLine.at(pos + 2) != '>') {
+                if (-1 == SplitInOutCmd(cmdLine, ReFile, 2, pos)) {
+                    return -1; // invalid use of ">>"
+                }
+                pos = cmdLine.find_first_of("<>", pos - 1);
             }
-            pos = cmdLine.find(">", pos - 1);
+            // return -1 for other flags
+            else {
+                return -1;
+            }
         }
-        // return -1 for other flags
-        else {
-            return -1;
+        // find "<" redirect flag
+        else if (cmdLine.at(pos) == '<') {
+            if (pos + 1 < cmdLine.size() && cmdLine.at(pos + 1) != '<') {
+                if (-1 == SplitInOutCmd(cmdLine, ReFile, 1, pos)) {
+                    return -1;
+                }
+                pos = cmdLine.find_first_of("<>", pos - 1);
+            }
+            // find "<<<" redirect flag
+            else if (pos + 3 < cmdLine.size() && cmdLine.at(pos + 2) == '<' && cmdLine.at(pos + 3) != '<') {
+                if (-1 == SplitInOutCmd(cmdLine, ReFile, 3, pos)) {
+                    return -1;
+                }
+                pos = cmdLine.find_first_of("<>", pos - 1);
+            }
+            else {
+                return -1;
+            }
         }
     }
 
-    pos = cmdLine.find("<");
-    while (pos != string::npos) {
-        // find "<" redirect flag
-        if (pos + 1 < cmdLine.size() && cmdLine.at(pos + 1) != '<') {
-            if (-1 == SplitInOutCmd(cmdLine, inRe, 1, pos)) {
-                return -1;
-            }
-            pos = cmdLine.find("<", pos - 1);
-        }
-        // find "<<<" redirect flag
-        else if (pos + 3 < cmdLine.size() && cmdLine.at(pos + 2) == '<' && cmdLine.at(pos + 3) != '<') {
-            if (-1 == SplitInOutCmd(cmdLine, inRe, 3, pos)) {
-                return -1;
-            }
-            pos = cmdLine.find("<", pos - 1);
-        }
-        else {
-            return -1;
-        }
-    }
     return 0;
 }
 
@@ -388,10 +428,54 @@ int SplitInOutCmd(string &cmdLine, vector<string> &cmd, unsigned num, long unsig
     while (pos + num < cmdLine.size() && cmdLine.at(pos + num) == ' ') {
         cmdLine.erase(pos + num, 1);
     }
+
+    long unsigned subpos = 0;
     unsigned len = num;
+    if (cmdLine.at(pos) == '>') {
+        for (int i = pos - 1; i >= 0 && isdigit(cmdLine.at(i)); --i) {
+            ++subpos;
+            if (i > 0) {
+                if (cmdLine.at(i - 1) == ' ') {
+                    break;
+                }
+                else if (!isdigit(cmdLine.at(i - 1))) {
+                    subpos = 0;
+                    break;
+                }
+            }
+        }
+    }
+
     if (pos + len >= cmdLine.size()) {
         return -1;
     }
+
+    if (num == 3) {
+        long unsigned quotePos = pos;
+        int even = 0;
+        if ((quotePos = cmdLine.find("\"", quotePos)) == pos + len) {
+            while (quotePos != string::npos) {
+                ++even;
+                len = quotePos - pos + 1;
+                if (even % 2 == 0) {
+                    if (quotePos == cmdLine.size() - 1) {
+                        break;
+                    }
+                    else if (cmdLine.at(quotePos + 1) != '\"') {
+                        break;
+                    }
+                }
+                quotePos = cmdLine.find("\"", quotePos + 1);
+            }
+            if (even % 2 == 0) {
+                cmd.push_back(cmdLine.substr(pos - subpos, len + subpos));
+                cmdLine.erase(pos - subpos, len + subpos);
+                return 0;
+            }
+        }
+    }
+
+    len = num;
     bool isGoing = (cmdLine.at(pos + len) != ' ') &&
     (cmdLine.at(pos + len) != '>') && (cmdLine.at(pos + len) != '<');
 
@@ -407,20 +491,54 @@ int SplitInOutCmd(string &cmdLine, vector<string> &cmd, unsigned num, long unsig
     if(len == num) {
         return -1;
     }
-    cmd.push_back(cmdLine.substr(pos, len));
-    cmdLine.erase(pos, len);
+    cmd.push_back(cmdLine.substr(pos - subpos, len + subpos));
+    cmdLine.erase(pos - subpos, len + subpos);
 
     return 0;
 }
 
 
 
-void Redirect(vector<string> &outRe, vector<string> &inRe) {
+void Redirect(vector<string> &ReFile) {
     char wholeName[cap];
-    for (unsigned i = 0; i < outRe.size(); ++i) {
+    for (unsigned i = 0; i < ReFile.size(); ++i) {
         int fd;
-        strcpy(wholeName, outRe.at(i).c_str());
-        if (outRe.at(i).at(1) == '>') {
+        int len = 0;
+        string strnum;
+        int num;
+
+        strcpy(wholeName, ReFile.at(i).c_str());
+        for (len = 0; isdigit(ReFile.at(i).at(len)); ++len) {
+            strnum += ReFile.at(i).at(len);
+        }
+
+        if (len > 0) {
+            num = atoi(strnum.c_str());
+            if (ReFile.at(i).at(1 + len) == '>') {
+                char *fileName = wholeName + len + 2;
+                if (-1 == (fd = open(fileName, O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR))) {
+                    perror(fileName);
+                    exit(EXIT_FAILURE);
+                }
+                if (-1 == dup2(fd, num)) {
+                    perror("dup2()");
+                    exit(EXIT_FAILURE);
+                }
+            }
+            else {
+                char *fileName = wholeName + len + 1;
+                if (-1 == (fd = open(fileName, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR))) {
+                    perror(fileName);
+                    exit(EXIT_FAILURE);
+                }
+                if (-1 == dup2(fd, num)) {
+                    perror("dup2()");
+                    exit(EXIT_FAILURE);
+                }
+            }
+        }
+        // ">>" case
+        else if (ReFile.at(i).at(1) == '>') {
             char *fileName = wholeName + 2;
             if (-1 == (fd = open(fileName, O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR))) {
                 perror(fileName);
@@ -431,7 +549,8 @@ void Redirect(vector<string> &outRe, vector<string> &inRe) {
                 exit(EXIT_FAILURE);
             }
         }
-        else {
+        // ">" case
+        else if (ReFile.at(i).at(0) == '>'){
             char *fileName = wholeName + 1;
             if (-1 == (fd = open(fileName, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR))) {
                 perror(fileName);
@@ -442,22 +561,45 @@ void Redirect(vector<string> &outRe, vector<string> &inRe) {
                 exit(EXIT_FAILURE);
             }
         }
-    }
-
-    for (unsigned i = 0; i < inRe.size(); ++i) {
-        int fd;
-        strcpy(wholeName, inRe.at(i).c_str());
-        if (inRe.at(i).at(2) == '<') {
+        // "<<<" case
+        else if (ReFile.at(i).at(2) == '<') {
             char *fileName = wholeName + 3;
-            if (-1 == (fd = open(fileName, O_RDONLY, S_IRUSR))) {
-                perror(fileName);
+            string str = fileName;
+            int even = 0; // check if the string are in a set of double quotes
+            for (unsigned j = 0; j < str.size(); ++j) {
+                if (str.at(j) == '\"') {
+                    str.erase(j, 1);
+                    --j;
+                    ++even;
+                }
+            }
+            if (even % 2 == 1) {
+                cerr << "need a string inside of a set of double quotes" << endl;
                 exit(EXIT_FAILURE);
             }
-            if (-1 == dup2(fd, 0)) {
+            str += '\n';
+
+            int fd1[2];
+            if (-1 == pipe(fd1)) {
+                perror("pipe()");
+                exit(1);
+            }
+            // write to the pipe
+            if (-1 == write(fd1[PIPE_WRITE], str.c_str(), str.size() + 1)) {
+                perror("write()");
+                exit(1);
+            }
+            // read from the pipe
+            if (-1 == dup2(fd1[PIPE_READ], 0)) {
                 perror("dup2()");
-                exit(EXIT_FAILURE);
+                exit(1);
+            }
+            if (-1 == close(fd1[PIPE_WRITE])) {
+                perror("close()");
+                exit(1);
             }
         }
+        // "<" case
         else {
             char *fileName = wholeName + 1;
             if (-1 == (fd = open(fileName, O_RDONLY, S_IRUSR))) {
@@ -470,6 +612,7 @@ void Redirect(vector<string> &outRe, vector<string> &inRe) {
             }
         }
     }
+    return;
 }
 
 
