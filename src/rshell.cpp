@@ -14,12 +14,13 @@
 
 using namespace std;
 
-const int cap = 1000; // the capacity of the 2-D array
+int status; // store the status of child exit
+const int cap = 512; // the capacity of the 2-D array
 const int PIPE_READ = 0;
 const int PIPE_WRITE = 1;
 
 // split a line by the delim and store to a 2-D array
-//void split(char *arr[], char str[], const char *delim);
+int split(char **arr, char *str, const char *delim);
 // get command block between connectors
 int getCommand(char **, const string &, int &, int, string &, int &);
 // check if the string has syntax error
@@ -28,6 +29,10 @@ int GetRedirectCmd(string &, vector<string> &);
 int SplitInOutCmd(string &, vector<string> &, unsigned, long unsigned);
 void Redirect(vector<string> &);
 bool isRedirect(const string &);
+bool isEmpty(const string&);
+bool isPiping(const string &);
+void Piping(string &, bool &, int);
+void RunPipe(char **, const int *, vector<string> &);
 
 int main(int argc, char *argv[]) {
     char origStr[cap]; // store the user input line
@@ -47,18 +52,14 @@ int main(int argc, char *argv[]) {
     while (1) {
     mylabel:
         cout << username << '@' << hostname << " $ ";
-//        char *cmd[cap]; // declare a 2-D array
-
         bool isExecuted = true; // initialize to true in each loop
         char *effectStr; // store the string before the "#"
         char *spaceStr; // check if the string only has spaces
-        char errcmd[cap]; // store a copy of command name
         char origCpy[cap]; // store a copy of original string
         string userStr; // change a cstring into string
         string tempStr; // store the additional string
         int flag = 4; // 4 indicates first call
         int index = 0; // initialize to 0 in order to look through the whole string
-        int status; // store the status of child exit
         int errStr; // store the return value of strValid
         vector<string> ReFile;
 
@@ -137,103 +138,44 @@ int main(int argc, char *argv[]) {
 //            char *origcmd[cap];
             char *cmd[cap];
             string cmdStr;
-            string cmdStrCpy;
             string storeStr;
-            int tempIndex = 0;
             int count = 0;
             flag = getCommand(cmd, userStr, index, flag, cmdStr, count);
-            cmdStrCpy = cmdStr;
 
-            if (isRedirect(cmdStr)) {
+            // if the command is "exit", exit the rshell
+            if (!isEmpty(cmdStr) && (strcmp(cmd[0], "exit") == 0) ) {
                 for (int i = 0; i < count; ++i) {
                     delete[] cmd[i];
                     cmd[i] = 0;
                 }
-                bool isEmpty = true;
-                GetRedirectCmd(cmdStr, ReFile);
-                for (unsigned i = 0; i < cmdStr.size(); ++i) {
-                    if (cmdStr.at(i) != ' ') {
-                        isEmpty = false;
-                        break;
-                    }
-                }
-                if (!isEmpty) {
-                    getCommand(cmd, cmdStr, tempIndex, 4, storeStr, count);
-                }
-            }
-            // if the command is "exit", exit the rshell
-            if ( (strcmp(cmd[0], "exit") == 0) ) {
                 return 0;
-            }
-
-            int pid = fork(); // create a child process to call execvp()
-
-            // fork’s return value for an error is -1
-            if (pid == -1) {
-                perror("fork");
-                exit(1); //there was an error with fork so exit the program and go back and fix it
-            }
-
-            // this is in child process
-            else if (pid == 0) {
-/*                if (isPiping(cmdStrCpy)) {
-                    int pipe_flag;
-                    Piping(origcmd, cmdStrCpy, pipe_flag);
-                }
-*/
-                Redirect(ReFile);
-                // run execvp in child process in order not to exit the whole program
-                if (execvp(cmd[0], cmd) == -1) {
-                    strcpy(errcmd, cmd[0]);
-                    perror(errcmd);
-                    exit(EXIT_FAILURE);
-                }
-                exit(EXIT_SUCCESS); // kill the child process when it's done
-            }
-
-            // this is in parent process
-            else {
-                // wait for child process to finish executing
-                if (wait(&status) == -1) {
-                    perror("wait()");
-                    exit(1);
-                }
-                // if the command fails and the connector is &&, do not execute the next command
-                if (WEXITSTATUS(status) != 0 && flag == 2) {
-                    isExecuted = false;
-                }
-                // if the command is executed and the connector is ||, do not execute the next command
-                else if (WEXITSTATUS(status) == EXIT_SUCCESS && flag == 1) {
-                    isExecuted = false;
-                }
-                // execute the next command if it's not the situations above
-                else {
-                    isExecuted = true;
-                }
             }
             for (int i = 0; i < count; ++i) {
                 delete[] cmd[i];
                 cmd[i] = 0;
             }
+            Piping(cmdStr, isExecuted, flag);
         }
     }
     return 0;
 }
 
-/*
-void split(char *arr[], char str[], const char *delim) {
-    int i = 0; // initialize i to 0 before the loop
 
-    // split the whole line by delim
-    arr[i] = strtok(str, delim);
-    while (arr[i] != NULL) {
+int split(char **arr, char *str, const char *delim) {
+    int i = 0;
+    int count = 0;
+
+    char *temp = strtok(str, delim);
+    while (temp != NULL) {
+        arr[i] = new char[100];
+        strcpy(arr[i], temp);
+        ++count;
         ++i;
-        arr[i] = strtok(NULL, delim);
-    }
+        temp = strtok(NULL, delim);
+   }
 
-    return;
+    return count;
 }
-*/
 
 int getCommand(char **cmd, const string &str, int &index, int iFlag, string &substring, int &count) {
     const int size = 3;
@@ -293,22 +235,7 @@ int getCommand(char **cmd, const string &str, int &index, int iFlag, string &sub
 
     // do toking
     strcpy(cstr, substring.c_str());
-
-    i = 0;
-    count = 0;
-    char *temp = strtok(cstr, " ");
-    cmd[i] = new char[100];
-    strcpy(cmd[i], temp);
-    ++count; // store how many memory addresses have been allocated
-    while (temp != NULL) {
-        ++i;
-        temp = strtok(NULL, " ");
-        if (temp != NULL) {
-            cmd[i] = new char[100];
-            strcpy(cmd[i], temp);
-            ++count;
-        }
-    }
+    count = split(cmd, cstr, " ");
 
     index = min; // update the index to the first occurrence of any connector
     return mFlag;
@@ -471,16 +398,27 @@ int SplitInOutCmd(string &cmdLine, vector<string> &cmd, unsigned num, long unsig
     if (num == 3) {
         long unsigned quotePos = pos;
         int even = 0;
+        quotePos = cmdLine.find("\"", quotePos);
         // find double quotes and check if they are in pairs
-        if ((quotePos = cmdLine.find("\"", quotePos)) == pos + len) {
+        if (quotePos != string::npos && cmdLine.at(quotePos - 1) != ' ') {
             while (quotePos != string::npos) {
                 ++even;
                 len = quotePos - pos + 1;
                 if (even % 2 == 0) {
+                    // break loop if quotePos is the end of the string
                     if (quotePos == cmdLine.size() - 1) {
                         break;
                     }
-                    else if (cmdLine.at(quotePos + 1) != '\"') {
+                    // set len to the end of the string if there is no space and no double quotes
+                    // after the right side of the double quotes
+                    else if (cmdLine.find_first_of("\" ", quotePos + 1) == string::npos) {
+                        len = cmdLine.size() - pos;
+                        break;
+                    }
+                    // set quotePos to the first space after the double quotes if there is no double quotes after
+                    else if (cmdLine.find("\"", quotePos + 1) == string::npos) {
+                        quotePos = cmdLine.find(" ", quotePos + 1);
+                        len = quotePos - pos + 1;
                         break;
                     }
                 }
@@ -581,7 +519,7 @@ void Redirect(vector<string> &ReFile) {
             }
         }
         // "<<<" case
-        else if (ReFile.at(i).at(2) == '<') {
+        else if (ReFile.at(i).size() >= 3 && ReFile.at(i).at(2) == '<') {
             char *fileName = wholeName + 3;
             string str = fileName;
             int even = 0; // check if the string are in a set of double quotes
@@ -644,19 +582,201 @@ bool isPiping(const string &cmdLine) {
     return (pos != string::npos);
 }
 
+bool isEmpty(const string& str) {
+    for (unsigned i = 0; i < str.size(); ++i) {
+        if (str.at(i) != ' ') {
+            return false;
+        }
+    }
+    return true;
+}
 
+void Piping(string &cmdLine, bool &isExecuted, int flag) {
+    long unsigned pos = 0;
+    int count = 0;
+    char *cmd[cap] = {0};
+    char cstr[cap];
+    string cmdStr;
+    vector<string> ReFile;
 
+    if (!isPiping(cmdLine)) {
+        if (isRedirect(cmdLine)) {
+            GetRedirectCmd(cmdLine, ReFile);
+        }
+        if (!isEmpty(cmdLine)) {
+            char cmdStrCpy[cap];
+            strcpy(cmdStrCpy, cmdLine.c_str());
+            count = split(cmd, cmdStrCpy, " ");
+        }
 
+        int pid = fork();
+        if (pid == -1) {
+            perror("fork()");
+            exit(1);
+        }
 
+        else if (pid == 0) {
+            Redirect(ReFile);
+            // run execvp in child process in order not to exit the whole program
+            if (execvp(cmd[0], cmd) == -1) {
+                char errcmd[cap];
+                strcpy(errcmd, cmd[0]);
+                perror(errcmd);
+                exit(EXIT_FAILURE);
+            }
+            exit(EXIT_SUCCESS); // kill the child process when it's done
+        }
 
+        // this is in parent process
+        else {
+            // wait for child process to finish executing
+            if (wait(&status) == -1) {
+                perror("wait()");
+                exit(1);
+            }
+            // if the command fails and the connector is &&, do not execute the next command
+            if (WEXITSTATUS(status) != 0 && flag == 2) {
+                isExecuted = false;
+            }
+            // if the command is executed and the connector is ||, do not execute the next command
+            else if (WEXITSTATUS(status) == EXIT_SUCCESS && flag == 1) {
+                isExecuted = false;
+            }
+            // execute the next command if it's not the situations above
+            else {
+                isExecuted = true;
+            }
+        }
+        for (int i = 0; i < count; ++i) {
+            delete[] cmd[i];
+            cmd[i] = 0;
+        }
+    }
 
+    else {
+        if ((pos = cmdLine.find("|")) != string::npos) {
+            cmdStr = cmdLine.substr(0, pos);
+            cmdLine.erase(0, pos + 1);
+            if (isRedirect(cmdStr)) {
+                GetRedirectCmd(cmdStr, ReFile);
+                if (!isEmpty(cmdStr)) {
+                    strcpy(cstr, cmdStr.c_str());
+                    count = split(cmd, cstr, " ");
+                }
+            }
+            else {
+                strcpy(cstr, cmdStr.c_str());
+                count = split(cmd, cstr, " ");
+            }
 
+            int fd[2];
+            if (-1 == pipe(fd)) {
+                perror("pipe()");
+                exit(1);
+            }
+    //        RunPipe(cmd, fd, ReFile);
+            int pid = fork();
+            if (pid == -1) {
+                perror("fork()");
+                exit(1);
+            }
+            // write to the pipe in child process
+            else if(pid == 0) {
+                if (-1 == dup2(fd[PIPE_WRITE], 1)) {
+                    perror("dup2()");
+                    exit(1);
+                }
+                if (-1 == close(fd[PIPE_READ])) {
+                    perror("close()");
+                    exit(1);
+                }
+                Redirect(ReFile);
+                if (-1 == execvp(cmd[0], cmd)) {
+                    char errcmd[cap];
+                    strcpy(errcmd, cmd[0]);
+                    perror(errcmd);
+                    exit(EXIT_FAILURE);
+                }
+                exit(1); // prevents zombie process
+            }
+            else {
+                int savestdin;
+                // save the stdin
+                if (-1 == (savestdin = dup(0))) {
+                    perror("dup()");
+                    exit(1);
+                }
+                if (-1 == close(fd[PIPE_WRITE])) {
+                    perror("close()");
+                    exit(1);
+                }
+                if (-1 == dup2(fd[PIPE_READ], 0)) {
+                    perror("dup2()");
+                    exit(1);
+                }
+                if (-1 == wait(0)) {
+                    perror("wait()");
+                    exit(1);
+                }
+                for (int i = 0; i < count; ++i) {
+                    delete[] cmd[i];
+                    cmd[i] = 0;
+                }
+                Piping(cmdLine, isExecuted, flag);
+                // restore stdin
+                if (-1 == dup2(savestdin, 0)) {
+                    perror("dup2()");
+                    exit(1);
+                }
+            }
+        }
+    }
 
-
-
-
-
-
+    return;
+}
+/*
+void RunPipe(char **cmd, const int *fd, vector<string> &ReFile) {
+    int pid = fork();
+    if (pid == -1) {
+        perror("fork()");
+        exit(1);
+    }
+    // write to the pipe in child process
+    else if(pid == 0) {
+        if (-1 == dup2(fd[PIPE_WRITE], 1)) {
+            perror("dup2()");
+            exit(1);
+        }
+        if (-1 == close(fd[PIPE_READ])) {
+            perror("close()");
+            exit(1);
+        }
+        Redirect(ReFile);
+        if (-1 == execvp(cmd[0], cmd)) {
+            char errcmd[cap];
+            strcpy(errcmd, cmd[0]);
+            perror(errcmd);
+            exit(EXIT_FAILURE);
+        }
+        exit(1); // prevents zombie process
+    }
+    else {
+        if (-1 == dup2(fd[PIPE_READ], 0)) {
+            perror("dup2()");
+            exit(1);
+        }
+        if (-1 == close(PIPE_WRITE)) {
+            perror("close()");
+            exit(1);
+        }
+        if (-1 == wait(0)) {
+            perror("wait()");
+            exit(1);
+        }
+    }
+    return;
+}
+*/
 
 
 
