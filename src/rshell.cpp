@@ -135,7 +135,6 @@ int main(int argc, char *argv[]) {
         // run execvp() in a while loop
         while (flag != 0 && isExecuted) {
             ReFile.clear();
-//            char *origcmd[cap];
             char *cmd[cap];
             string cmdStr;
             string storeStr;
@@ -674,7 +673,6 @@ void Piping(string &cmdLine, bool &isExecuted, int flag) {
                 perror("pipe()");
                 exit(1);
             }
-    //        RunPipe(cmd, fd, ReFile);
             int pid = fork();
             if (pid == -1) {
                 perror("fork()");
@@ -777,17 +775,4 @@ void RunPipe(char **cmd, const int *fd, vector<string> &ReFile) {
     return;
 }
 */
-
-
-
-
-
-
-
-
-
-
-
-
-
 
