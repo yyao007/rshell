@@ -628,8 +628,7 @@ void Piping(string &cmdLine, bool &isExecuted, int flag, int savestdin) {
 
         // this is in parent process
         else {
-            // wait for child process to finish executing. Wait in the last parent process
-            // so that each child could run simultaneously.
+            // wait for child process to finish executing
             if (wait(&status) == -1) {
                 perror("wait()");
                 exit(1);
@@ -700,17 +699,19 @@ void Piping(string &cmdLine, bool &isExecuted, int flag, int savestdin) {
                 exit(1); // prevents zombie process
             }
             else {
-                // save the stdin
+                // save stdin only in the first command
                 if (savestdin == -1) {
                     if (-1 == (savestdin = dup(0))) {
                         perror("dup()");
                         exit(1);
                     }
                 }
+                // close PIPE_WRITE because I'm not gonna using it
                 if (-1 == close(fd[PIPE_WRITE])) {
                     perror("close()");
                     exit(1);
                 }
+                // change stdin to PIPE_READ so the next command can read from the pipe
                 if (-1 == dup2(fd[PIPE_READ], 0)) {
                     perror("dup2()");
                     exit(1);
@@ -719,16 +720,21 @@ void Piping(string &cmdLine, bool &isExecuted, int flag, int savestdin) {
                     delete[] cmd[i];
                     cmd[i] = 0;
                 }
+                // recursion from here
                 Piping(cmdLine, isExecuted, flag, savestdin);
-                // restore stdin
+                // restore stdin or can't exit the child when a file is
+                // too large to store in the pipe
                 if (-1 == dup2(savestdin, 0)) {
                     perror("dup2()");
                     exit(1);
                 }
+                // close PIPE_READ after each fork or the child can't exit when a large file
+                // comes in the pipe
                 if (-1 == close (fd[PIPE_READ])) {
                     perror("close()");
                     exit(1);
                 }
+                // wait after each fork so that every child process can run simultaneously
                 if (-1 == wait(&status)) {
                     perror("wait()");
                     exit(1);
