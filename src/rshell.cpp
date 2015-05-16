@@ -31,7 +31,7 @@ void Redirect(vector<string> &);
 bool isRedirect(const string &);
 bool isEmpty(const string&);
 bool isPiping(const string &);
-void Piping(string &, bool &, int);
+void Piping(string &, bool &, int, int savestdin = -1);
 void RunPipe(char **, const int *, vector<string> &);
 
 int main(int argc, char *argv[]) {
@@ -590,7 +590,7 @@ bool isEmpty(const string& str) {
     return true;
 }
 
-void Piping(string &cmdLine, bool &isExecuted, int flag) {
+void Piping(string &cmdLine, bool &isExecuted, int flag, int savestdin) {
     long unsigned pos = 0;
     int count = 0;
     char *cmd[cap] = {0};
@@ -628,11 +628,13 @@ void Piping(string &cmdLine, bool &isExecuted, int flag) {
 
         // this is in parent process
         else {
-            // wait for child process to finish executing
+            // wait for child process to finish executing. Wait in the last parent process
+            // so that each child could run simultaneously.
             if (wait(&status) == -1) {
                 perror("wait()");
                 exit(1);
             }
+
             // if the command fails and the connector is &&, do not execute the next command
             if (WEXITSTATUS(status) != 0 && flag == 2) {
                 isExecuted = false;
@@ -698,11 +700,12 @@ void Piping(string &cmdLine, bool &isExecuted, int flag) {
                 exit(1); // prevents zombie process
             }
             else {
-                int savestdin;
                 // save the stdin
-                if (-1 == (savestdin = dup(0))) {
-                    perror("dup()");
-                    exit(1);
+                if (savestdin == -1) {
+                    if (-1 == (savestdin = dup(0))) {
+                        perror("dup()");
+                        exit(1);
+                    }
                 }
                 if (-1 == close(fd[PIPE_WRITE])) {
                     perror("close()");
@@ -712,18 +715,22 @@ void Piping(string &cmdLine, bool &isExecuted, int flag) {
                     perror("dup2()");
                     exit(1);
                 }
-                if (-1 == wait(0)) {
-                    perror("wait()");
-                    exit(1);
-                }
                 for (int i = 0; i < count; ++i) {
                     delete[] cmd[i];
                     cmd[i] = 0;
                 }
-                Piping(cmdLine, isExecuted, flag);
+                Piping(cmdLine, isExecuted, flag, savestdin);
                 // restore stdin
                 if (-1 == dup2(savestdin, 0)) {
                     perror("dup2()");
+                    exit(1);
+                }
+                if (-1 == close (fd[PIPE_READ])) {
+                    perror("close()");
+                    exit(1);
+                }
+                if (-1 == wait(&status)) {
+                    perror("wait()");
                     exit(1);
                 }
             }
