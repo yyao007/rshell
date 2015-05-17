@@ -42,20 +42,20 @@ I implemented IO redirection and piping in my rshell. Now the rshell can:
 1. Handle input redirection `<`, output redirection`>` and `>>`, and piping`|`.
 
 2. Handle `<<<` input redirection that would redirect from a string instead of a file. For example, the two commands below will give the same output:
-```
- $ echo hello world! | cat
- $ cat <<< "hello world!"
-```
+   ```
+    $ echo hello world! | cat
+    $ cat <<< "hello world!"
+   ```
 3. Perform output redirection on whatever file descriptors you want by placing a number before the `>` command. For example,
-```
- $ g++ main.cpp 2> errorfile
-```
+   ```
+    $ g++ main.cpp 2> errorfile
+   ```
    will direct stderr(which is where g++ prints error messages) to the errorfile.
 
 4. Work all of the features together. For example,
-```
- $ ls -l > file && cat < file | tr A-Z a-z | tee lowercase | tr a-z A-Z > uppercase
-```
+   ```
+    $ ls -l > file && cat < file | tr A-Z a-z | tee lowercase | tr a-z A-Z > uppercase
+   ```
    will store all the informations of files in the current directory in lower cases in the file lowercase, and store them in upper cases in the file uppercase at the same time.
 
 5. There are additional error messages in rshell:
