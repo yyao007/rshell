@@ -36,8 +36,9 @@ I implemented my own `ls` command. You can run this by following instructions in
 
 7. The ls will give an error message of "Invalid flag" for flags beyond the listed three; "Cannot recognize option" for flags with the `--` prefix not in the list; and "ls: Cannot access ..." for invalid file parameters.
 
-### Added features of IO redirection and piping
-I implemented IO redirection and piping for my rshell. Now the rshell can:
+#### Added features of IO redirection and piping
+I implemented IO redirection and piping in my rshell. Now the rshell can:
+
 1. Handle input redirection `<`, output redirection`>` and `>>`, and piping`|`.
 
 2. Handle `<<<` input redirection that would redirect from a string instead of a file. For example, the two commands below will give the same output:
@@ -72,7 +73,7 @@ To run rshell on your Linux system, you need to run the following commands.
 ```
  $ git clone https://github.com/yyao007/rshell.git
  $ cd rshell
- $ git checkout hw0
+ $ git checkout hw2
  $ make
  $ bin/rshell
 ```
@@ -95,7 +96,7 @@ The test cases are in [rshell/tests](https://github.com/yyao007/rshell/tree/mast
 ## Limitations
 1. This first version of rshell can't run `cd` command, this feature will be added in future implementation.
 
-2. This rshell now will regard the appearance of single `|` or `&` as syntax error. **(ADDED PIPE COMMAND `|`)
+2. This rshell now will regard the appearance of single `|` or `&` as syntax error. **(ADDED PIPE COMMAND `|`)**
 
 3. rshell can only report two error messages and that won't be sufficient. Further error messages will be added in the future.
 
@@ -108,6 +109,9 @@ The test cases are in [rshell/tests](https://github.com/yyao007/rshell/tree/mast
 
 ## Known bugs
 * If you type any connector in the beginning of the command and then append another connector, such as `|| |` `&& &|`  `;;` `||||`, then rshell will report an error saying cannot start with connectors which actually should be reported as a syntax error. **(FIXED)**
+
 * When you run the ls command with `-l` flag many times on the hammer server, an unexpected error of "do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted" will appear.
+
 * When using the `<<<` operator, if there's a connector inside of a pair of double quotes, rshell will detect that connector rather than regard it as a part of the string.
+
 * Upon this time, rshell will not crash during runtime. If anyone can find a bug that would crash my rshell, please let me know and I will be appreciated.
