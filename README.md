@@ -46,18 +46,17 @@ I implemented IO redirection and piping in my rshell. Now the rshell can:
  $ echo hello world! | cat
  $ cat <<< "hello world!"
 ```
-
 3. Perform output redirection on whatever file descriptors you want by placing a number before the `>` command. For example,
 ```
  $ g++ main.cpp 2> errorfile
 ```
-will direct stderr(which is where g++ prints error messages) to the errorfile.
+   will direct stderr(which is where g++ prints error messages) to the errorfile.
 
 4. Work all of the features together. For example,
 ```
  $ ls -l > file && cat < file | tr A-Z a-z | tee lowercase | tr a-z A-Z > uppercase
 ```
-will store all the informations of files in the current directory in lower cases in the file lowercase, and store them in upper cases in the file uppercase at the same time.
+   will store all the informations of files in the current directory in lower cases in the file lowercase, and store them in upper cases in the file uppercase at the same time.
 
 5. There are additional error messages in rshell:
     * Any command started with a `|`.
@@ -96,7 +95,7 @@ The test cases are in [rshell/tests](https://github.com/yyao007/rshell/tree/mast
 ## Limitations
 1. This first version of rshell can't run `cd` command, this feature will be added in future implementation.
 
-2. This rshell now will regard the appearance of single `|` or `&` as syntax error. **(ADDED PIPE COMMAND `|`)**
+2. This rshell now will regard the appearance of single `|` or `&` as syntax error. **(ADDED PIPING COMMAND `|`)**
 
 3. rshell can only report two error messages and that won't be sufficient. Further error messages will be added in the future.
 
