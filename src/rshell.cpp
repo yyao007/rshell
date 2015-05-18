@@ -401,9 +401,11 @@ int SplitInOutCmd(string &cmdLine, vector<string> &cmd, unsigned num, long unsig
     if (num == 3) {
         long unsigned quotePos = pos;
         int even = 0;
+        long unsigned redirectPos = cmdLine.find_first_of("<>", pos + 3);
         quotePos = cmdLine.find("\"", quotePos);
+
         // find double quotes and check if they are in pairs
-        if (quotePos != string::npos && (quotePos == pos + 3)) {
+        if (quotePos != string::npos && (quotePos < redirectPos)) {
             while (quotePos != string::npos) {
                 ++even;
                 len = quotePos - pos + 1;
@@ -412,9 +414,9 @@ int SplitInOutCmd(string &cmdLine, vector<string> &cmd, unsigned num, long unsig
                     if (quotePos == cmdLine.size() - 1) {
                         break;
                     }
-                    // set len to the end of the string if there is no space and no double quotes
-                    // after the right side of the double quotes
-                    else if (cmdLine.find_first_of("\" ", quotePos + 1) == string::npos) {
+                    // set len to the end of the string if there is no space, double quotes
+                    // and redirect operators after the right side of the double quotes
+                    else if (cmdLine.find_first_of("\"<> ", quotePos + 1) == string::npos) {
                         len = cmdLine.size() - pos;
                         break;
                     }
