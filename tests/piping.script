@@ -2333,3 +2333,85 @@ yyao007@hammer $ exit
 exit
 
 Script done on Sun 17 May 2015 08:50:10 PM PDT
+Script started on Sun 17 May 2015 11:02:47 PM PDT
+~
+yyao007@hammer $ #a[K added[K[King test case for | and[K[K[K[K[Kpipe and <<<
+~
+yyao007@hammer $ cs100
+[0;91m
+===============================================================================
+|                                                                             |
+| You have enabled settings specific for cs100.  Everything you do is being   |
+| recorded to measure your progress in the class.                             |
+|                                                                             |
+| Important commands for the class:                                           |
+|   * calcgrade.sh          displays a detailed breakdown of your grade       |
+|   * checksyscalls.sh      is your cpp file doing proper error checking?     |
+|   * typespeed             practice typing unix commands                     |
+|                                                                             |
+| Important commands for general C++ programming:                             |
+|   * make                  don't call g++ manually; let make do the work!    |
+|   * gdb                   the GNU debugger                                  |
+|   * valgrind              get rid of your memory leaks                      |
+|   * cppcheck              static analysis tool                              |
+|   * man                   find help about any syscall / terminal command    |
+|                                                                             |
+===============================================================================
+[0m
+[s%%%%%%%%%%[u[0;32myyao007[0;36m@[0;32mcs100[0;36m:[0;32m~[0;95m [0;36m$[0m cd cs100/rshell/
+[s%%%%%%%%%%[u[0;32myyao007[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/rshell[0;95m (master) [0;36m$[0m make
+g++ -Wall -Werror -ansi -pedantic src/rshell.cpp -o bin/rshell
+[s%%%%%%%%%%[u[0;32myyao007[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/rshell[0;95m (master) [0;36m$[0m bin/rshell
+yyao007@hammer.cs.ucr.edu $ #tests  piping with one c s single cah  harc acter command
+yyao007@hammer.cs.ucr.edu $ ls|   l|a|z
+l: No such file or directory
+a: No such file or directory
+z: No such file or directory
+yyao007@hammer.cs.ucr.edu $ l|
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $ |l; 
+Error: Cannot start with connectors "|| && ;".
+yyao007@hammer.cs.ucr.edu $       ; l|
+syntax error using connectors "|| && ;"
+yyao007@hammer.cs.ucr.edu $           |l
+Error: Cannot start with connectors "|| && ;".
+yyao007@hammer.cs.ucr.edu $   l               |                    a               |z
+l: No such file or directory
+a: No such file or directory
+z: No such file or directory
+yyao007@hammer.cs.ucr.edu $ l|  l  |       |   a
+l: No such file or directory
+a: No such file or directory
+yyao007@hammer.cs.ucr.edu $ # fine, then test <<<
+yyao007@hammer.cs.ucr.edu $ # test with no cpa   spaces
+yyao007@hammer.cs.ucr.edu $ cat<<<hellop <<"world: "
+syntax error using redirect operators "> <"
+yyao007@hammer.cs.ucr.edu $ cat  <><<   <<hellop <<<"world"
+world
+ yyao007@hammer.cs.ucr.edu $ cat<<<"world"<<<asd
+asd
+ yyao007@hammer.cs.ucr.edu $ cat <<<"asd asd asd"    <asd
+asd: No such file or directory
+yyao007@hammer.cs.ucr.edu $  cat <<<"asd asd asd"<asd   <<asd
+asd
+ yyao007@hammer.cs.ucr.edu $ cat<<<"asd asd asd "asd<<<"asdasd asd"asdzxc
+asdasd asdasdzxc
+ yyao007@hammer.cs.ucr.edu $ catr  <<<"asd asd"<<<"asd asd"<<<asd<<<asd" < "asd< "<<<asdzxc
+asdzxc
+ yyao007@hammer.cs.ucr.edu $ #works fiine   e ne          fixed all the bugs
+yyao007@hammer.cs.ucr.edu $ # work        l|s
+l: No such file or directory
+s: No such file or directory
+yyao007@hammer.cs.ucr.edu $ # l         l               |              a     
+l: No such file or directory
+a: No such file or directory
+yyao007@hammer.cs.ucr.edu $ #o O  OK, en      end of test here
+yyao007@hammer.cs.ucr.edu $ # # hope this could be suffi                  hed se could be sufficient
+yyao007@hammer.cs.ucr.edu $ exit
+[s%%%%%%%%%%[u[0;32myyao007[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/rshell[0;95m (master) [0;36m$[0m exit
+exit
+~
+yyao007@hammer $ exit
+exit
+
+Script done on Sun 17 May 2015 11:09:34 PM PDT
