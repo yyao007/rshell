@@ -329,14 +329,14 @@ int GetRedirectCmd(string &cmdLine, vector<string> &ReFile) {
                 if (-1 == SplitInOutCmd(cmdLine, ReFile, 1, pos)) {
                     return -1; // invalid use of '>'
                 }
-                pos = cmdLine.find_first_of("<>", pos - 1);
+                pos = cmdLine.find_first_of("<>", pos);
             }
             // find ">>" redirect flag
             else if (pos + 2 < cmdLine.size() && cmdLine.at(pos + 2) != '>') {
                 if (-1 == SplitInOutCmd(cmdLine, ReFile, 2, pos)) {
                     return -1; // invalid use of ">>"
                 }
-                pos = cmdLine.find_first_of("<>", pos - 1);
+                pos = cmdLine.find_first_of("<>", pos);
             }
             // return -1 for other flags
             else {
@@ -349,14 +349,14 @@ int GetRedirectCmd(string &cmdLine, vector<string> &ReFile) {
                 if (-1 == SplitInOutCmd(cmdLine, ReFile, 1, pos)) {
                     return -1;
                 }
-                pos = cmdLine.find_first_of("<>", pos - 1);
+                pos = cmdLine.find_first_of("<>", pos);
             }
             // find "<<<" redirect flag
             else if (pos + 3 < cmdLine.size() && cmdLine.at(pos + 2) == '<' && cmdLine.at(pos + 3) != '<') {
                 if (-1 == SplitInOutCmd(cmdLine, ReFile, 3, pos)) {
                     return -1;
                 }
-                pos = cmdLine.find_first_of("<>", pos - 1);
+                pos = cmdLine.find_first_of("<>", pos);
             }
             else {
                 return -1;
@@ -399,7 +399,7 @@ int SplitInOutCmd(string &cmdLine, vector<string> &cmd, unsigned num, long unsig
         int even = 0;
         quotePos = cmdLine.find("\"", quotePos);
         // find double quotes and check if they are in pairs
-        if (quotePos != string::npos && cmdLine.at(quotePos - 1) != ' ') {
+        if (quotePos != string::npos && (quotePos == pos + 3)) {
             while (quotePos != string::npos) {
                 ++even;
                 len = quotePos - pos + 1;
@@ -414,11 +414,20 @@ int SplitInOutCmd(string &cmdLine, vector<string> &cmd, unsigned num, long unsig
                         len = cmdLine.size() - pos;
                         break;
                     }
-                    // set quotePos to the first space after the double quotes if there is no double quotes after
-                    else if (cmdLine.find("\"", quotePos + 1) == string::npos) {
-                        quotePos = cmdLine.find(" ", quotePos + 1);
-                        len = quotePos - pos + 1;
-                        break;
+                    else {
+                        // find the first occurrence of either of the four characters
+                        quotePos = cmdLine.find_first_of("\"<> ", quotePos + 1);
+                        // set len to quotePos - pos + 1 if the space occurs first
+                        if (cmdLine.at(quotePos) == ' ') {
+                            len = quotePos - pos + 1;
+                            break;
+                        }
+                        // set len to quotePos - pos if the "<" or ">" occurs first
+                        else if (cmdLine.at(quotePos) != '\"'){
+                            len = quotePos - pos;
+                            break;
+                        }
+                        ++even;
                     }
                 }
                 quotePos = cmdLine.find("\"", quotePos + 1);
@@ -433,6 +442,10 @@ int SplitInOutCmd(string &cmdLine, vector<string> &cmd, unsigned num, long unsig
     }
 
     len = num;
+    // if a command like 2>  2>, will be invalid
+    if (isdigit(cmdLine.at(pos + len))) {
+        return -1;
+    }
     bool isGoing = (cmdLine.at(pos + len) != ' ') &&
     (cmdLine.at(pos + len) != '>') && (cmdLine.at(pos + len) != '<');
     // find the length of the redirect file name

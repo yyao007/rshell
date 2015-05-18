@@ -2153,3 +2153,183 @@ yyao007@hammer $ exit
 exit
 
 Script done on Sun 17 May 2015 06:59:19 AM PDT
+Script started on Sun 17 May 2015 08:04:31 PM PDT
+~
+yyao007@hammer $ cs[K[Kcs100[K[K[K[K[K# restatr[K[Krt test for bugs t[Ka[Koo[Kccuredd[K before
+~
+yyao007@hammer $ cs100
+[0;91m
+===============================================================================
+|                                                                             |
+| You have enabled settings specific for cs100.  Everything you do is being   |
+| recorded to measure your progress in the class.                             |
+|                                                                             |
+| Important commands for the class:                                           |
+|   * calcgrade.sh          displays a detailed breakdown of your grade       |
+|   * checksyscalls.sh      is your cpp file doing proper error checking?     |
+|   * typespeed             practice typing unix commands                     |
+|                                                                             |
+| Important commands for general C++ programming:                             |
+|   * make                  don't call g++ manually; let make do the work!    |
+|   * gdb                   the GNU debugger                                  |
+|   * valgrind              get rid of your memory leaks                      |
+|   * cppcheck              static analysis tool                              |
+|   * man                   find help about any syscall / terminal command    |
+|                                                                             |
+===============================================================================
+[0m
+[s%%%%%%%%%%[u[0;32myyao007[0;36m@[0;32mcs100[0;36m:[0;32m~[0;95m [0;36m$[0m cd cs100/rshell/
+[s%%%%%%%%%%[u[0;32myyao007[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/rshell[0;95m (master) [0;36m$[0m bin[K[K[Kmake
+g++ -Wall -Werror -ansi -pedantic src/rshell.cpp -o bin/rshell
+[s%%%%%%%%%%[u[0;32myyao007[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/rshell[0;95m (master) [0;36m$[0m bin/rshell 
+yyao007@hammer.cs.ucr.edu $ # test bug when having two redu irectors 2>   2> that has nothing betwwen   een them
+yyao007@hammer.cs.ucr.edu $ # ls  test ls 2 --- 2>   2>   file,  this       this will be a syntax error
+yyao007@hammer.cs.ucr.edu $ ls ---   2>    2>   file
+syntax error using redirect operators "> <"
+yyao007@hammer.cs.ucr.edu $ ls --- 2>   > file
+syntax error using redirect operators "> <"
+yyao007@hammer.cs.ucr.edu $ ls --- 1>  >   2> fio      file
+syntax error using redirect operators "> <"
+yyao007@hammer.cs.ucr.edu $ ls ----   > 1>  2>i file
+syntax error using redirect operators "> <"
+yyao007@hammer.cs.ucr.edu $ ls
+bin  case  file  LICENSE  Makefile  README.md  src  tests
+yyao007@hammer.cs.ucr.edu $ ca  rm file
+yyao007@hammer.cs.ucr.edu $ ls --- 2>  2> fo;    file e
+syntax error using redirect operators "> <"
+yyao007@hammer.cs.ucr.edu $ ls
+bin  case  LICENSE  Makefile  README.md  src  tests
+yyao007@hammer.cs.ucr.edu $ # OK, bug fixed
+yyao007@hammer.cs.ucr.edu $ # test bug that    when having redirecti  opr erators in the very bigi   i eginning og f the line
+yyao007@hammer.cs.ucr.edu $ > fi   fiel     ls
+bin  case  LICENSE  Makefile  README.md  src  tests
+yyao007@hammer.cs.ucr.edu $ c >file>file1>file2
+yyao007@hammer.cs.ucr.edu $ ls
+bin  case  file  file1	file2  LICENSE	Makefile  README.md  src  tests
+yyao007@hammer.cs.ucr.edu $ cat file file1 file2
+yyao007@hammer.cs.ucr.edu $ rm file file1f    file2
+yyao007@hammer.cs.ucr.edu $ <     ifl   file1<file2<              file    <   file3
+file1: No such file or directory
+yyao007@hammer.cs.ucr.edu $ ls
+bin  case  LICENSE  Makefile  README.md  src  tests
+yyao007@hammer.cs.ucr.edu $ >file1       >>file2          >fil      file3
+yyao007@hammer.cs.ucr.edu $ ls
+bin  case  file  file2	file3  LICENSE	Makefile  README.md  src  tests
+yyao007@hammer.cs.ucr.edu $ cat file file2 file3
+yyao007@hammer.cs.ucr.edu $ rm file file2 file3
+yyao007@hammer.cs.ucr.edu $ > 2>file
+yyao007@hammer.cs.ucr.edu $ ls
+bin  case  file  LICENSE  Makefile  README.md  src  tests
+yyao007@hammer.cs.ucr.edu $ 2>file 2>file 2>file
+yyao007@hammer.cs.ucr.edu $ cat file
+yyao007@hammer.cs.ucr.edu $ 1>a    a   2>   b    3>c  0>         d          >        d   4>>   e
+yyao007@hammer.cs.ucr.edu $ ls
+a  b  bin  c  case  d  e  file	LICENSE  Makefile  README.md  src  tests
+yyao007@hammer.cs.ucr.edu $ cat a b c d e
+yyao007@hammer.cs.ucr.edu $ >   > 
+syntax error using redirect operators "> <"
+yyao007@hammer.cs.ucr.edu $ 2>  >
+syntax error using redirect operators "> <"
+yyao007@hammer.cs.ucr.edu $ 2> 2>
+syntax error using redirect operators "> <"
+yyao007@hammer.cs.ucr.edu $ 1> 2>
+syntax error using redirect operators "> <"
+yyao007@hammer.cs.ucr.edu $ >  > file
+syntax error using redirect operators "> <"
+yyao007@hammer.cs.ucr.edu $ 1>  2> foie   ile
+syntax error using redirect operators "> <"
+yyao007@hammer.cs.ucr.edu $ 2>  > file
+syntax error using redirect operators "> <"
+yyao007@hammer.cs.ucr.edu $     >  1 2> fo;e
+syntax error using redirect operators "> <"
+yyao007@hammer.cs.ucr.edu $   > 2> file
+syntax error using redirect operators "> <"
+yyao007@hammer.cs.ucr.edu $ # ls
+a  b  bin  c  case  d  e  file	LICENSE  Makefile  README.md  src  tests
+yyao007@hammer.cs.ucr.edu $ rm a b c d e file
+yyao007@hammer.cs.ucr.edu $ ls
+bin  case  LICENSE  Makefile  README.md  src  tests
+yyao007@hammer.cs.ucr.edu $ < f   > a >>b       ls >a >>b >c
+yyao007@hammer.cs.ucr.edu $ cat   < a<b<c
+yyao007@hammer.cs.ucr.edu $ cat c
+a
+b
+bin
+c
+case
+LICENSE
+Makefile
+README.md
+src
+tests
+yyao007@hammer.cs.ucr.edu $ cat a b
+yyao007@hammer.cs.ucr.edu $ <        a                              < c         > v b
+yyao007@hammer.cs.ucr.edu $ cat b
+yyao007@hammer.cs.ucr.edu $ cat c
+a
+b
+bin
+c
+case
+LICENSE
+Makefile
+README.md
+src
+tests
+yyao007@hammer.cs.ucr.edu $ <   d    >d
+d: No such file or directory
+yyao007@hammer.cs.ucr.edu $ cat d     ls
+a  b  bin  c  case  LICENSE  Makefile  README.md  src  tests
+yyao007@hammer.cs.ucr.edu $   < e   > d   <           a   > d   <e
+e: No such file or directory
+yyao007@hammer.cs.ucr.edu $ ls
+a  b  bin  c  case  d  LICENSE	Makefile  README.md  src  tests
+yyao007@hammer.cs.ucr.edu $ cat d
+yyao007@hammer.cs.ucr.edu $ # OK, bug fux  ixed
+yyao007@hammer.cs.ucr.edu $ # test bug when having two or more <<< redirections
+yyao007@hammer.cs.ucr.edu $ cat <<< "hellpo    o world    ! "   <<<  "end   line"
+end   line
+ yyao007@hammer.cs.ucr.edu $ cat <<    t<<<asdasd      hellop "  world"!   <<<  Bye" BYy  ye "world"!" <<< "I'm    back"!"!!!!!                "!
+I'm    back!!!!!!                !
+ yyao007@hammer.cs.ucr.edu $ cat  <<<""""    <<< "hellp o !"
+cat!": No such file or directory
+yyao007@hammer.cs.ucr.edu $ cat <<< """a
+need a string inside of a set of double quotes
+yyao007@hammer.cs.ucr.edu $ #O  this is a limitation of my rshl ell
+yyao007@hammer.cs.ucr.edu $ # when therea a ra     are o oddn  numbers of " in the first blocjk   k   ^[[D     
+yyao007@hammer.cs.ucr.edu $ # rsh hell fails to claculate the w exact number of foub    double quotes
+yyao007@hammer.cs.ucr.edu $ # m I will fix this later
+yyao007@hammer.cs.ucr.edu $ <<< aasd<<<"asda s"<<<ls
+yyao007@hammer.cs.ucr.edu $ cat   ls
+a  b  bin  c  case  d  LICENSE	Makefile  README.md  src  tests
+yyao007@hammer.cs.ucr.edu $ ca  cat <<< hello <<< "world"  <<< "   <<< I mis     t it's not a bug"     "
+ <<< it's not a bug    
+ yyao007@hammer.cs.ucr.edu $ # ye  Oh, i I just fip  ound that it should be act like this, it isn't a bug
+yyao007@hammer.cs.ucr.edu $ Alrigh      # cat <<< """<<<"this is the end"! <<<                     hello"         <<<"""<<< ""Thisi " ti  is the   ne  end"    "!
+This is the   end   !
+ yyao007@hammer.cs.ucr.edu $ """   <<<   <<<   cat <<< "awd   I am kidding           'm just l kidding"  | grep -a k > file  ; && grep  -a hello <<<"no  bu t ye bye" <<< heo llowor  orld<<<"hello  world  !"
+helloworld<<<hello  world  !
+yyao007@hammer.cs.ucr.edu $ cat file
+I'm just kidding 
+yyao007@hammer.cs.ucr.edu $ #Ah ha, another bug, I kis   just fixed it, let me make    make      compu ile again
+yyao007@hammer.cs.ucr.edu $ exit
+[s%%%%%%%%%%[u[0;32myyao007[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/rshell[0;95m (master) [0;36m$[0m make
+g++ -Wall -Werror -ansi -pedantic src/rshell.cpp -o bin/rshell
+[s%%%%%%%%%%[u[0;32myyao007[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/rshell[0;95m (master) [0;36m$[0m bin/rshell 
+yyao007@hammer.cs.ucr.edu $ cat <<<asd   hello<<<world<<<"  hello world  !"
+  hello world  !
+ yyao007@hammer.cs.ucr.edu $ grep -a k hello   o <<< "" This is the end of the test hello"       "gel   hello  <<< helloworld<<<hello<<<"       "hello !"
+hello !
+yyao007@hammer.cs.ucr.edu $ # #finally, every bug has been fixed
+yyao007@hammer.cs.ucr.edu $ # if any further bug s  s are found, pleax se let me know
+yyao007@hammer.cs.ucr.edu $ #end of test
+yyao007@hammer.cs.ucr.edu $ wxit
+wxit: No such file or directory
+yyao007@hammer.cs.ucr.edu $ exit
+[s%%%%%%%%%%[u[0;32myyao007[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/rshell[0;95m (master) [0;36m$[0m exit[K[K[K[Kexit
+exit
+~
+yyao007@hammer $ exit
+exit
+
+Script done on Sun 17 May 2015 08:50:10 PM PDT
