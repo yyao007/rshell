@@ -276,13 +276,17 @@ int strValid(const string &str) {
     pos = temp.find_first_of("|&");
     while (pos != string::npos) {
         if (temp.size() > 2) {
+            if (pos == temp.size() - 1) {
+                return -1;
+            }
             // if string is ended with "||" or "&&", jump out of the loop and return 0
-            if (pos == temp.size() - 2) {
+            else if (pos == temp.size() - 2 && temp.at(pos) == temp.at(pos + 1)) {
                 flag = 0;
                 break;
             }
             // if string has more than 2 of "| & ;", return -1
-            else if (temp.at(pos + 2) == '|' || temp.at(pos + 2) == '&' || temp.at(pos + 2) == ';') {
+            else if ((pos < temp.size() - 2) && (temp.at(pos) == temp.at(pos + 1)) &&
+                (temp.at(pos + 2) == '|' || temp.at(pos + 2) == '&' || temp.at(pos + 2) == ';')) {
                 return -1;
             }
         }
