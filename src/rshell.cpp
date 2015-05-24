@@ -15,6 +15,7 @@
 using namespace std;
 
 int status; // store the status of child exit
+char *currPath;
 const int cap = 512; // the capacity of the 2-D array
 const int PIPE_READ = 0;
 const int PIPE_WRITE = 1;
@@ -22,7 +23,7 @@ const int PIPE_WRITE = 1;
 // split a line by the delim and store to a 2-D array
 int split(char **arr, char *str, const char *delim);
 // get command block between connectors
-int getCommand(char **, const string &, int &, int, string &, int &);
+int getCommand(const string &, int &, int, string &);
 // check if the string has syntax error
 int strValid(const string &);
 int GetRedirectCmd(string &, vector<string> &);
@@ -32,7 +33,9 @@ bool isRedirect(const string &);
 bool isEmpty(const string&);
 bool isPiping(const string &);
 void Piping(string &, bool &, int, int savestdin = -1);
-void RunPipe(char **, const int *, vector<string> &);
+int ChangeDir(const char *);
+void SimplifyPath(string &);
+//void RunPipe(char **, const int *, vector<string> &);
 
 int main(int argc, char *argv[]) {
     char origStr[cap]; // store the user input line
@@ -51,7 +54,14 @@ int main(int argc, char *argv[]) {
     // always in my rshell
     while (1) {
     mylabel:
-        cout << username << '@' << hostname << " $ ";
+        if ((currPath = getenv("PWD")) == NULL) {
+            perror("getenv()");
+            exit(1);
+        }
+        string simplePath = currPath;
+        SimplifyPath(simplePath);
+
+        cout << username << '@' << hostname << ":" << simplePath << " $ ";
         bool isExecuted = true; // initialize to true in each loop
         char *effectStr; // store the string before the "#"
         char *spaceStr; // check if the string only has spaces
@@ -112,21 +122,11 @@ int main(int argc, char *argv[]) {
         }
 
         while (flag != 0) {
-            char *cmd[cap];
             string cmdStr;
-            int count = 0;
-            flag = getCommand(cmd, userStr, index, flag, cmdStr, count);
+            flag = getCommand(userStr, index, flag, cmdStr);
             if (-1 == GetRedirectCmd(cmdStr, ReFile)) {
                 cout << "syntax error using redirect operators \"> <\"" << endl;
-                for (int i = 0; i < count; ++i) {
-                    delete[] cmd[i];
-                    cmd[i] = 0;
-                }
                 goto mylabel;
-            }
-            for (int i = 0; i < count; ++i) {
-                delete[] cmd[i];
-                cmd[i] = 0;
             }
         }
 
@@ -135,24 +135,10 @@ int main(int argc, char *argv[]) {
         // run execvp() in a while loop
         while (flag != 0 && isExecuted) {
             ReFile.clear();
-            char *cmd[cap];
             string cmdStr;
             string storeStr;
-            int count = 0;
-            flag = getCommand(cmd, userStr, index, flag, cmdStr, count);
 
-            // if the command is "exit", exit the rshell
-            if (!isEmpty(cmdStr) && (strcmp(cmd[0], "exit") == 0) ) {
-                for (int i = 0; i < count; ++i) {
-                    delete[] cmd[i];
-                    cmd[i] = 0;
-                }
-                return 0;
-            }
-            for (int i = 0; i < count; ++i) {
-                delete[] cmd[i];
-                cmd[i] = 0;
-            }
+            flag = getCommand(userStr, index, flag, cmdStr);
             Piping(cmdStr, isExecuted, flag);
         }
     }
@@ -176,7 +162,8 @@ int split(char **arr, char *str, const char *delim) {
     return count;
 }
 
-int getCommand(char **cmd, const string &str, int &index, int iFlag, string &substring, int &count) {
+int getCommand(const string &str, int &index, int iFlag, string &substring) {
+    char *cmd[cap];
     const int size = 3;
     int flag[size] = {0};
     char cstr[cap];
@@ -234,7 +221,19 @@ int getCommand(char **cmd, const string &str, int &index, int iFlag, string &sub
 
     // do toking
     strcpy(cstr, substring.c_str());
-    count = split(cmd, cstr, " ");
+    int count = split(cmd, cstr, " ");
+    // if the command is "exit", exit the rshell
+    if ((strcmp(cmd[0], "exit") == 0) ) {
+        for (int i = 0; i < count; ++i) {
+            delete[] cmd[i];
+            cmd[i] = 0;
+        }
+        exit(0);
+    }
+    for (int i = 0; i < count; ++i) {
+        delete[] cmd[i];
+        cmd[i] = 0;
+    }
 
     index = min; // update the index to the first occurrence of any connector
     return mFlag;
@@ -616,6 +615,8 @@ void Piping(string &cmdLine, bool &isExecuted, int flag, int savestdin) {
     char cstr[cap];
     string cmdStr;
     vector<string> ReFile;
+    bool isChdir = false;
+    bool chdirFail = false;
 
     if (!isPiping(cmdLine)) {
         if (isRedirect(cmdLine)) {
@@ -627,6 +628,14 @@ void Piping(string &cmdLine, bool &isExecuted, int flag, int savestdin) {
             count = split(cmd, cmdStrCpy, " ");
         }
 
+        // check if has the cd command
+        if (strcmp(cmd[0], "cd") == 0) {
+            isChdir = true;
+            if (-1 == ChangeDir(cmd[1])) {
+                chdirFail = true;
+            }
+        }
+
         int pid = fork();
         if (pid == -1) {
             perror("fork()");
@@ -635,8 +644,15 @@ void Piping(string &cmdLine, bool &isExecuted, int flag, int savestdin) {
 
         else if (pid == 0) {
             Redirect(ReFile);
+            if (chdirFail) {
+                exit(EXIT_FAILURE);
+            }
+            else if (isChdir) {
+                exit(EXIT_SUCCESS);
+            }
+
             // run execvp in child process in order not to exit the whole program
-            if (execvp(cmd[0], cmd) == -1) {
+            else if (execvp(cmd[0], cmd) == -1) {
                 char errcmd[cap];
                 strcpy(errcmd, cmd[0]);
                 perror(errcmd);
@@ -709,7 +725,14 @@ void Piping(string &cmdLine, bool &isExecuted, int flag, int savestdin) {
                     exit(1);
                 }
                 Redirect(ReFile);
-                if (-1 == execvp(cmd[0], cmd)) {
+                // check if has the cd command
+                if (strcmp(cmd[0], "cd") == 0) {
+                    if (-1 == ChangeDir(cmd[1])) {
+                        exit(EXIT_FAILURE);
+                    }
+                }
+
+                else if (-1 == execvp(cmd[0], cmd)) {
                     char errcmd[cap];
                     strcpy(errcmd, cmd[0]);
                     perror(errcmd);
@@ -717,6 +740,7 @@ void Piping(string &cmdLine, bool &isExecuted, int flag, int savestdin) {
                 }
                 exit(1); // prevents zombie process
             }
+
             else {
                 // save stdin only in the first command
                 if (savestdin == -1) {
@@ -764,6 +788,95 @@ void Piping(string &cmdLine, bool &isExecuted, int flag, int savestdin) {
 
     return;
 }
+
+int ChangeDir(const char *path) {
+    string newPath;
+    char tempPath[256];
+    char *homePath;
+    char *oldPath;
+    char *pathName[128] = {0};
+    vector<string> simplePath;
+
+    if (path == NULL) {
+        if (NULL == (homePath = getenv("HOME"))) {
+            perror("getenv()");
+            exit(1);
+        }
+        strcpy(tempPath, homePath);
+        newPath = homePath;
+    }
+
+    else if (strcmp(path, "-") == 0) {
+        if (NULL == (oldPath = getenv("OLDPWD"))) {
+            perror("getenv()");
+            exit(1);
+        }
+        strcpy(tempPath, oldPath);
+        newPath = oldPath;
+        cout << newPath << endl;
+    }
+
+    else {
+        strcpy(tempPath, currPath);
+        strcat(tempPath, "/");
+        strcat(tempPath, path);
+        char pathCpy[256];
+        unsigned int i = 0;
+
+        strcpy(pathCpy, tempPath);
+        pathName[i] = strtok(pathCpy, "/");
+        while (pathName[i] != NULL) {
+            ++i;
+            pathName[i] = strtok(NULL, "/");
+        }
+
+        for (i = 0; pathName[i] != NULL; ++i) {
+            if (strcmp(pathName[i], "..") == 0) {
+                simplePath.pop_back();
+            }
+            else if (strcmp(pathName[i], ".") != 0) {
+                simplePath.push_back(pathName[i]);
+            }
+        }
+
+        for (i = 0; i < simplePath.size(); ++i) {
+            newPath = newPath + '/' + simplePath.at(i);
+        }
+    }
+
+    if (-1 == chdir(tempPath)) {
+        char errmsg[128] = "cd: ";
+        strcat(errmsg, path);
+        perror(errmsg);
+        return -1;
+    }
+
+    if (-1 == setenv("PWD", newPath.c_str(), 1)) {
+        perror("setenv()");
+        exit(1);
+    }
+    if (-1 == setenv("OLDPWD", currPath, 1)) {
+        perror("setenv()");
+        exit(1);
+    }
+
+    return 0;
+}
+
+void SimplifyPath(string &simplePath) {
+    char *homePath;
+    if (NULL == (homePath = getenv("HOME"))) {
+        perror("getenv()");
+        exit(1);
+    }
+    string homestr = homePath;
+    long unsigned pos = 0;
+    if ((pos = simplePath.find(homestr)) != string::npos) {
+        simplePath.replace(pos, homestr.size(), "~");
+    }
+}
+
+
 /*
 void RunPipe(char **cmd, const int *fd, vector<string> &ReFile) {
     int pid = fork();
