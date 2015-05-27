@@ -11,6 +11,7 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <ctype.h>
+#include <signal.h>
 
 using namespace std;
 
@@ -19,6 +20,12 @@ char *currPath;
 const int cap = 512; // the capacity of the 2-D array
 const int PIPE_READ = 0;
 const int PIPE_WRITE = 1;
+
+// signal handler
+struct sigaction *inter;
+struct sigaction *stop;
+void interrupthdl(int, siginfo_t, void *);
+void stophdl(int, siginfo_t, void *);
 
 // split a line by the delim and store to a 2-D array
 int split(char **arr, char *str, const char *delim);
@@ -50,7 +57,13 @@ int main(int argc, char *argv[]) {
         perror("getlogin()");
         exit(1);
     }
-
+    // reserve signals
+    inter->sa_sigaction = interrupthdl;
+    inter->sa_flags = SA_SIGINFO;
+    sigaction(SIGINT, inter, NULL);
+    stop->sa_sigaction = stophdl;
+    stop->sa_flags = SA_SIGINFO;
+    sigaction(SIGTSTP, stop, NULL);
     // always in my rshell
     while (1) {
     mylabel:
@@ -876,6 +889,9 @@ void SimplifyPath(string &simplePath) {
     }
 }
 
+void interrupthdl(int signum, siginfo_t *info, void *ptr) {
+    if ()
+}
 
 /*
 void RunPipe(char **cmd, const int *fd, vector<string> &ReFile) {
