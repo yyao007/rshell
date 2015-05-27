@@ -16,16 +16,23 @@
 using namespace std;
 
 int status; // store the status of child exit
+int childpid;
+bool isExit = false;
+bool isStop = false;
 char *currPath;
 const int cap = 512; // the capacity of the 2-D array
 const int PIPE_READ = 0;
 const int PIPE_WRITE = 1;
 
 // signal handler
-struct sigaction *inter;
-struct sigaction *stop;
-void interrupthdl(int, siginfo_t, void *);
-void stophdl(int, siginfo_t, void *);
+struct sigaction inter;
+struct sigaction stop;
+struct sigaction waitChild;
+void interrupthdl(int, siginfo_t *, void *);
+void stophdl(int, siginfo_t *, void *);
+void handle_sigchld(int sig) {
+    waitpid(-1, &status, 0);
+}
 
 // split a line by the delim and store to a 2-D array
 int split(char **arr, char *str, const char *delim);
@@ -48,7 +55,6 @@ int main(int argc, char *argv[]) {
     char origStr[cap]; // store the user input line
     char hostname[100];
     char *username;
-
     if (-1 == gethostname(hostname, 100)) {
         perror("gethostname()");
         exit(1);
@@ -58,15 +64,35 @@ int main(int argc, char *argv[]) {
         exit(1);
     }
     // reserve signals
-    inter->sa_sigaction = interrupthdl;
-    inter->sa_flags = SA_SIGINFO;
-    sigaction(SIGINT, inter, NULL);
-    stop->sa_sigaction = stophdl;
-    stop->sa_flags = SA_SIGINFO;
-    sigaction(SIGTSTP, stop, NULL);
+    inter.sa_sigaction = interrupthdl;
+    inter.sa_flags = SA_SIGINFO;
+    stop.sa_sigaction = stophdl;
+    stop.sa_flags = SA_SIGINFO;
+    waitChild.sa_handler = &handle_sigchld;
+    sigemptyset(&waitChild.sa_mask);
+    waitChild.sa_flags = SA_RESTART;
+
+    if (-1 == sigaction(SIGINT, &inter, NULL)) {
+        perror("sigaction()");
+        exit(1);
+    }
+    if (-1 == sigaction(SIGTSTP, &stop, NULL)) {
+        perror("sigaction()");
+        exit(1);
+    }
+    if (-1 == sigaction(SIGCHLD, &waitChild, NULL)) {
+        perror("sigaction()");
+        exit(1);
+    }
+
+    char path[cap] = "/home/csmajs/yyao007/cs100/rshell/bin:";
+    strcat(path, getenv("PATH"));
+    setenv("PATH", path, 1);
+
     // always in my rshell
     while (1) {
     mylabel:
+        childpid = -1;
         if ((currPath = getenv("PWD")) == NULL) {
             perror("getenv()");
             exit(1);
@@ -86,6 +112,7 @@ int main(int argc, char *argv[]) {
         int errStr; // store the return value of strValid
         vector<string> ReFile;
 
+        cin.clear();
         memset(origStr, 0, cap); // initialize origStr to an empty string
         cin.getline(origStr, cap); // get the user input line
         // copy from origStr to origCpy to avoid modifying origStr
@@ -656,6 +683,7 @@ void Piping(string &cmdLine, bool &isExecuted, int flag, int savestdin) {
         }
 
         else if (pid == 0) {
+            childpid = getpid();
             Redirect(ReFile);
             if (chdirFail) {
                 exit(EXIT_FAILURE);
@@ -677,11 +705,11 @@ void Piping(string &cmdLine, bool &isExecuted, int flag, int savestdin) {
         // this is in parent process
         else {
             // wait for child process to finish executing
-            if (wait(&status) == -1) {
+/*            if (wait(&status) == -1) {
                 perror("wait()");
                 exit(1);
             }
-
+*/
             // if the command fails and the connector is &&, do not execute the next command
             if (WEXITSTATUS(status) != 0 && flag == 2) {
                 isExecuted = false;
@@ -729,6 +757,7 @@ void Piping(string &cmdLine, bool &isExecuted, int flag, int savestdin) {
             }
             // write to the pipe in child process
             else if(pid == 0) {
+                childpid = getpid();
                 if (-1 == dup2(fd[PIPE_WRITE], 1)) {
                     perror("dup2()");
                     exit(1);
@@ -791,11 +820,11 @@ void Piping(string &cmdLine, bool &isExecuted, int flag, int savestdin) {
                     exit(1);
                 }
                 // wait after each fork so that every child process can run simultaneously
-                if (-1 == wait(&status)) {
+/*                if (-1 == wait(&status)) {
                     perror("wait()");
                     exit(1);
                 }
-            }
+*/            }
         }
     }
 
@@ -844,16 +873,21 @@ int ChangeDir(const char *path) {
         }
 
         for (i = 0; pathName[i] != NULL; ++i) {
-            if (strcmp(pathName[i], "..") == 0) {
+            if (strcmp(pathName[i], "..") == 0 && i != 0) {
                 simplePath.pop_back();
             }
-            else if (strcmp(pathName[i], ".") != 0) {
+            else if (strcmp(pathName[i], ".") != 0 && strcmp(pathName[i], "..") != 0) {
                 simplePath.push_back(pathName[i]);
             }
         }
 
-        for (i = 0; i < simplePath.size(); ++i) {
-            newPath = newPath + '/' + simplePath.at(i);
+        if (simplePath.empty()) {
+            newPath = "/";
+        }
+        else {
+            for (i = 0; i < simplePath.size(); ++i) {
+                newPath = newPath + '/' + simplePath.at(i);
+            }
         }
     }
 
@@ -890,7 +924,24 @@ void SimplifyPath(string &simplePath) {
 }
 
 void interrupthdl(int signum, siginfo_t *info, void *ptr) {
-    if ()
+    if (childpid != -1) {
+        isExit = true;
+        kill(childpid, SIGKILL);
+    }
+    else {
+        cout << endl;
+    }
+    return;
+}
+
+void stophdl(int signum, siginfo_t *info, void *ptr) {
+    if (childpid != -1) {
+        isStop = true;
+    }
+    else {
+        cout << endl;
+    }
+    return;
 }
 
 /*
