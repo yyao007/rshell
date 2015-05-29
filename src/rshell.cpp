@@ -15,11 +15,12 @@
 
 using namespace std;
 
-int pidNum = 0;
+int pipepid = -1;
 int status; // store the status of child exit
-vector<int> childpid;
+int childpid = -1;
 bool isExit = false;
 bool isStop = false;
+bool basecase = false;
 char *currPath;
 const int cap = 512; // the capacity of the 2-D array
 const int PIPE_READ = 0;
@@ -32,22 +33,15 @@ struct sigaction waitChild;
 void interrupthdl(int, siginfo_t *, void *);
 void stophdl(int, siginfo_t *, void *);
 void handle_sigchld(int sig) {
-//    for (unsigned i = childpid.size(); i > 0; --i) {
-//        if (-1 == waitpid(childpid.at(i - 1), &status, WNOHANG)) {
-//            perror("waitpid()");
-//            continue;
-//        }
+    if (basecase) {
+        return;
+    }
     errno = 0;
-    while (waitpid((pid_t)(-1), &status, WNOHANG) > 0) {
-        ++pidNum;
-        childpid.pop_back();
-        if (errno != 0) {
+    while (waitpid(0, 0, WNOHANG) > 0) {
+        if (errno != 0 && errno != EINTR) {
             perror("waitpid()");
             exit(1);
         }
-    }
-    if (childpid.size() == 0 && pidNum > 1) {
-        cin.ignore(64);
     }
 }
 
@@ -63,7 +57,7 @@ void Redirect(vector<string> &);
 bool isRedirect(const string &);
 bool isEmpty(const string&);
 bool isPiping(const string &);
-void Piping(string &, bool &, int, int savestdin = -1);
+int Piping(string &, bool &, int, int savestdin = -1);
 int ChangeDir(const char *);
 void SimplifyPath(string &);
 //void RunPipe(char **, const int *, vector<string> &);
@@ -85,8 +79,9 @@ int main(int argc, char *argv[]) {
     inter.sa_flags = SA_SIGINFO;
     stop.sa_sigaction = stophdl;
     stop.sa_flags = SA_SIGINFO;
-    waitChild.sa_handler = handle_sigchld;
-    waitChild.sa_flags = SA_NOCLDSTOP;
+    waitChild.sa_handler = &handle_sigchld;
+    sigemptyset(&waitChild.sa_mask);
+    waitChild.sa_flags = SA_RESTART | SA_NOCLDSTOP;
 
     if (-1 == sigaction(SIGINT, &inter, NULL)) {
         perror("sigaction()");
@@ -108,7 +103,8 @@ int main(int argc, char *argv[]) {
     // always in my rshell
     while (1) {
     mylabel:
-        childpid.clear();
+        childpid = -1;
+        basecase = false;
         if ((currPath = getenv("PWD")) == NULL) {
             perror("getenv()");
             exit(1);
@@ -190,12 +186,13 @@ int main(int argc, char *argv[]) {
         // run execvp() in a while loop
         while (flag != 0 && isExecuted) {
             ReFile.clear();
-            pidNum = 0;
             string cmdStr;
             string storeStr;
 
             flag = getCommand(userStr, index, flag, cmdStr);
-            Piping(cmdStr, isExecuted, flag);
+            if (-1 == Piping(cmdStr, isExecuted, flag)) {
+                break;
+            }
         }
     }
     return 0;
@@ -668,7 +665,7 @@ bool isEmpty(const string& str) {
     return true;
 }
 
-void Piping(string &cmdLine, bool &isExecuted, int flag, int savestdin) {
+int Piping(string &cmdLine, bool &isExecuted, int flag, int savestdin) {
     long unsigned pos = 0;
     int count = 0;
     char *cmd[cap] = {0};
@@ -677,8 +674,12 @@ void Piping(string &cmdLine, bool &isExecuted, int flag, int savestdin) {
     vector<string> ReFile;
     bool isChdir = false;
     bool chdirFail = false;
+    childpid = -1;
+    pipepid = -1;
+    basecase = false;
 
     if (!isPiping(cmdLine)) {
+        basecase = true;
         if (isRedirect(cmdLine)) {
             GetRedirectCmd(cmdLine, ReFile);
         }
@@ -697,6 +698,7 @@ void Piping(string &cmdLine, bool &isExecuted, int flag, int savestdin) {
         }
 
         int pid = fork();
+
         if (pid == -1) {
             perror("fork()");
             exit(1);
@@ -723,14 +725,20 @@ void Piping(string &cmdLine, bool &isExecuted, int flag, int savestdin) {
 
         // this is in parent process
         else {
+            childpid = pid;
+            errno = 0;
             // wait for child process to finish executing
-/*            if (wait(&status) == -1) {
-                perror("wait()");
-                exit(1);
-            }
-*/
-            childpid.push_back(pid);
-            pause();
+            do {
+                wait(&status);
+                if (errno == EINTR) {
+                    return -1;
+                }
+
+            } while(errno == EINTR);
+                    if (errno != 0 && errno != EINTR) {
+                        perror("waitpid()");
+                        exit(1);
+                    }
             // if the command fails and the connector is &&, do not execute the next command
             if (WEXITSTATUS(status) != 0 && flag == 2) {
                 isExecuted = false;
@@ -807,8 +815,8 @@ void Piping(string &cmdLine, bool &isExecuted, int flag, int savestdin) {
             }
 
             else {
+                pipepid = pid;
                 // save stdin only in the first command
-                childpid.push_back(pid);
                 if (savestdin == -1) {
                     if (-1 == (savestdin = dup(0))) {
                         perror("dup()");
@@ -846,7 +854,7 @@ void Piping(string &cmdLine, bool &isExecuted, int flag, int savestdin) {
                     exit(1);
                 }
                 // wait after each fork so that every child process can run simultaneously
-/*                if (-1 == wait(&status)) {
+/*                if (-1 == waitpid(-1, &status, WNOHANG)) {
                     perror("wait()");
                     exit(1);
                 }
@@ -854,7 +862,7 @@ void Piping(string &cmdLine, bool &isExecuted, int flag, int savestdin) {
         }
     }
 
-    return;
+    return 0;
 }
 
 int ChangeDir(const char *path) {
@@ -950,18 +958,18 @@ void SimplifyPath(string &simplePath) {
 }
 
 void interrupthdl(int signum, siginfo_t *info, void *ptr) {
-    if (!childpid.empty()) {
-        for (unsigned i = 0; i < childpid.size(); ++i) {
-            kill(childpid.at(i), SIGKILL);
+    if (childpid != -1) {
+//        for (unsigned i = 0; i < childpid.size(); ++i) {
+            kill(childpid, SIGKILL);
 //            cin.ignore();
-        }
+//        }
     }
     cout << endl;
     return;
 }
 
 void stophdl(int signum, siginfo_t *info, void *ptr) {
-    if (!childpid.empty()) {
+    if (childpid != -1) {
         isStop = true;
     }
     else {
