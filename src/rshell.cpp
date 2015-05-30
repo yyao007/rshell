@@ -986,7 +986,7 @@ void interrupthdl(int signum, siginfo_t *info, void *ptr) {
     if (childpid != -1) {
         if (-1 == kill(childpid, SIGKILL)) {
             perror("kill()");
-            exit(1);
+//            exit(1);
         }
         isKilled = true;
     }
@@ -999,7 +999,7 @@ void stophdl(int signum, siginfo_t *info, void *ptr) {
         stopchild.push_back(childpid);
         if (-1 == kill(childpid, SIGSTOP)) {
             perror("kill()");
-            exit(1);
+//            exit(1);
         }
     }
     cout << endl;

@@ -65,6 +65,23 @@ I implemented IO redirection and piping in my rshell. Now the rshell can:
     * Any command using `<<<` input redirection and has double quotes which are not in pairs.
     * Any command has nothing between redirect or piping operators.
 
+#### Added features of cd and signals
+Now the rshell can handle cd command to change directory and signals like ctrl C and ctrl Z without quitting rshell. Added features are:
+
+1. `cd <PATH>` will change the current working directory to <PATH>. If the <PATH> doesn't exist, then cd will report an error message. If the <PATH> begins with a `/`, then it's an absolute path indicates that you can change to that directory wherever you are.
+
+2. `cd` will change the current working directory to the user's home directory.
+
+3. `cd -` will change the current working directory to the previous working directory.
+
+4. The prompt now will display the current working directory. If that directory contains the user's home folder, then rshell will replace the home folder with a `~`. For example, my home folder is `/home/csmajs/yyao007`. So if I'm in the directory `/home/csmajs/yyao007/cs100/rshell`, then the prompt would display `~/cs100/rshell`.
+
+5. If the user types ctrl+C which is `^C`, rshell will not exit. Instead, the current foreground job would exit itself. If the job is killed, then control will return to the rshell.
+
+6. If the user types ctrl+Z which is `^Z`, rhsell will stop the current foreground job and put it in background. Then, if the user types `fg`, rshell will bring the newest background job to the foreground. The user can also type `bg` to let the newest background job continue running parallel with the rshell. If there is no background job, the `fg` and `bg` commands will report an error message.
+
+7. rshell now will run the `ls` command of my own version.
+
 **All source codes can be found at [rshell/src](https://github.com/yyao007/rshell/tree/master/src)**
 
 ## How to install rshell
@@ -72,7 +89,7 @@ To run rshell on your Linux system, you need to run the following commands.
 ```
  $ git clone https://github.com/yyao007/rshell.git
  $ cd rshell
- $ git checkout hw2
+ $ git checkout hw3
  $ make
  $ bin/rshell
 ```
@@ -93,9 +110,9 @@ Make sure you have installed the termcap library to run the ls. The termcap libr
 The test cases are in [rshell/tests](https://github.com/yyao007/rshell/tree/master/tests).
 
 ## Limitations
-1. This first version of rshell can't run `cd` command, this feature will be added in future implementation.
+1. This first version of rshell can't run `cd` command, this feature will be added in future implementation. **(ADDED CD COMMAND)**
 
-2. This rshell now will regard the appearance of single `|` or `&` as syntax error. **(ADDED PIPING COMMAND `|`)**
+2. This rshell now will regard the appearance of single `|` or `&` as syntax error. **(ADDED PIPING `|` COMMAND)**
 
 3. rshell can only report two error messages and that won't be sufficient. Further error messages will be added in the future.
 
@@ -106,11 +123,15 @@ The test cases are in [rshell/tests](https://github.com/yyao007/rshell/tree/mast
 
 2. The order of the files may act different from the GNU ls. Cases like `ls ./ ..` will display the `..` directory first which actually should display the current folder first.
 
+3. The `fg` and `bg` commands cannot handle any flags so that they can only bring back the newest background job.
+
 ## Known bugs
 * If you type any connector in the beginning of the command and then append another connector, such as `|| |` `&& &|`  `;;` `||||`, then rshell will report an error saying cannot start with connectors which actually should be reported as a syntax error. **(FIXED)**
 
 * When you run the ls command with `-l` flag many times on the hammer server, an unexpected error of "do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted" will appear.
 
 * When using the `<<<` operator, if there's a connector inside of a pair of double quotes, rshell will detect that connector rather than regard it as a part of the string.
+
+* When the command is `./do | ls` while `./do` is a while loop which will output a string every second, then the pipe would last here for a second then continue to the next command prompt. If the user types ctrl+Z when the pipe pauses there, that signal would cause rshell to exit.
 
 * Upon this time, rshell will not crash during runtime. If anyone can find a bug that would crash my rshell, please let me know and I will be appreciated.
