@@ -1036,5 +1036,3 @@ int Foreground(int bg) {
     }
 }
 
-
-
