@@ -75,7 +75,10 @@ int main(int argc, char *argv[]) {
         exit(1);
     }
 
-    char path[cap] = "/home/csmajs/yyao007/cs100/rshell/bin:";
+    char *pwd = getenv("PWD");
+    char path[cap];
+    strcpy(path, pwd);
+    strcat(path, "/bin:");
     strcat(path, getenv("PATH"));
     setenv("PATH", path, 1);
 
