@@ -1,0 +1,554 @@
+Script started on Fri 29 May 2015 08:59:49 PM PDT
+~
+yyao007@hammer $ cs100
+[0;91m
+===============================================================================
+|                                                                             |
+| You have enabled settings specific for cs100.  Everything you do is being   |
+| recorded to measure your progress in the class.                             |
+|                                                                             |
+| Important commands for the class:                                           |
+|   * calcgrade.sh          displays a detailed breakdown of your grade       |
+|   * checksyscalls.sh      is your cpp file doing proper error checking?     |
+|   * typespeed             practice typing unix commands                     |
+|                                                                             |
+| Important commands for general C++ programming:                             |
+|   * make                  don't call g++ manually; let make do the work!    |
+|   * gdb                   the GNU debugger                                  |
+|   * valgrind              get rid of your memory leaks                      |
+|   * cppcheck              static analysis tool                              |
+|   * man                   find help about any syscall / terminal command    |
+|                                                                             |
+===============================================================================
+[0m
+[s%%%%%%%%%%[u[0;32myyao007[0;36m@[0;32mcs100[0;36m:[0;32m~[0;95m [0;36m$[0m cd cs100/rshell/
+[s%%%%%%%%%%[u[0;32myyao007[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/rshell[0;95m (signal) [0;36m$[0m make
+g++ -Wall -Werror -ansi -pedantic src/rshell.cpp -o bin/rshell
+[s%%%%%%%%%%[u[0;32myyao007[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/rshell[0;95m (signal) [0;36m$[0m bni[K[Kin/rshell 
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell $ #stat rt test
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell $ # test cd
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell $ # cd <>^[[Dpath          <PATH.
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell $ #cd <PATH>
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell $ cd ..
+yyao007@hammer.cs.ucr.edu:~/cs100 $ cd ../rshell/
+yyao007@hammer.cs.ucr.edu:~/rshell $ pwd
+/home/csmajs/yyao007/rshell
+yyao007@hammer.cs.ucr.edu:~/rshell $ cd ../../.
+yyao007@hammer.cs.ucr.edu:/home/csmajs $ pwd
+/home/csmajs
+yyao007@hammer.cs.ucr.edu:/home/csmajs $ cd yyao007/cs100/rshell/src/..
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell $ cd ./
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell $ cd .
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell $ cd ../
+yyao007@hammer.cs.ucr.edu:~/cs100 $ cd rshell/////src/////
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ cd /
+yyao007@hammer.cs.ucr.edu:/ $ cd /    ps
+  PID TTY          TIME CMD
+ 6610 pts/44   00:00:00 bash
+ 6681 pts/44   00:00:00 rshell
+11795 pts/44   00:00:00 ps
+yyao007@hammer.cs.ucr.edu:/ $ pwd
+/
+yyao007@hammer.cs.ucr.edu:/ $ cd /home/ck smjs
+cd: /home/csmjs: No such file or directory
+yyao007@hammer.cs.ucr.edu:/ $ c cd /home/cs, majs/yyap i o007/cs100/rshell
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell $ cd /home/csmajs/yyao007
+yyao007@hammer.cs.ucr.edu:~ $ cd cs100/rshel////...  ////././././..
+cd: cs100/rshel////.////././././..: No such file or directory
+yyao007@hammer.cs.ucr.edu:~ $ ls
+[32;1ma.out[0m  [34;1mcs100[0m  [34;1mrshell[0m  [34;1mrshell-1[0m  test.cpp[0m  [34;1mucr-cs100[0m
+yyao007@hammer.cs.ucr.edu:~ $ cd cs100/rshell///./././//././..
+yyao007@hammer.cs.ucr.edu:~/cs100 $ cd rsje  hell/////...  /
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell $ cd /a/a/       ./zxc///ls  rsjel   hell
+cd: ./zxc///rshell: No such file or directory
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell $ cd src///../aaa/..
+cd: src///../aaa/..: No such file or directory
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell $ cd src///.././
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell $ cd .///home
+cd: .///home: No such file or directory
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell $ cd /home
+yyao007@hammer.cs.ucr.edu:/home $ cd -
+/home/csmajs/yyao007/cs100/rshell
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell $ # cd -
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell $ cd /home     ..
+yyao007@hammer.cs.ucr.edu:~/cs100 $ cd -
+/home/csmajs/yyao007/cs100/rshell
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell $ cd -
+/home/csmajs/yyao007/cs100
+yyao007@hammer.cs.ucr.edu:~/cs100 $ cd -
+/home/csmajs/yyao007/cs100/rshell
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell $ cd /j home
+yyao007@hammer.cs.ucr.edu:/home $ cd -
+/home/csmajs/yyao007/cs100/rshell
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell $ cd -
+/home
+yyao007@hammer.cs.ucr.edu:/home $ cd    pwd
+/home
+yyao007@hammer.cs.ucr.edu:/home $ cd -
+/home/csmajs/yyao007/cs100/rshell
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell $ pwd
+/home/csmajs/yyao007/cs100/rshell
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell $ # cd
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell $ c  d             
+yyao007@hammer.cs.ucr.edu:~ $ pwd
+/home/csmajs/yyao007
+yyao007@hammer.cs.ucr.edu:~ $ cd -
+/home/csmajs/yyao007/cs100/rshell
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell $ cd
+yyao007@hammer.cs.ucr.edu:~ $ cd  pwd
+/home/csmajs/yyao007
+yyao007@hammer.cs.ucr.edu:~ $ cd
+yyao007@hammer.cs.ucr.edu:~ $ pwc
+pwc: No such file or directory
+yyao007@hammer.cs.ucr.edu:~ $ pwd
+/home/csmajs/yyao007
+yyao007@hammer.cs.ucr.edu:~ $ cd -
+/home/csmajs/yyao007
+yyao007@hammer.cs.ucr.edu:~ $ cd -
+/home/csmajs/yyao007
+yyao007@hammer.cs.ucr.edu:~ $ cd/
+cd/: No such file or directory
+yyao007@hammer.cs.ucr.edu:~ $ cd /
+yyao007@hammer.cs.ucr.edu:/ $ cd  pwd
+/
+yyao007@hammer.cs.ucr.edu:/ $ cd
+yyao007@hammer.cs.ucr.edu:~ $ pwd
+/home/csmajs/yyao007
+yyao007@hammer.cs.ucr.edu:~ $ cd -    cd -
+/
+yyao007@hammer.cs.ucr.edu:/ $ cd -
+/home/csmajs/yyao007
+yyao007@hammer.cs.ucr.edu:~ $ cd cs100/rshell
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell $ cd src
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ c cd ../src
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ cd -
+/home/csmajs/yyao007/cs100/rshell/src
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ cd -
+/home/csmajs/yyao007/cs100/rshell/src
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ cd -
+/home/csmajs/yyao007/cs100/rshell/src
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ # ctrl c
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ # test    I have a exe  cutable named     file named "d" o" which will output "hello world" wvw   every one second
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ # I will use this wi hile loop to domenstrate the ctrl c command
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ # first ctrl c with nothing
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ^C
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ^C
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ps
+  PID TTY          TIME CMD
+ 6610 pts/44   00:00:00 bash
+ 6681 pts/44   00:00:00 rshell
+13738 pts/44   00:00:00 ps
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ^C
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ls
+Timer.h[0m  [32;1ma.out[0m  [32;1mdo[0m  ls.cpp[0m  mv.cpp[0m  rm.cpp[0m  rshell.cpp[0m  while.cpp[0m
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ./do
+hello world
+hello world
+hello world
+hello world
+^C
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ps
+  PID TTY          TIME CMD
+ 6610 pts/44   00:00:00 bash
+ 6681 pts/44   00:00:00 rshell
+13805 pts/44   00:00:00 ps
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ps
+  PID TTY          TIME CMD
+ 6610 pts/44   00:00:00 bash
+ 6681 pts/44   00:00:00 rshell
+13840 pts/44   00:00:00 ps
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ^C
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ls^C
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ cat   ./do    ps
+  PID TTY          TIME CMD
+ 6610 pts/44   00:00:00 bash
+ 6681 pts/44   00:00:00 rshell
+13933 pts/44   00:00:00 ps
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ./do
+hello world
+hello world
+^C
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ps
+  PID TTY          TIME CMD
+ 6610 pts/44   00:00:00 bash
+ 6681 pts/44   00:00:00 rshell
+13950 pts/44   00:00:00 ps
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ cat
+ls
+ls
+^C
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ps
+  PID TTY          TIME CMD
+ 6610 pts/44   00:00:00 bash
+ 6681 pts/44   00:00:00 rshell
+13978 pts/44   00:00:00 ps
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ # test ctrl z
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ # ^Z
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ^Z
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ps
+  PID TTY          TIME CMD
+ 6610 pts/44   00:00:00 bash
+ 6681 pts/44   00:00:00 rshell
+14068 pts/44   00:00:00 ps
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ./dop 
+hello world
+hello world
+hello world
+^Z
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ps
+  PID TTY          TIME CMD
+ 6610 pts/44   00:00:00 bash
+ 6681 pts/44   00:00:00 rshell
+14071 pts/44   00:00:00 do
+14072 pts/44   00:00:00 ps
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ # now the ./do is in the backgt round
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ # I will use fg to bting    ring it back to the foregt rp ound
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ps
+  PID TTY          TIME CMD
+ 6610 pts/44   00:00:00 bash
+ 6681 pts/44   00:00:00 rshell
+14071 pts/44   00:00:00 do
+14165 pts/44   00:00:00 ps
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ fg
+hello world
+hello world
+hello world
+^Z
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ^Z
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ^Z
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ps
+  PID TTY          TIME CMD
+ 6610 pts/44   00:00:00 bash
+ 6681 pts/44   00:00:00 rshell
+14071 pts/44   00:00:00 do
+14181 pts/44   00:00:00 ps
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ^C
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ^C
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ps
+  PID TTY          TIME CMD
+ 6610 pts/44   00:00:00 bash
+ 6681 pts/44   00:00:00 rshell
+14071 pts/44   00:00:00 do
+14187 pts/44   00:00:00 ps
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ fg
+hello world
+hello world
+hello world
+^C
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ps
+  PID TTY          TIME CMD
+ 6610 pts/44   00:00:00 bash
+ 6681 pts/44   00:00:00 rshell
+14192 pts/44   00:00:00 ps
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ./do
+hello world
+hello world
+^Z
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ps
+
+e   PID TTY          TIME CMD
+ 6610 pts/44   00:00:00 bash
+ 6681 pts/44   00:00:00 rshell
+17676 pts/44   00:00:00 do
+17681 pts/44   00:00:00 ps
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ls
+Timer.h[0m  [32;1ma.out[0m  [32;1mdo[0m  ls.cpp[0m  mv.cpp[0m  rm.cpp[0m  rshell.cpp[0m  while.cpp[0m
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ #   os
+os: No such file or directory
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ps
+  PID TTY          TIME CMD
+ 6610 pts/44   00:00:00 bash
+ 6681 pts/44   00:00:00 rshell
+17676 pts/44   00:00:00 do
+18366 pts/44   00:00:00 ps
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ # now i I'm gonna using bg to bring it to background with running
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ps
+  PID TTY          TIME CMD
+ 6610 pts/44   00:00:00 bash
+ 6681 pts/44   00:00:00 rshell
+17676 pts/44   00:00:00 do
+19842 pts/44   00:00:00 ps
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ bg
+hello world
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ hello world
+hello world
+l phello world
+s
+  PID TTY          TIME CMD
+ 6610 pts/44   00:00:00 bash
+ 6681 pts/44   00:00:00 rshell
+17676 pts/44   00:00:00 do
+19855 pts/44   00:00:00 ps
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ hello world
+hello world
+phello world
+s
+  PID TTY          TIME CMD
+ 6610 pts/44   00:00:00 bash
+ 6681 pts/44   00:00:00 rshell
+17676 pts/44   00:00:00 do
+19862 pts/44   00:00:00 ps
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ hello world
+^C
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ hello world
+^C
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ hello world
+hello world
+hello world
+^Z
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ hello world
+pshello world
+
+  PID TTY          TIME CMD
+ 6610 pts/44   00:00:00 bash
+ 6681 pts/44   00:00:00 rshell
+17676 pts/44   00:00:00 do
+19883 pts/44   00:00:00 ps
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ hello world
+hello world
+hello world
+fg
+hello world
+hello world
+hello world
+^Z
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ps
+  PID TTY          TIME CMD
+ 6610 pts/44   00:00:00 bash
+ 6681 pts/44   00:00:00 rshell
+17676 pts/44   00:00:00 do
+19953 pts/44   00:00:00 ps
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ # works g fine, then with ./do running int  the backround, I wil r  l run another ./do
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ bg
+hello world
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ hello world
+phello world
+s
+  PID TTY          TIME CMD
+ 6610 pts/44   00:00:00 bash
+ 6681 pts/44   00:00:00 rshell
+17676 pts/44   00:00:00 do
+20280 pts/44   00:00:00 ps
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ./hello world
+do
+hello world
+hello world
+hello world
+hello world
+pshello world
+
+hello world
+hello world
+hello world
+hello world
+^Z
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ hello world
+hello world
+hello world
+hello world
+hello world
+hello world
+bhello world
+g
+hello world
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ hello world
+hello world
+hello world
+hello world
+pshello world
+
+  PID TTY          TIME CMD
+ 6610 pts/44   00:00:00 bash
+ 6681 pts/44   00:00:00 rshell
+17676 pts/44   00:00:00 do
+20285 pts/44   00:00:00 do
+20307 pts/44   00:00:00 ps
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ hello world
+hello world
+hello world
+hello world
+fg
+hello world
+hello world
+hello world
+^Z
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ hello world
+hello world
+fg
+hello world
+hello world
+^Z
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ hello world
+hello world
+hello world
+hello world
+fghello world
+hello world
+
+hello world
+hello world
+hello world
+^Z
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ hello world
+hello world
+hello world
+hello world
+ps
+  PID TTY          TIME CMD
+ 6610 pts/44   00:00:00 bash
+ 6681 pts/44   00:00:00 rshell
+17676 pts/44   00:00:00 do
+20285 pts/44   00:00:00 do
+20375 pts/44   00:00:00 ps
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ hello world
+hello world
+fg
+hello world
+hello world
+hello world
+hello world
+^Z
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ hello world
+hello world
+^C
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ hello world
+hello world
+bg
+hello world
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ hello world
+hello world
+hello world
+hello world
+hello world
+hello world
+^Z
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ hello world
+hello world
+hello world
+ps
+hello world
+  PID TTY          TIME CMD
+ 6610 pts/44   00:00:00 bash
+ 6681 pts/44   00:00:00 rshell
+17676 pts/44   00:00:00 do
+20285 pts/44   00:00:00 do
+20409 pts/44   00:00:00 ps
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ hello world
+fg
+hello world
+hello world
+^Z
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ hello world
+fg
+hello world
+hello world
+^C
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ hello world
+hello world
+fg
+^C
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ps
+  PID TTY          TIME CMD
+ 6610 pts/44   00:00:00 bash
+ 6681 pts/44   00:00:00 rshell
+20460 pts/44   00:00:00 ps
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ # I don; 't know w             t works
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ps
+  PID TTY          TIME CMD
+ 6610 pts/44   00:00:00 bash
+ 6681 pts/44   00:00:00 rshell
+20567 pts/44   00:00:00 ps
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ./do
+hello world
+hello world
+^Z
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ fg
+hello world
+hello world
+hello world
+^Z
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ./do
+hello world
+hello world
+^Z
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ps
+  PID TTY          TIME CMD
+ 6610 pts/44   00:00:00 bash
+ 6681 pts/44   00:00:00 rshell
+20577 pts/44   00:00:00 do
+20597 pts/44   00:00:00 do
+20602 pts/44   00:00:00 ps
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ bg
+hello world
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ hello world
+hello world
+bg
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ hello world
+hello world
+hello world
+ps
+  PID TTY          TIME CMD
+ 6610 pts/44   00:00:00 bash
+ 6681 pts/44   00:00:00 rshell
+20577 pts/44   00:00:00 do
+20597 pts/44   00:00:00 do
+20637 pts/44   00:00:00 ps
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ hello world
+hello world
+^C
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ hello world
+fg
+hello world
+hello world
+^C
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ps
+  PID TTY          TIME CMD
+ 6610 pts/44   00:00:00 bash
+ 6681 pts/44   00:00:00 rshell
+20577 pts/44   00:00:00 do
+20671 pts/44   00:00:00 ps
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ bg
+hello world
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ hello world
+hello world
+hello world
+^Z
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ hello world
+hello world
+phello world
+s
+  PID TTY          TIME CMD
+ 6610 pts/44   00:00:00 bash
+ 6681 pts/44   00:00:00 rshell
+20577 pts/44   00:00:00 do
+20694 pts/44   00:00:00 ps
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ hello world
+fg
+hello world
+hello world
+^Z
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ps
+  PID TTY          TIME CMD
+ 6610 pts/44   00:00:00 bash
+ 6681 pts/44   00:00:00 rshell
+20577 pts/44   00:00:00 do
+20734 pts/44   00:00:00 ps
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ fg
+hello world
+hello world
+^C
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ ps
+  PID TTY          TIME CMD
+ 6610 pts/44   00:00:00 bash
+ 6681 pts/44   00:00:00 rshell
+20749 pts/44   00:00:00 ps
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ # It ca n  n hande le many processes as well
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ # OK, wnd     end of test
+yyao007@hammer.cs.ucr.edu:~/cs100/rshell/src $ w exit
+[s%%%%%%%%%%[u[0;32myyao007[0;36m@[0;32mcs100[0;36m:[0;32m~/cs100/rshell[0;95m (signal) [0;36m$[0m exit
+exit
+~
+yyao007@hammer $ exit
+exit
+
+Script done on Fri 29 May 2015 09:44:30 PM PDT

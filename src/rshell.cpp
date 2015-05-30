@@ -709,6 +709,8 @@ void Piping(string &cmdLine, bool &isExecuted, int flag, int savestdin) {
         }
 
         else if (pid == 0) {
+            // ignore SIGINT in the child process in order to ignore ctrl C
+            // from parent when a child is in the background
             ignore.sa_handler = SIG_IGN;
             if (-1 == sigaction(SIGINT, &ignore, NULL)) {
                 perror("sigaction()");
@@ -982,7 +984,10 @@ void SimplifyPath(string &simplePath) {
 
 void interrupthdl(int signum, siginfo_t *info, void *ptr) {
     if (childpid != -1) {
-        kill(childpid, SIGKILL);
+        if (-1 == kill(childpid, SIGKILL)) {
+            perror("kill()");
+            exit(1);
+        }
         isKilled = true;
     }
     cout << endl;
@@ -992,7 +997,10 @@ void interrupthdl(int signum, siginfo_t *info, void *ptr) {
 void stophdl(int signum, siginfo_t *info, void *ptr) {
     if (childpid != -1) {
         stopchild.push_back(childpid);
-        kill(childpid, SIGSTOP);
+        if (-1 == kill(childpid, SIGSTOP)) {
+            perror("kill()");
+            exit(1);
+        }
     }
     cout << endl;
     return;
@@ -1000,7 +1008,10 @@ void stophdl(int signum, siginfo_t *info, void *ptr) {
 
 int Foreground(int bg) {
     if (!stopchild.empty()) {
-        kill(stopchild.back(), SIGCONT);
+        if (-1 == kill(stopchild.back(), SIGCONT)) {
+            perror("kill()");
+            exit(1);
+        }
         childpid = stopchild.back();
         if (bg == 1) {
             return 0;
