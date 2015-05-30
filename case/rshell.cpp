@@ -15,10 +15,12 @@
 
 using namespace std;
 
+int pipepid = -1;
 int status; // store the status of child exit
 int childpid = -1;
-vector<int> stopchild;
-bool isKilled = false;
+bool isExit = false;
+bool isStop = false;
+bool basecase = false;
 char *currPath;
 const int cap = 512; // the capacity of the 2-D array
 const int PIPE_READ = 0;
@@ -27,9 +29,21 @@ const int PIPE_WRITE = 1;
 // signal handler
 struct sigaction inter;
 struct sigaction stop;
-struct sigaction ignore;
+struct sigaction waitChild;
 void interrupthdl(int, siginfo_t *, void *);
 void stophdl(int, siginfo_t *, void *);
+void handle_sigchld(int sig) {
+    if (basecase) {
+        return;
+    }
+    errno = 0;
+    while (waitpid(0, 0, WNOHANG) > 0) {
+        if (errno != 0 && errno != EINTR) {
+            perror("waitpid()");
+            exit(1);
+        }
+    }
+}
 
 // split a line by the delim and store to a 2-D array
 int split(char **arr, char *str, const char *delim);
@@ -43,10 +57,10 @@ void Redirect(vector<string> &);
 bool isRedirect(const string &);
 bool isEmpty(const string&);
 bool isPiping(const string &);
-void Piping(string &, bool &, int, int savestdin = -1);
+int Piping(string &, bool &, int, int savestdin = -1);
 int ChangeDir(const char *);
 void SimplifyPath(string &);
-int Foreground(int);
+//void RunPipe(char **, const int *, vector<string> &);
 
 int main(int argc, char *argv[]) {
     char origStr[cap]; // store the user input line
@@ -65,12 +79,19 @@ int main(int argc, char *argv[]) {
     inter.sa_flags = SA_SIGINFO;
     stop.sa_sigaction = stophdl;
     stop.sa_flags = SA_SIGINFO;
+    waitChild.sa_handler = &handle_sigchld;
+    sigemptyset(&waitChild.sa_mask);
+    waitChild.sa_flags = SA_RESTART | SA_NOCLDSTOP;
 
     if (-1 == sigaction(SIGINT, &inter, NULL)) {
         perror("sigaction()");
         exit(1);
     }
     if (-1 == sigaction(SIGTSTP, &stop, NULL)) {
+        perror("sigaction()");
+        exit(1);
+    }
+    if (-1 == sigaction(SIGCHLD, &waitChild, NULL)) {
         perror("sigaction()");
         exit(1);
     }
@@ -83,7 +104,7 @@ int main(int argc, char *argv[]) {
     while (1) {
     mylabel:
         childpid = -1;
-        isKilled = false;
+        basecase = false;
         if ((currPath = getenv("PWD")) == NULL) {
             perror("getenv()");
             exit(1);
@@ -169,8 +190,7 @@ int main(int argc, char *argv[]) {
             string storeStr;
 
             flag = getCommand(userStr, index, flag, cmdStr);
-            Piping(cmdStr, isExecuted, flag);
-            if (isKilled) {
+            if (-1 == Piping(cmdStr, isExecuted, flag)) {
                 break;
             }
         }
@@ -645,7 +665,7 @@ bool isEmpty(const string& str) {
     return true;
 }
 
-void Piping(string &cmdLine, bool &isExecuted, int flag, int savestdin) {
+int Piping(string &cmdLine, bool &isExecuted, int flag, int savestdin) {
     long unsigned pos = 0;
     int count = 0;
     char *cmd[cap] = {0};
@@ -654,11 +674,12 @@ void Piping(string &cmdLine, bool &isExecuted, int flag, int savestdin) {
     vector<string> ReFile;
     bool isChdir = false;
     bool chdirFail = false;
-    bool isfg = false;
-    bool fgfail = false;
     childpid = -1;
+    pipepid = -1;
+    basecase = false;
 
     if (!isPiping(cmdLine)) {
+        basecase = true;
         if (isRedirect(cmdLine)) {
             GetRedirectCmd(cmdLine, ReFile);
         }
@@ -676,31 +697,6 @@ void Piping(string &cmdLine, bool &isExecuted, int flag, int savestdin) {
             }
         }
 
-        // check if the command is fg
-        else if (strcmp(cmd[0], "fg") == 0) {
-            isfg = true;
-            if (cmd[1] != 0) {
-                cout << "fg cannot handle any flags" << endl;
-                fgfail = true;
-            }
-            else if (-1 == Foreground(0)) {
-                cout << "fg: current: no such job" << endl;
-                fgfail = true;
-            }
-        }
-        // check if the command is bg
-        else if (strcmp(cmd[0], "bg") == 0) {
-            isfg = true;
-            if (cmd[1] != 0) {
-                cout << "bg cannot handle any flags" << endl;
-                fgfail = true;
-            }
-            else if (-1 == Foreground(1)) {
-                cout << "bg: current: no such job" << endl;
-                fgfail = true;
-            }
-        }
-
         int pid = fork();
 
         if (pid == -1) {
@@ -709,20 +705,11 @@ void Piping(string &cmdLine, bool &isExecuted, int flag, int savestdin) {
         }
 
         else if (pid == 0) {
-            ignore.sa_handler = SIG_IGN;
-            if (-1 == sigaction(SIGINT, &ignore, NULL)) {
-                perror("sigaction()");
-                exit(1);
-            }
-            if (-1 == sigaction(SIGTSTP, &ignore, NULL)) {
-                perror("sigaction()");
-                exit(1);
-            }
             Redirect(ReFile);
-            if (chdirFail || fgfail) {
+            if (chdirFail) {
                 exit(EXIT_FAILURE);
             }
-            else if (isChdir || isfg) {
+            else if (isChdir) {
                 exit(EXIT_SUCCESS);
             }
 
@@ -741,16 +728,17 @@ void Piping(string &cmdLine, bool &isExecuted, int flag, int savestdin) {
             childpid = pid;
             errno = 0;
             // wait for child process to finish executing
-            if (-1 == waitpid(-1, &status, WUNTRACED) && errno == EINTR) {
-                if (-1 == waitpid(-1, &status, WUNTRACED)) {
-                    perror("wait() 730");
-                    exit(1);
+            do {
+                wait(&status);
+                if (errno == EINTR) {
+                    return -1;
                 }
-            }
-            if (errno != 0 && errno != EINTR) {
-                perror("waitpid()");
-                exit(1);
-            }
+
+            } while(errno == EINTR);
+                    if (errno != 0 && errno != EINTR) {
+                        perror("waitpid()");
+                        exit(1);
+                    }
             // if the command fails and the connector is &&, do not execute the next command
             if (WEXITSTATUS(status) != 0 && flag == 2) {
                 isExecuted = false;
@@ -770,6 +758,7 @@ void Piping(string &cmdLine, bool &isExecuted, int flag, int savestdin) {
                 }
             }
         }
+
     }
 
     else {
@@ -800,7 +789,6 @@ void Piping(string &cmdLine, bool &isExecuted, int flag, int savestdin) {
             }
             // write to the pipe in child process
             else if(pid == 0) {
-
                 if (-1 == dup2(fd[PIPE_WRITE], 1)) {
                     perror("dup2()");
                     exit(1);
@@ -827,6 +815,7 @@ void Piping(string &cmdLine, bool &isExecuted, int flag, int savestdin) {
             }
 
             else {
+                pipepid = pid;
                 // save stdin only in the first command
                 if (savestdin == -1) {
                     if (-1 == (savestdin = dup(0))) {
@@ -864,23 +853,16 @@ void Piping(string &cmdLine, bool &isExecuted, int flag, int savestdin) {
                     perror("close()");
                     exit(1);
                 }
-                errno = 0;
                 // wait after each fork so that every child process can run simultaneously
-                if (-1 == waitpid(-1, &status, WUNTRACED) && errno == EINTR) {
-                    if (-1 == waitpid(-1, &status, WUNTRACED)) {
-                        perror("wait()");
-                        exit(1);
-                    }
-                }
-                if (errno != 0 && errno != EINTR) {
+/*                if (-1 == waitpid(-1, &status, WNOHANG)) {
                     perror("wait()");
                     exit(1);
                 }
-            }
+*/            }
         }
     }
 
-    return;
+    return 0;
 }
 
 int ChangeDir(const char *path) {
@@ -911,14 +893,9 @@ int ChangeDir(const char *path) {
     }
 
     else {
-        if (path[0] == '/') {
-            strcpy(tempPath, path);
-        }
-        else {
-            strcpy(tempPath, currPath);
-            strcat(tempPath, "/");
-            strcat(tempPath, path);
-        }
+        strcpy(tempPath, currPath);
+        strcat(tempPath, "/");
+        strcat(tempPath, path);
         char pathCpy[256];
         unsigned int i = 0;
 
@@ -982,8 +959,10 @@ void SimplifyPath(string &simplePath) {
 
 void interrupthdl(int signum, siginfo_t *info, void *ptr) {
     if (childpid != -1) {
-        kill(childpid, SIGKILL);
-        isKilled = true;
+//        for (unsigned i = 0; i < childpid.size(); ++i) {
+            kill(childpid, SIGKILL);
+//            cin.ignore();
+//        }
     }
     cout << endl;
     return;
@@ -991,39 +970,55 @@ void interrupthdl(int signum, siginfo_t *info, void *ptr) {
 
 void stophdl(int signum, siginfo_t *info, void *ptr) {
     if (childpid != -1) {
-        stopchild.push_back(childpid);
-        kill(childpid, SIGSTOP);
+        isStop = true;
     }
-    cout << endl;
+    else {
+        cout << endl;
+    }
     return;
 }
 
-int Foreground(int bg) {
-    if (!stopchild.empty()) {
-        kill(stopchild.back(), SIGCONT);
-        childpid = stopchild.back();
-        if (bg == 1) {
-            return 0;
+/*
+void RunPipe(char **cmd, const int *fd, vector<string> &ReFile) {
+    int pid = fork();
+    if (pid == -1) {
+        perror("fork()");
+        exit(1);
+    }
+    // write to the pipe in child process
+    else if(pid == 0) {
+        if (-1 == dup2(fd[PIPE_WRITE], 1)) {
+            perror("dup2()");
+            exit(1);
         }
-        errno = 0;
-        if (-1 == waitpid(childpid, &status, WUNTRACED) && errno == EINTR) {
-            if (-1 == waitpid(childpid, &status, WUNTRACED)) {
-                perror("wait()");
-                exit(1);
-            }
+        if (-1 == close(fd[PIPE_READ])) {
+            perror("close()");
+            exit(1);
         }
-        if (errno != 0 && errno != EINTR) {
+        Redirect(ReFile);
+        if (-1 == execvp(cmd[0], cmd)) {
+            char errcmd[cap];
+            strcpy(errcmd, cmd[0]);
+            perror(errcmd);
+            exit(EXIT_FAILURE);
+        }
+        exit(1); // prevents zombie process
+    }
+    else {
+        if (-1 == dup2(fd[PIPE_READ], 0)) {
+            perror("dup2()");
+            exit(1);
+        }
+        if (-1 == close(PIPE_WRITE)) {
+            perror("close()");
+            exit(1);
+        }
+        if (-1 == wait(0)) {
             perror("wait()");
             exit(1);
         }
-
-        stopchild.pop_back();
-        return 0;
     }
-    else {
-        return -1;
-    }
+    return;
 }
-
-
+*/
 
